@@ -8,7 +8,7 @@
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/nadvar"
         android:layout_width="415dp"
         android:layout_height="53dp"
         android:background="#B8E092"
