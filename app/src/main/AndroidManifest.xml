@@ -13,8 +13,10 @@
         android:theme="@style/Theme.ProyectoAvocado"
         tools:targetApi="31">
         <activity
-
             android:name=".ContactoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarseActivity"
             android:exported="false" />
         <activity
             android:name=".AgregaRecetaActivity"
