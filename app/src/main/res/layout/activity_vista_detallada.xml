@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VistaDetalladaActivity">
+
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/menuPrincipal"
+      android:layout_width="409dp"
+      android:layout_height="57dp"
+      android:background="#B8E092"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      app:contentInsetStart="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="407dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="13dp">
+
+      <ImageView
+          android:id="@+id/imageView5"
+          android:layout_width="115dp"
+          android:layout_height="match_parent"
+          android:layout_marginStart="48dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:srcCompat="@drawable/logo_nombre"
+          tools:ignore="MissingConstraints"
+          tools:layout_editor_absoluteY="6dp" />
+
+      <ImageButton
+          android:id="@+id/imageButton2"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginStart="1dp"
+          android:backgroundTint="#00FFFFFF"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="?attr/actionModeCloseDrawable" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.appcompat.widget.Toolbar>
+
+
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar3"
+      android:layout_width="413dp"
+      android:layout_height="57dp"
+      android:layout_marginTop="675dp"
+      android:background="#B8E092"
+      android:minHeight="?attr/actionBarSize"
+      android:paddingStart="0dp"
+      android:paddingEnd="0dp"
+      android:theme="?attr/actionBarTheme"
+      app:contentInsetStart="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="MissingConstraints">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:outlineProvider="none"
+        tools:layout_editor_absoluteY="7dp">
+
+      <ImageButton
+          android:id="@+id/btn_home"
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:background="#00FFFFFF"
+          android:gravity="center"
+          app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+          app:layout_constraintStart_toStartOf="parent"
+          app:srcCompat="@drawable/home_icono" />
+
+      <ImageButton
+          android:id="@+id/btn_buscar"
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:backgroundTint="#00FFFFFF"
+          android:tint="@color/white"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+          app:srcCompat="@drawable/lupa_icono"
+          tools:ignore="UseAppTint" />
+
+      <ImageButton
+          android:id="@+id/btn_agregar"
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:backgroundTint="#00FFFFFF"
+          android:tint="@color/white"
+          app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+          app:srcCompat="@drawable/mas_icono"
+          tools:ignore="UseAppTint"
+          tools:layout_editor_absoluteX="128dp" />
+
+      <ImageButton
+          android:id="@+id/btn_favoritos"
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:backgroundTint="#00FFFFFF"
+          android:tint="@color/white"
+          app:srcCompat="@drawable/estrella_icono"
+          tools:ignore="UseAppTint"
+          tools:layout_editor_absoluteX="269dp"
+          tools:layout_editor_absoluteY="680dp" />
+
+      <ImageButton
+          android:id="@+id/btn_perfil"
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:background="#00FFFFFF"
+          android:backgroundTint="#00FFFFFF"
+          android:tint="@color/white"
+          app:srcCompat="@drawable/persona_icono"
+          tools:ignore="UseAppTint"
+          tools:layout_editor_absoluteX="330dp"
+          tools:layout_editor_absoluteY="678dp" />
+
+    </LinearLayout>
+
+  </androidx.appcompat.widget.Toolbar>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
