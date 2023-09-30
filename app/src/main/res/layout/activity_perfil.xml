@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PerfilActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="-2dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="115dp"
+        android:layout_height="31dp"
+        app:srcCompat="@drawable/logo_nombre"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="676dp" />
+
+    <ImageButton
+        android:id="@+id/btn_home"
+        android:layout_width="68dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="-50dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/home_icono" />
+
+    <ImageButton
+        android:id="@+id/btn_buscar"
+        android:layout_width="68dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="-150dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+        app:srcCompat="@drawable/lupa_icono" />
+
+    <ImageButton
+        android:id="@+id/btn_agregar"
+        android:layout_width="68dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="-54dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:srcCompat="@drawable/mas_icono"
+        tools:layout_editor_absoluteX="171dp" />
+
+    <ImageButton
+        android:id="@+id/btn_favoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/estrella_icono"
+        tools:layout_editor_absoluteX="269dp"
+        tools:layout_editor_absoluteY="680dp" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/persona_icono"
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="678dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
