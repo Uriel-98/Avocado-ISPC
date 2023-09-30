@@ -13,14 +13,27 @@
         android:theme="@style/Theme.ProyectoAvocado"
         tools:targetApi="31">
         <activity
+
             android:name=".ContactoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AgregaRecetaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IniciarSesionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FeedActivity"
             android:exported="false" />
         <activity
             android:name=".InicioActivity"
             android:exported="false" />
-        <activity
-            android:name=".AddRecipeActivity"
-            android:exported="false" />
+
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

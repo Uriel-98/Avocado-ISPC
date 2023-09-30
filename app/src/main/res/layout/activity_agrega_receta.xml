@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgregaRecetaActivity">
+
+    <Button
+        android:id="@+id/btn_categorias"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#B8E092"
+        android:fontFamily="@font/roboto"
+        android:text="Agregar Categorías"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/mas_icono"
+        app:iconPadding="2dp"
+        app:iconSize="14dp"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="646dp" />
+
+    <TextView
+        android:id="@+id/title_categorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Categorías"
+        android:textColor="#3C5B27"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="19dp"
+        tools:layout_editor_absoluteY="612dp" />
+
+    <Button
+        android:id="@+id/btn_pasos"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#B8E092"
+        android:fontFamily="@font/roboto"
+        android:text="Agregar Pasos"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/mas_icono"
+        app:iconPadding="2dp"
+        app:iconSize="14dp"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="526dp" />
+
+    <TextView
+        android:id="@+id/title_pasos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Pasos de preparación"
+        android:textColor="#3C5B27"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="19dp"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="115dp"
+        android:layout_height="31dp"
+        app:srcCompat="@drawable/logo_nombre"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="57dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/white"
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ImageButton
+        android:id="@+id/btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        app:srcCompat="@drawable/check_icon"
+        tools:layout_editor_absoluteX="362dp"
+        tools:layout_editor_absoluteY="4dp" />
+
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        app:srcCompat="@drawable/x_icon"
+        tools:layout_editor_absoluteX="301dp"
+        tools:layout_editor_absoluteY="4dp" />
+
+    <ImageView
+        android:id="@+id/img_comida"
+        android:layout_width="409dp"
+        android:layout_height="124dp"
+        app:srcCompat="@drawable/pancakes_comida"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="57dp" />
+
+    <ImageButton
+        android:id="@+id/btn_camera"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#000000"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:layout_editor_absoluteX="379dp"
+        tools:layout_editor_absoluteY="151dp" />
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Titulo de la Receta"
+        android:textColor="#3C5B27"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="199dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_editTitle"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginBottom="507dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/pen_icon"
+        tools:layout_editor_absoluteX="372dp" />
+
+    <ImageButton
+        android:id="@+id/btn_editDescripcion"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginBottom="424dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/pen_icon"
+        tools:layout_editor_absoluteX="372dp" />
+
+    <ImageView
+        android:id="@+id/img_clock"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:tint="#B8E092"
+        app:srcCompat="@drawable/clock_icon"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:srcCompat="@drawable/batidor_icon"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <TextView
+        android:id="@+id/text_descripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Descripción de la Receta"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="235dp" />
+
+    <TextView
+        android:id="@+id/text_tiempoCoccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Tiempo de cocción"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="262dp" />
+
+    <TextView
+        android:id="@+id/text_dificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Nivel de dificultad"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="284dp" />
+
+    <Button
+        android:id="@+id/btn_ingrediente"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#B8E092"
+        android:fontFamily="@font/roboto"
+        android:text="Agregar Ingredientes"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/mas_icono"
+        app:iconPadding="2dp"
+        app:iconSize="14dp"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="387dp" />
+
+    <TextView
+        android:id="@+id/title_ingredientes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Ingredientes"
+        android:textColor="#3C5B27"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="19dp"
+        tools:layout_editor_absoluteY="344dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
