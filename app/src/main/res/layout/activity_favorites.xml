@@ -6,4 +6,496 @@
     android:layout_height="match_parent"
     tools:context=".favoritesActivity">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/nadvar"
+        android:layout_width="415dp"
+        android:layout_height="53dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="2dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar5"
+        android:layout_width="415dp"
+        android:layout_height="53dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="677dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="141dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/logo_nombre" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#00B8E092"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        android:tint="#FFFFFF"
+        tools:layout_editor_absoluteX="366dp"
+        tools:layout_editor_absoluteY="14dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/home_icono"
+        android:tint="#3C5B27"
+        app:layout_constraintStart_toStartOf="@+id/toolbar5"
+        tools:layout_editor_absoluteY="677dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/mas_icono"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/imageButton6"
+        tools:layout_editor_absoluteY="677dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/lupa_icono"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        tools:layout_editor_absoluteY="677dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/estrella_icono"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/imageButton5"
+        tools:layout_editor_absoluteY="677dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/persona_icono"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="677dp" />
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        app:cardBackgroundColor="#FDFFEB"
+        app:cardCornerRadius="8dp"
+        tools:layout_editor_absoluteX="229dp"
+        tools:layout_editor_absoluteY="285dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Fila 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="Icono de Persona"
+                    android:src="@drawable/persona_icono"
+                    android:tint="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Nombre Usuario"
+                    android:textColor="#000000"
+                    android:textSize="6sp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="Flecha hacia la derecha"
+                    android:src="@drawable/flecha_icono"
+                    android:tint="#000000" />
+
+            </LinearLayout>
+
+            <!-- Fila 2 -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Imagen de Tiramisú"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tiramisu_comida"
+                app:srcCompat="@drawable/chickenfried_comida" />
+
+            <!-- Fila 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Chicken Fried"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <!-- Fila 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                android:textColor="#000000"
+                android:textSize="6sp" />
+
+            <!-- Fila 5 -->
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Icono de Estrella"
+                android:src="@drawable/estrella_icono"
+                android:tint="#000000" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="40dp"
+        app:cardBackgroundColor="#FDFFEB"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        tools:layout_editor_absoluteX="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Fila 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="Icono de Persona"
+                    android:src="@drawable/persona_icono"
+                    android:tint="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Nombre Usuario"
+                    android:textColor="#000000"
+                    android:textSize="6sp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="Flecha hacia la derecha"
+                    android:src="@drawable/flecha_icono"
+                    android:tint="#000000" />
+
+            </LinearLayout>
+
+            <!-- Fila 2 -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Imagen de Tiramisú"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tiramisu_comida"
+                app:srcCompat="@drawable/spaghetti_comida" />
+
+            <!-- Fila 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Spaghetti"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <!-- Fila 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                android:textColor="#000000"
+                android:textSize="6sp" />
+
+            <!-- Fila 5 -->
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Icono de Estrella"
+                android:src="@drawable/estrella_icono"
+                android:tint="#000000" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        app:cardBackgroundColor="#FDFFEB"
+        app:cardCornerRadius="8dp"
+        tools:layout_editor_absoluteX="229dp"
+        tools:layout_editor_absoluteY="475dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Fila 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="Icono de Persona"
+                    android:src="@drawable/persona_icono"
+                    android:tint="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Nombre Usuario"
+                    android:textColor="#000000"
+                    android:textSize="6sp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="Flecha hacia la derecha"
+                    android:src="@drawable/flecha_icono"
+                    android:tint="#000000" />
+
+            </LinearLayout>
+
+            <!-- Fila 2 -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Imagen de Tiramisú"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tiramisu_comida"
+                app:srcCompat="@drawable/churros_comida" />
+
+            <!-- Fila 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Churros"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <!-- Fila 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                android:textColor="#000000"
+                android:textSize="6sp" />
+
+            <!-- Fila 5 -->
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Icono de Estrella"
+                android:src="@drawable/estrella_icono"
+                android:tint="#000000" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="52dp"
+        app:cardBackgroundColor="#FDFFEB"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar5"
+        tools:layout_editor_absoluteX="62dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Fila 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="Icono de Persona"
+                    android:src="@drawable/persona_icono"
+                    android:tint="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Nombre Usuario"
+                    android:textColor="#000000"
+                    android:textSize="6sp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="Flecha hacia la derecha"
+                    android:src="@drawable/flecha_icono"
+                    android:tint="#000000" />
+
+            </LinearLayout>
+
+            <!-- Fila 2 -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Imagen de Tiramisú"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tiramisu_comida"
+                app:srcCompat="@drawable/carne_comida" />
+
+            <!-- Fila 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Carne"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <!-- Fila 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                android:textColor="#000000"
+                android:textSize="6sp" />
+
+            <!-- Fila 5 -->
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Icono de Estrella"
+                android:src="@drawable/estrella_icono"
+                android:tint="#000000" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <?xml version="1.0" encoding="utf-8"?>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
