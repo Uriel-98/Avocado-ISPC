@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ProyectoAvocado"
         tools:targetApi="31">
         <activity
+            android:name=".AgregaRecetaActivity"
+            android:exported="false" />
+        <activity
             android:name=".IniciarSesionActivity"
             android:exported="false" />
         <activity
@@ -21,9 +24,7 @@
         <activity
             android:name=".PerfilActivity"
             android:exported="false" />
-        <activity
-            android:name=".AddRecipeActivity"
-            android:exported="false" />
+
         <activity
             android:name=".favoritesActivity"
             android:exported="false"/>
