@@ -48,7 +48,8 @@
         android:src="@android:drawable/ic_menu_sort_by_size"
         android:tint="#FFFFFF"
         tools:layout_editor_absoluteX="366dp"
-        tools:layout_editor_absoluteY="14dp" />
+        tools:layout_editor_absoluteY="14dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -59,7 +60,8 @@
         android:src="@drawable/home_icono"
         android:tint="#3C5B27"
         app:layout_constraintStart_toStartOf="@+id/toolbar5"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
         android:id="@+id/imageButton5"
@@ -70,7 +72,8 @@
         android:src="@drawable/mas_icono"
         android:tint="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/imageButton6"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton6"
@@ -81,7 +84,8 @@
         android:src="@drawable/lupa_icono"
         android:tint="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/imageButton4"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton7"
@@ -92,7 +96,8 @@
         android:src="@drawable/estrella_icono"
         android:tint="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/imageButton5"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton8"
@@ -103,7 +108,8 @@
         android:src="@drawable/persona_icono"
         android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
@@ -113,7 +119,8 @@
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="95dp">
+        tools:layout_editor_absoluteY="95dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
