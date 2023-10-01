@@ -11,6 +11,9 @@
         android:id="@+id/btn_iniciarsesión"
         android:layout_width="150dp"
         android:layout_height="56dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="466dp"
+        android:layout_marginBottom="209dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Iniciar sesión"
@@ -21,13 +24,16 @@
         app:cornerRadius="100dp"
         app:iconPadding="2dp"
         app:iconSize="14dp"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="466dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_registrarse"
         android:layout_width="150dp"
         android:layout_height="56dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="387dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Registrarse"
@@ -38,42 +44,52 @@
         app:cornerRadius="20dp"
         app:iconPadding="2dp"
         app:iconSize="14dp"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="387dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="72dp"
         android:fontFamily="@font/roboto"
         android:text="Bienvenido"
         android:textColor="#000000"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="72dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="176dp"
         android:layout_height="193dp"
-        app:srcCompat="@drawable/logo_palta"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="157dp" />
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="157dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_palta" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="639dp"
+        android:layout_marginBottom="78dp"
         android:fontFamily="@font/roboto"
         android:text="Tenes problemas con la aplicación? "
         android:textSize="10sp"
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="639dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_contactar"
         android:layout_width="120dp"
-        android:layout_height="38dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="#003C5B27"
         android:fontFamily="@font/roboto"
         android:text="Contactanos"
@@ -81,6 +97,6 @@
         android:textAllCaps="false"
         android:textColor="#3C5B27"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="624dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
