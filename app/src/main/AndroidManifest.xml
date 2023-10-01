@@ -16,6 +16,12 @@
             android:name=".VistaDetalladaActivity"
             android:exported="false" />
         <activity
+            android:name=".ContactoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarseActivity"
+            android:exported="false" />
+        <activity
             android:name=".AgregaRecetaActivity"
             android:exported="false" />
         <activity
@@ -25,12 +31,17 @@
             android:name=".FeedActivity"
             android:exported="false" />
         <activity
-            android:name=".PerfilActivity"
+            android:name=".InicioActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".favoritesActivity"
+            android:exported="false"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>
