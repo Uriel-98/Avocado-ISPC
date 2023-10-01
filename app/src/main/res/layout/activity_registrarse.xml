@@ -15,11 +15,6 @@
         tools:context=".IniciarSesionActivity"
         tools:layout_editor_absoluteY="184dp">
         <?xml version="1.0" encoding="utf-8"?>
-        <LinearLayout
-            android:layout_width="440dp"
-            android:layout_height="867dp"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textView2"
@@ -28,13 +23,13 @@
             android:layout_marginStart="39dp"
             android:layout_marginBottom="42dp"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Al registrarte aceptas nuestras Condiciones y la Política de privacidad"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/input_email2"
@@ -45,12 +40,12 @@
             android:backgroundTint="#D9D9D9"
             android:ems="10"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
             android:inputType="textEmailAddress"
             android:text="Nombre completo"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -58,10 +53,10 @@
             android:layout_height="57dp"
             android:layout_marginStart="92dp"
             android:layout_marginTop="68dp"
+            android:gravity="center_horizontal|center_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_nombre"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:srcCompat="@drawable/logo_nombre" />
 
         <TextView
             android:id="@+id/textView"
@@ -70,13 +65,13 @@
             android:layout_marginStart="36dp"
             android:layout_marginTop="148dp"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
             android:text="¡Regístrate ahora para unirte a esta creciente comunidad culinaria y disfrutar de miles de recetas!"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/input_contrasena"
@@ -87,11 +82,11 @@
             android:backgroundTint="#D9D9D9"
             android:ems="10"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Contraseña"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/input_email"
@@ -102,12 +97,12 @@
             android:backgroundTint="#D9D9D9"
             android:ems="10"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
             android:inputType="textEmailAddress"
             android:text="Correo Electrónico"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_iniciarsesion"
@@ -117,34 +112,37 @@
             android:layout_marginTop="500dp"
             android:backgroundTint="#B8E092"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Registrate"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="20sp"
             app:cornerRadius="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
-
-        <ImageButton
-            android:id="@+id/btn_backInicio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00FFFFFF"
-            app:srcCompat="?attr/actionModeCloseDrawable"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp"
-            android:gravity="center_horizontal|center_vertical"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="451dp"
-            android:layout_height="794dp"
+            android:layout_width="match_parent"
+            android:layout_height="715dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="-2dp"></LinearLayout>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_backInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="18dp"
+                android:backgroundTint="#00FFFFFF"
+                android:gravity="center_horizontal|center_vertical"
+                app:srcCompat="?attr/actionModeCloseDrawable"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+
+
 
