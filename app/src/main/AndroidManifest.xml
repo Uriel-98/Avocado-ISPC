@@ -41,6 +41,9 @@
         <activity
             android:name=".favoritesActivity"
             android:exported="true"/>
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="true"/>
 
         <meta-data
             android:name="preloaded_fonts"
