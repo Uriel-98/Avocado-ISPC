@@ -8,9 +8,9 @@
     tools:context=".ContactoActivity">
 
     <Button
-        android:id="@+id/btn_registrarse2"
+        android:id="@+id/btn_enviar"
         android:layout_width="140dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Enviar"
@@ -21,6 +21,7 @@
         app:cornerRadius="5dp"
         app:iconPadding="2dp"
         app:iconSize="14dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="135dp"
         tools:layout_editor_absoluteY="588dp" />
 
@@ -32,80 +33,67 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="673dp" />
+        tools:layout_editor_absoluteY="673dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/imageButton13"
+        android:id="@+id/btn_favorito"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de favoritos"
         android:tint="#FFFFFF"
         app:srcCompat="@drawable/estrella_icono"
         tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton11"
+        android:id="@+id/btn_buscar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de buscar recetas"
         android:tint="#FFFFFF"
         app:srcCompat="@drawable/lupa_icono"
         tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton12"
+        android:id="@+id/btn_perfil"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#00FFFFFF"
         android:tint="#FFFFFF"
+        android:contentDescription="Botón de perfil"
         app:srcCompat="@drawable/persona_icono"
         tools:layout_editor_absoluteX="347dp"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/btn_feed"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de volver al feed"
         app:srcCompat="@drawable/home_icono"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/imageButton10"
+        android:id="@+id/btn_agregar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#00FFFFFF"
         android:tint="#FFFFFF"
+        android:contentDescription="Botón para agregar receta"
         app:srcCompat="@drawable/mas_icono"
         tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="677dp" />
-
-    <ImageButton
-        android:id="@+id/btn_home5"
-        android:layout_width="68dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="532dp"
-        android:layout_marginBottom="-50dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:srcCompat="@drawable/home_icono" />
-
-    <ImageButton
-        android:id="@+id/btn_agregar4"
-        android:layout_width="68dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="-54dp"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-        app:srcCompat="@drawable/mas_icono"
-        tools:layout_editor_absoluteX="172dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar7"
@@ -115,7 +103,8 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="-2dp" />
+        tools:layout_editor_absoluteY="2dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -123,7 +112,8 @@
         android:layout_height="31dp"
         app:srcCompat="@drawable/logo_nombre"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -131,7 +121,8 @@
         android:layout_height="156dp"
         app:srcCompat="@drawable/logo_palta"
         tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="116dp" />
+        tools:layout_editor_absoluteY="116dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView4"
@@ -142,16 +133,18 @@
         android:textColor="#000000"
         android:textSize="15sp"
         tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="284dp" />
+        tools:layout_editor_absoluteY="284dp"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/input_asunto}"
+        android:id="@+id/input_asunto"
         android:layout_width="264dp"
         android:layout_height="48dp"
         android:fontFamily="@font/roboto"
         android:hint="Deja aquí tu asunto"
         tools:layout_editor_absoluteX="73dp"
-        tools:layout_editor_absoluteY="366dp" />
+        tools:layout_editor_absoluteY="366dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextTextMultiLine"
@@ -163,6 +156,7 @@
         android:inputType="textMultiLine"
         android:text="Coméntanos tu problema"
         tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="447dp" />
+        tools:layout_editor_absoluteY="447dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
