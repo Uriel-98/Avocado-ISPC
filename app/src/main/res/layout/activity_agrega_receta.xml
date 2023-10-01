@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/btn_categorias"
         android:layout_width="160dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Agregar Categorías"
@@ -21,6 +21,7 @@
         app:icon="@drawable/mas_icono"
         app:iconPadding="2dp"
         app:iconSize="14dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="125dp"
         tools:layout_editor_absoluteY="646dp" />
 
@@ -33,12 +34,13 @@
         android:textColor="#3C5B27"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="19dp"
-        tools:layout_editor_absoluteY="612dp" />
+        tools:layout_editor_absoluteY="612dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btn_pasos"
         android:layout_width="160dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Agregar Pasos"
@@ -50,6 +52,7 @@
         app:icon="@drawable/mas_icono"
         app:iconPadding="2dp"
         app:iconSize="14dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="125dp"
         tools:layout_editor_absoluteY="526dp" />
 
@@ -62,7 +65,8 @@
         android:textColor="#3C5B27"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="19dp"
-        tools:layout_editor_absoluteY="479dp" />
+        tools:layout_editor_absoluteY="479dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -72,7 +76,8 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        tools:layout_editor_absoluteY="1dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -80,7 +85,8 @@
         android:layout_height="31dp"
         app:srcCompat="@drawable/logo_nombre"
         tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -89,6 +95,7 @@
         android:backgroundTint="#00FFFFFF"
         android:tint="@color/white"
         app:srcCompat="?attr/actionModeCloseDrawable"
+        tools:ignore="MissingConstraints,UseAppTint,SpeakableTextPresentCheck"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
 
@@ -97,7 +104,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de confirmar edicion"
         app:srcCompat="@drawable/check_icon"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="362dp"
         tools:layout_editor_absoluteY="4dp" />
 
@@ -106,7 +115,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de cerrar la edicion"
         app:srcCompat="@drawable/x_icon"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="301dp"
         tools:layout_editor_absoluteY="4dp" />
 
@@ -125,7 +136,9 @@
         android:layout_height="30dp"
         android:backgroundTint="#00FFFFFF"
         android:tint="#000000"
+        android:contentDescription="Botón para subir imagenes"
         app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="379dp"
         tools:layout_editor_absoluteY="151dp" />
 
@@ -147,9 +160,11 @@
         android:layout_height="23dp"
         android:layout_marginBottom="507dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de editar el titulo"
         android:tint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/pen_icon"
+        tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="372dp" />
 
     <ImageButton
@@ -158,9 +173,11 @@
         android:layout_height="23dp"
         android:layout_marginBottom="424dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de editar descripción, tiempo y nivel"
         android:tint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/pen_icon"
+        tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="372dp" />
 
     <ImageView
@@ -170,7 +187,8 @@
         android:tint="#B8E092"
         app:srcCompat="@drawable/clock_icon"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="258dp" />
+        tools:layout_editor_absoluteY="258dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -179,7 +197,8 @@
         android:tint="#B8E092"
         app:srcCompat="@drawable/batidor_icon"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="280dp" />
+        tools:layout_editor_absoluteY="280dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <TextView
         android:id="@+id/text_descripcion"
@@ -190,7 +209,8 @@
         android:textColor="#000000"
         android:textSize="12sp"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="235dp" />
+        tools:layout_editor_absoluteY="235dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/text_tiempoCoccion"
@@ -201,7 +221,8 @@
         android:textColor="#000000"
         android:textSize="10sp"
         tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="262dp" />
+        tools:layout_editor_absoluteY="262dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/text_dificultad"
@@ -212,12 +233,13 @@
         android:textColor="#000000"
         android:textSize="10sp"
         tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="284dp" />
+        tools:layout_editor_absoluteY="284dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btn_ingrediente"
         android:layout_width="160dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Agregar Ingredientes"
@@ -229,6 +251,7 @@
         app:icon="@drawable/mas_icono"
         app:iconPadding="2dp"
         app:iconSize="14dp"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="125dp"
         tools:layout_editor_absoluteY="387dp" />
 
@@ -241,6 +264,7 @@
         android:textColor="#3C5B27"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="19dp"
-        tools:layout_editor_absoluteY="344dp" />
+        tools:layout_editor_absoluteY="344dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

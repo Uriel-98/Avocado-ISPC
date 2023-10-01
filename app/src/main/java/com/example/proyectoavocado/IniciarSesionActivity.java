@@ -1,8 +1,12 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.content.Intent;
+import android.widget.ImageButton;
+
 
 public class IniciarSesionActivity extends AppCompatActivity {
 
@@ -10,5 +14,37 @@ public class IniciarSesionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
+
+        //capturo los id de los botones
+        ImageButton btnVolver = findViewById(R.id.btn_volver);
+        Button btnIniciarSesion = findViewById(R.id.btn_iniciarsesion);
+        Button btnRegistrarse = findViewById(R.id.btn_registrarse);
+
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir InicioActivity
+                Intent intent = new Intent(IniciarSesionActivity.this, InicioActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir FeedActivity
+                Intent intent = new Intent(IniciarSesionActivity.this, FeedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRegistrarse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir registrarseActivity
+                Intent intent = new Intent(IniciarSesionActivity.this, RegistrarseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
