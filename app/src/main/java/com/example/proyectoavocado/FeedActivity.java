@@ -15,10 +15,10 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         //capturo los id de los botones
-        ImageButton btnHome = findViewById(R.id.btn_homeFeed);
-        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscarReceta);
+        ImageButton btnHome = findViewById(R.id.btn_home);
+        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favorito);
+        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
