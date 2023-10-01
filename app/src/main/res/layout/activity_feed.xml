@@ -37,7 +37,7 @@
         android:layout_width="141dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/logo_nombre" />
@@ -50,8 +50,8 @@
         android:src="@android:drawable/ic_menu_sort_by_size"
         android:tint="#FFFFFF"
         tools:ignore="MissingConstraints,UseAppTint,SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="366dp"
-        tools:layout_editor_absoluteY="14dp" />
+        tools:layout_editor_absoluteX="359dp"
+        tools:layout_editor_absoluteY="7dp" />
 
     <ImageButton
         android:id="@+id/btn_homeFeed"
