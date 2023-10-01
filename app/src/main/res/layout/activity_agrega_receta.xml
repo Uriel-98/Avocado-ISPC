@@ -112,11 +112,12 @@
 
     <ImageView
         android:id="@+id/img_comida"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="124dp"
-        app:srcCompat="@drawable/pancakes_comida"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="57dp" />
+        android:layout_marginTop="57dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pancakes_comida" />
 
     <ImageButton
         android:id="@+id/btn_camera"
@@ -136,9 +137,9 @@
         android:text="Titulo de la Receta"
         android:textColor="#3C5B27"
         android:textSize="20sp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="199dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="199dp" />
 
     <ImageButton
         android:id="@+id/btn_editTitle"
