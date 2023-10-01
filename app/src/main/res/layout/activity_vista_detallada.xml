@@ -38,11 +38,12 @@
             android:layout_marginStart="1dp"
             android:backgroundTint="#00FFFFFF"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:contentDescription="Botón volver"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
+            app:srcCompat="?attr/actionModeCloseDrawable"
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -50,25 +51,26 @@
             android:layout_height="match_parent"
             android:layout_marginStart="48dp"
             android:layout_alignStart="@id/imageButton2"
-            android:layout_alignLeft="@id/imageButton2"
+            android:contentDescription="Logo Avocado"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/logo_nombre"
-            tools:ignore="MissingConstraints"
+            tools:ignore="HardcodedText,MissingConstraints"
             tools:layout_editor_absoluteY="6dp" />
 
 
         <ImageButton
-            android:id="@+id/btn_feed"
-            android:layout_width="wrap_content"
+            android:id="@+id/imageButton3"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:background="#00FFFFFF"
+            android:contentDescription="Agregar a favoritos"
             android:padding="8dp"
             android:tint="#FDFFEB"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/estrella_icono" />
+            app:srcCompat="@drawable/estrella_icono"
+            tools:ignore="HardcodedText,UseAppTint" />
 
       </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,7 +94,9 @@
           android:layout_height="124dp"
           android:src="@drawable/carne_comida"
           android:scaleType="centerCrop"
-          android:adjustViewBounds="true" />
+          android:adjustViewBounds="true"
+          android:contentDescription="Imagen de comida"
+          tools:ignore="HardcodedText" />
 
       <LinearLayout
           android:layout_width="match_parent"
@@ -109,13 +113,14 @@
             android:textColor="#3C5B27"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:ignore="DuplicateIds" />
+            tools:ignore="DuplicateIds,HardcodedText" />
 
         <TextView
             android:id="@+id/creadoPor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="\@nombreDeUsuario" />
+            android:text="\@nombreDeUsuario"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/contenido"
@@ -123,19 +128,21 @@
             android:layout_height="wrap_content"
             android:paddingTop="12dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim. Suspendisse sed justo in ipsum rhoncus ornare. Nam est tellus, sodales vitae consectetur et, aliquet sed mauris."
-            tools:ignore="DuplicateIds" />
+            tools:ignore="DuplicateIds,HardcodedText" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="12dp">
+            android:paddingTop="12dp"
+            tools:ignore="UseCompoundDrawables">
 
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:paddingEnd="8dp"
               android:src="@drawable/clock_icon"
+              android:contentDescription="Icono reloj"
               android:tint="#B8E092"
               tools:ignore="UseAppTint" />
 
@@ -143,8 +150,8 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-
-              android:text="Tiempo de cocción" />
+              android:text="Tiempo de cocción"
+              tools:ignore="HardcodedText" />
 
 
 
@@ -335,7 +342,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:background="#B8E092"
-             android:fontFamily="@font/roboto_bold"
+             android:fontFamily="@font/roboto"
              android:padding="8dp"
              android:text="Cena"
              android:textColor="#000"
@@ -370,7 +377,7 @@
              android:text="Tradicional"
              android:textColor="#000"
              android:textSize="14sp"
-             tools:ignore="DuplicateIds"
+             tools:ignore="DuplicateIds,HardcodedText"
              android:layout_columnWeight="1"
              android:layout_margin="6dp"
              android:gravity="center"/>
@@ -413,6 +420,7 @@
           android:layout_weight="1"
           android:background="#00FFFFFF"
           android:gravity="center"
+          android:contentDescription="Home"
           app:layout_constraintBottom_toTopOf="@+id/toolbar3"
           app:layout_constraintStart_toStartOf="parent"
           app:srcCompat="@drawable/home_icono" />
@@ -424,6 +432,7 @@
           android:layout_weight="1"
           android:backgroundTint="#00FFFFFF"
           android:tint="@color/white"
+          android:contentDescription="Buscar"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/toolbar3"
           app:srcCompat="@drawable/lupa_icono"
@@ -436,6 +445,7 @@
           android:layout_weight="1"
           android:backgroundTint="#00FFFFFF"
           android:tint="@color/white"
+          android:contentDescription="Agregar Receta"
           app:layout_constraintTop_toBottomOf="@+id/toolbar3"
           app:srcCompat="@drawable/mas_icono"
           tools:ignore="UseAppTint"
@@ -448,6 +458,7 @@
           android:layout_weight="1"
           android:backgroundTint="#00FFFFFF"
           android:tint="@color/white"
+          android:contentDescription="Favoritos"
           app:srcCompat="@drawable/estrella_icono"
           tools:ignore="UseAppTint"
           tools:layout_editor_absoluteX="269dp"
@@ -461,6 +472,7 @@
           android:background="#00FFFFFF"
           android:backgroundTint="#00FFFFFF"
           android:tint="@color/white"
+          android:contentDescription="Perfil"
           app:srcCompat="@drawable/persona_icono"
           tools:ignore="UseAppTint"
           tools:layout_editor_absoluteX="330dp"
