@@ -297,18 +297,14 @@
         android:id="@+id/toolbar3"
         android:layout_width="413dp"
         android:layout_height="57dp"
-        android:layout_marginTop="675dp"
         android:background="#B8E092"
         android:minHeight="?attr/actionBarSize"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:theme="?attr/actionBarTheme"
         app:contentInsetStart="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
