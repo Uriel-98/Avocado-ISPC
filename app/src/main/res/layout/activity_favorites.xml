@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="2dp" />
+        tools:layout_editor_absoluteY="2dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar5"
@@ -28,7 +29,8 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints" />
 
 
     <ImageView
@@ -46,7 +48,7 @@
         android:layout_width="141dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/logo_nombre" />
@@ -61,73 +63,86 @@
         android:text="FAVORITOS"
         android:textColor="#3C5B27"
         android:textSize="32sp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="48dp"
         tools:layout_editor_absoluteY="91dp" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_menu"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#00B8E092"
+        android:contentDescription="Botón de menu"
         android:src="@android:drawable/ic_menu_sort_by_size"
         android:tint="#FFFFFF"
-        tools:layout_editor_absoluteX="366dp"
-        tools:layout_editor_absoluteY="14dp" />
+        tools:layout_editor_absoluteX="363dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/btn_homeFeed"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de home"
         android:src="@drawable/home_icono"
         android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/toolbar5"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/btn_agregar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de reproducción de audio"
         android:src="@drawable/mas_icono"
         android:tint="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/imageButton6"
+        app:layout_constraintStart_toEndOf="@+id/btn_buscarReceta"
+        tools:ignore="MissingConstraints,UseAppTint"
         tools:layout_editor_absoluteY="677dp" />
 
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/btn_buscarReceta"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Botón de buscar receta"
         android:src="@drawable/lupa_icono"
         android:tint="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
-        tools:layout_editor_absoluteY="677dp" />
+        app:layout_constraintStart_toEndOf="@+id/btn_homeFeed"
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/btn_favorito"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:background="#00FFFFFF"
+        android:contentDescription="Botón de favoritos"
         android:src="@drawable/estrella_icono"
         android:tint="#3C5B27"
-        app:layout_constraintStart_toEndOf="@+id/imageButton5"
-        tools:layout_editor_absoluteY="677dp" />
+        app:layout_constraintStart_toEndOf="@+id/btn_agregar"
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
-        android:id="@+id/imageButton8"
+        android:id="@+id/btn_perfil"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="16dp"
         android:background="#00FFFFFF"
         android:src="@drawable/persona_icono"
+        android:contentDescription="Botón de perfil"
         android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="677dp" />
+        tools:layout_editor_absoluteY="677dp"
+        tools:ignore="MissingConstraints,UseAppTint" />
 
 
     <androidx.cardview.widget.CardView
@@ -135,6 +150,7 @@
         android:layout_height="150dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="8dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="229dp"
         tools:layout_editor_absoluteY="285dp">
 
@@ -156,7 +172,8 @@
                     android:layout_marginStart="5dp"
                     android:contentDescription="Icono de Persona"
                     android:src="@drawable/persona_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -173,7 +190,8 @@
                     android:layout_marginEnd="5dp"
                     android:contentDescription="Flecha hacia la derecha"
                     android:src="@drawable/flecha_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
             </LinearLayout>
 
@@ -220,7 +238,8 @@
                 android:layout_marginEnd="5dp"
                 android:contentDescription="Icono de Estrella"
                 android:src="@drawable/estrella_icono"
-                android:tint="#3C5B27" />
+                android:tint="#3C5B27"
+                tools:ignore="UseAppTint" />
 
         </LinearLayout>
 
@@ -229,11 +248,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="150dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="285dp"
         android:layout_marginBottom="40dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
-        tools:layout_editor_absoluteX="60dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -253,7 +276,8 @@
                     android:layout_marginStart="5dp"
                     android:contentDescription="Icono de Persona"
                     android:src="@drawable/persona_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -270,7 +294,8 @@
                     android:layout_marginEnd="5dp"
                     android:contentDescription="Flecha hacia la derecha"
                     android:src="@drawable/flecha_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
             </LinearLayout>
 
@@ -317,7 +342,8 @@
                 android:layout_marginEnd="5dp"
                 android:contentDescription="Icono de Estrella"
                 android:src="@drawable/estrella_icono"
-                android:tint="#3C5B27" />
+                android:tint="#3C5B27"
+                tools:ignore="UseAppTint" />
 
         </LinearLayout>
 
@@ -326,10 +352,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="150dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="106dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="8dp"
-        tools:layout_editor_absoluteX="229dp"
-        tools:layout_editor_absoluteY="475dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -349,7 +378,8 @@
                     android:layout_marginStart="5dp"
                     android:contentDescription="Icono de Persona"
                     android:src="@drawable/persona_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -366,7 +396,8 @@
                     android:layout_marginEnd="5dp"
                     android:contentDescription="Flecha hacia la derecha"
                     android:src="@drawable/flecha_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
             </LinearLayout>
 
@@ -413,7 +444,8 @@
                 android:layout_marginEnd="5dp"
                 android:contentDescription="Icono de Estrella"
                 android:src="@drawable/estrella_icono"
-                android:tint="#3C5B27" />
+                android:tint="#3C5B27"
+                tools:ignore="UseAppTint" />
 
         </LinearLayout>
 
@@ -427,7 +459,8 @@
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar5"
-        tools:layout_editor_absoluteX="62dp">
+        tools:layout_editor_absoluteX="62dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -447,7 +480,8 @@
                     android:layout_marginStart="5dp"
                     android:contentDescription="Icono de Persona"
                     android:src="@drawable/persona_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -464,7 +498,8 @@
                     android:layout_marginEnd="5dp"
                     android:contentDescription="Flecha hacia la derecha"
                     android:src="@drawable/flecha_icono"
-                    android:tint="#000000" />
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
 
             </LinearLayout>
 
@@ -511,14 +546,12 @@
                 android:layout_marginEnd="5dp"
                 android:contentDescription="Icono de Estrella"
                 android:src="@drawable/estrella_icono"
-                android:tint="#3C5B27" />
+                android:tint="#3C5B27"
+                tools:ignore="UseAppTint" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
-    <?xml version="1.0" encoding="utf-8"?>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
