@@ -176,6 +176,7 @@
         android:id="@+id/imageView7"
         android:layout_width="18dp"
         android:layout_height="18dp"
+        android:tint="#B8E092"
         app:srcCompat="@drawable/batidor_icon"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="280dp" />
