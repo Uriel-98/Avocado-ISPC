@@ -10,51 +10,61 @@
         android:id="@+id/imageView3"
         android:layout_width="212dp"
         android:layout_height="57dp"
-        app:srcCompat="@drawable/logo_nombre"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="88dp" />
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_nombre" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="332dp"
         android:layout_height="52dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="180dp"
         android:fontFamily="@font/roboto"
         android:text="¡Bienvenido de vuelta! Por favor, inicia sesión para acceder a tu cuenta"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="180dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/input_contrasena"
         android:layout_width="237dp"
-        android:layout_height="34dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="460dp"
         android:backgroundTint="#D9D9D9"
         android:ems="10"
         android:fontFamily="@font/roboto"
         android:text="Contraseña"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="460dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/input_email"
         android:layout_width="237dp"
-        android:layout_height="34dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="370dp"
         android:backgroundTint="#D9D9D9"
         android:ems="10"
         android:fontFamily="@font/roboto"
         android:inputType="textEmailAddress"
         android:text="Correo Electrónico"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="370dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_iniciarsesion"
         android:layout_width="202dp"
         android:layout_height="64dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="109dp"
         android:backgroundTint="#B8E092"
         android:fontFamily="@font/roboto"
         android:text="Iniciar Sesión"
@@ -62,19 +72,21 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         app:cornerRadius="20dp"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="558dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_registrarse"
         android:layout_width="236dp"
         android:layout_height="64dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginBottom="33dp"
         android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/roboto"
         android:text="No tienes cuenta?  Registrate"
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="634dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

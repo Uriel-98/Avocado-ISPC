@@ -7,14 +7,17 @@
     tools:context=".PerfilActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cardView3"
         android:layout_width="125dp"
         android:layout_height="94dp"
         android:layout_marginStart="40dp"
+        android:layout_marginEnd="246dp"
+        android:layout_marginBottom="130dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="507dp" >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,10 +47,11 @@
         android:layout_width="125dp"
         android:layout_height="94dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="343dp"
         app:cardBackgroundColor="#B8E092"
         app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="343dp" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,10 +79,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="125dp"
         android:layout_height="94dp"
+        android:layout_marginTop="187dp"
+        android:layout_marginEnd="47dp"
         app:cardBackgroundColor="#B8E092"
         app:cardCornerRadius="5dp"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="187dp" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,10 +112,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="125dp"
         android:layout_height="94dp"
+        android:layout_marginStart="239dp"
+        android:layout_marginTop="507dp"
+        android:layout_marginEnd="47dp"
         app:cardBackgroundColor="#B8E092"
         app:cardCornerRadius="5dp"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="507dp" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,10 +147,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="125dp"
         android:layout_height="94dp"
+        android:layout_marginTop="343dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="294dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="5dp"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="343dp" >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,14 +181,15 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cardView1"
         android:layout_width="125dp"
         android:layout_height="94dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="187dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="187dp" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -203,134 +218,175 @@
         android:id="@+id/toolbar2"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:background="#B8E092"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="-2dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="115dp"
         android:layout_height="31dp"
-        app:srcCompat="@drawable/logo_nombre"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_nombre" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="80dp"
         android:layout_height="75dp"
-        app:srcCompat="@drawable/icono_perfil"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="74dp" />
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="74dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icono_perfil" />
 
     <TextView
         android:id="@+id/text_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="92dp"
         android:editable="false"
         android:fontFamily="@font/roboto_bold"
         android:text="Nombre y Apellido"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="92dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_nombreusuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="114dp"
         android:fontFamily="@font/roboto_bold"
         android:text="nombreUsuario"
         android:textSize="13sp"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="114dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="#02FFFFFF"
         android:text="Editar"
         android:textAlignment="viewEnd"
         android:textColor="#070707"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#B8E092"
-        app:strokeWidth="2dp"
-        tools:layout_editor_absoluteX="291dp"
-        tools:layout_editor_absoluteY="84dp" />
+        app:strokeWidth="2dp" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar3"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="#B8E092"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="676dp" />
-
-    <ImageButton
-        android:id="@+id/btn_home"
-        android:layout_width="68dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="532dp"
-        android:layout_marginBottom="-50dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:srcCompat="@drawable/home_icono" />
-
-    <ImageButton
-        android:id="@+id/btn_buscar"
-        android:layout_width="68dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="535dp"
-        android:layout_marginEnd="-150dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toolbar3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:srcCompat="@drawable/lupa_icono" />
-
-    <ImageButton
-        android:id="@+id/btn_agregar"
-        android:layout_width="68dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="-54dp"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-        app:srcCompat="@drawable/mas_icono"
-        tools:layout_editor_absoluteX="171dp" />
-
-    <ImageButton
-        android:id="@+id/btn_favoritos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="@color/white"
-        app:srcCompat="@drawable/estrella_icono"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="680dp" />
-
-    <ImageButton
-        android:id="@+id/btn_perfil"
-        android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:background="#00FFFFFF"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="@color/white"
-        app:srcCompat="@drawable/persona_icono"
-        tools:layout_editor_absoluteX="330dp"
-        tools:layout_editor_absoluteY="678dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
-        tools:layout_editor_absoluteX="1dp" />
+        android:layout_marginTop="675dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="413dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="675dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:outlineProvider="none"
+            tools:layout_editor_absoluteY="7dp">
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:contentDescription="Home"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/home_icono" />
+
+            <ImageButton
+                android:id="@+id/btn_buscar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Buscar"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+                app:srcCompat="@drawable/lupa_icono"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_agregar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Agregar Receta"
+                android:tint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+                app:srcCompat="@drawable/mas_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="128dp" />
+
+            <ImageButton
+                android:id="@+id/btn_favoritos"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Favoritos"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/estrella_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="269dp"
+                tools:layout_editor_absoluteY="680dp" />
+
+            <ImageButton
+                android:id="@+id/btn_perfil"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Perfil"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/persona_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="330dp"
+                tools:layout_editor_absoluteY="678dp" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
