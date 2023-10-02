@@ -18,10 +18,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btn_volverFeed"
             android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Botón de volver al Feed"
             app:srcCompat="?attr/homeAsUpIndicator"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="6dp" />
