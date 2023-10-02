@@ -22,25 +22,28 @@
         </activity >
         <activity
             android:name=".VistaDetalladaActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ContactoActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".RegistrarseActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".AgregaRecetaActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".IniciarSesionActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".FeedActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".favoritesActivity"
-            android:exported="false"/>
+            android:exported="true"/>
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="true"/>
 
         <meta-data
             android:name="preloaded_fonts"
