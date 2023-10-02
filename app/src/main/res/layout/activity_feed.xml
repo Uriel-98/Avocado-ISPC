@@ -31,19 +31,6 @@
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true">
 
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="1dp"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="Botón volver"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="?attr/actionModeCloseDrawable"
-                    tools:ignore="HardcodedText" />
 
                 <ImageView
                     android:id="@+id/imageView5"
