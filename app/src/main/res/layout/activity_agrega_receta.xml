@@ -17,19 +17,6 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
 
-    <ImageButton
-        android:id="@+id/btn_editDescripcion"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
-        android:layout_marginBottom="136dp"
-        android:backgroundTint="#00FFFFFF"
-        android:contentDescription="Botón de editar descripción, tiempo y nivel"
-        android:tint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/pen_icon"
-        tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="340dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,29 +90,46 @@
             android:tint="#000000"
             app:srcCompat="@android:drawable/ic_menu_camera"
             tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="407dp"
-        android:layout_height="120dp"
+        android:layout_width="406dp"
+        android:layout_height="136dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="213dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15px"
-            android:layout_marginTop="10px"
-            android:layout_marginBottom="10px"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Titulo de la Receta"
-            android:textColor="#3C5B27"
-            android:textSize="20sp"
-            tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="15px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Titulo de la Receta"
+                android:textColor="#3C5B27"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints" />
+
+            <ImageButton
+                android:id="@+id/btn_editDescripcion"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginLeft="190dp"
+                android:layout_marginBottom="716dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Botón de editar descripción, tiempo y nivel"
+                android:tint="#000000"
+                app:srcCompat="@drawable/pen_icon"
+                tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/text_descripcion"
@@ -142,7 +146,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
+            android:layout_marginBottom="15px"
             android:orientation="horizontal">
 
             <ImageView
@@ -208,10 +212,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="197dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -220,6 +223,9 @@
             android:id="@+id/title_pasos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15px"
+            android:layout_marginTop="30px"
+            android:layout_marginBottom="30px"
             android:fontFamily="@font/roboto"
             android:text="Pasos de preparación"
             android:textColor="#3C5B27"
@@ -230,6 +236,9 @@
             android:id="@+id/btn_ingrediente"
             android:layout_width="160dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30px"
+            android:layout_marginBottom="30px"
             android:backgroundTint="#B8E092"
             android:fontFamily="@font/roboto"
             android:text="Agregar Ingredientes"
@@ -247,6 +256,8 @@
             android:id="@+id/title_ingredientes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15px"
+            android:layout_marginBottom="30px"
             android:fontFamily="@font/roboto"
             android:text="Ingredientes"
             android:textColor="#3C5B27"
@@ -257,6 +268,9 @@
             android:id="@+id/btn_pasos"
             android:layout_width="160dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30px"
+            android:layout_marginBottom="30px"
             android:backgroundTint="#B8E092"
             android:fontFamily="@font/roboto"
             android:text="Agregar Pasos"
@@ -274,6 +288,8 @@
             android:id="@+id/title_categorias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15px"
+            android:layout_marginBottom="30px"
             android:fontFamily="@font/roboto"
             android:text="Categorías"
             android:textColor="#3C5B27"
@@ -284,6 +300,9 @@
             android:id="@+id/btn_categorias"
             android:layout_width="160dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30px"
+            android:layout_marginBottom="30px"
             android:backgroundTint="#B8E092"
             android:fontFamily="@font/roboto"
             android:text="Agregar Categorías"

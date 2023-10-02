@@ -31,7 +31,7 @@
             android:exported="false" />
         <activity
             android:name=".AgregaRecetaActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".IniciarSesionActivity"
             android:exported="false" />
