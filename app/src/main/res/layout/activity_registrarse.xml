@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".RegistrarseActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:context=".IniciarSesionActivity"
-        tools:layout_editor_absoluteY="184dp">
-        <?xml version="1.0" encoding="utf-8"?>
 
         <TextView
             android:id="@+id/textView2"
@@ -142,7 +133,6 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
