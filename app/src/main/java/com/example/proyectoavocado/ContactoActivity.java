@@ -27,7 +27,7 @@ public class ContactoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir FeedActivity
-                Intent intent = new Intent(ContactoActivity.this, FeedActivity.class);
+                Intent intent = new Intent(ContactoActivity.this, InicioActivity.class);
                 startActivity(intent);
             }
         });
