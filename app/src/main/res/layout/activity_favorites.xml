@@ -8,17 +8,58 @@
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/nadvar"
-        android:layout_width="415dp"
-        android:layout_height="53dp"
+        android:id="@+id/menuPrincipal"
+        android:layout_width="409dp"
+        android:layout_height="57dp"
         android:background="#B8E092"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="2dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="407dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true">
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="1dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="Botón volver"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="?attr/actionModeCloseDrawable"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignStart="@id/imageButton2"
+                    android:layout_marginStart="48dp"
+                    android:contentDescription="Logo Avocado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/logo_nombre"
+                    tools:ignore="HardcodedText,MissingConstraints" />
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar5"
@@ -32,52 +73,6 @@
         tools:layout_editor_absoluteY="677dp"
         tools:ignore="MissingConstraints" />
 
-
-    <ImageView
-        android:id="@+id/my_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="48dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/portada"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="63dp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="141dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/logo_nombre" />
-
-    <TextView
-        android:layout_width="311.09dp"
-        android:layout_height="135dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="FAVORITOS"
-        android:textColor="#3C5B27"
-        android:textSize="32sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="91dp" />
-
-    <ImageButton
-        android:id="@+id/btn_menu"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#00B8E092"
-        android:contentDescription="Botón de menu"
-        android:src="@android:drawable/ic_menu_sort_by_size"
-        android:tint="#FFFFFF"
-        tools:layout_editor_absoluteX="363dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints,UseAppTint" />
 
     <ImageButton
         android:id="@+id/btn_homeFeed"
@@ -145,7 +140,49 @@
         tools:ignore="MissingConstraints,UseAppTint" />
 
 
-    <androidx.cardview.widget.CardView
+
+        <ImageView
+            android:id="@+id/my_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="48dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/portada"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="63dp" />
+
+            <TextView
+                android:layout_width="311.09dp"
+                android:layout_height="135dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="FAVORITOS"
+                android:textColor="#3C5B27"
+                android:textSize="32sp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="48dp"
+                tools:layout_editor_absoluteY="91dp" />
+       <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="416dp"
+        android:layout_marginTop="255dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <GridLayout
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:padding="16dp"
+                android:layout_gravity="center">
+        <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="150dp"
         app:cardBackgroundColor="#FDFFEB"
@@ -248,8 +285,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="150dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="285dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="40dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="8dp"
@@ -552,6 +589,9 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
