@@ -36,7 +36,6 @@
                     android:id="@+id/imageView5"
                     android:layout_width="110dp"
                     android:layout_height="match_parent"
-                    android:layout_alignStart="@id/imageButton2"
                     android:layout_marginStart="48dp"
                     android:contentDescription="Logo Avocado"
                     app:layout_constraintStart_toStartOf="parent"

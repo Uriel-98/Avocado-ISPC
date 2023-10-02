@@ -20,7 +20,7 @@
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="15sp"
-        app:cornerRadius="100dp"
+        app:cornerRadius="20dp"
         app:iconPadding="2dp"
         app:iconSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,7 +87,7 @@
     <Button
         android:id="@+id/btn_contactar"
         android:layout_width="154dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="28dp"
         android:backgroundTint="#003C5B27"
         android:fontFamily="@font/roboto"

@@ -549,7 +549,8 @@
                 android:tint="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/toolbar3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/home_icono" />
+                app:srcCompat="@drawable/home_icono"
+                tools:ignore="UseAppTint" />
 
             <ImageButton
                 android:id="@+id/btn_buscar"
