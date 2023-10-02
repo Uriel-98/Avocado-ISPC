@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FeedActivity">
+
+    <!-- Barra de navegación superior -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/menuPrincipal"
+        android:layout_width="409dp"
+        android:layout_height="57dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="407dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true">
+
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="48dp"
+                    android:contentDescription="Logo Avocado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/logo_nombre"
+                    tools:ignore="HardcodedText,MissingConstraints" />
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <GridLayout
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="2"
+            android:gravity="center"
+            android:padding="16dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#FDFFEB"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Fila 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="5dp"
+                            android:contentDescription="Icono de Persona"
+                            android:src="@drawable/persona_icono"
+                            android:tint="#000000"
+                            tools:ignore="HardcodedText,UseAppTint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:text="Nombre Usuario"
+                            android:textColor="#000000"
+                            android:textSize="6sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="Flecha hacia la derecha"
+                            android:src="@drawable/flecha_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                    </LinearLayout>
+
+                    <!-- Fila 2 -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Imagen de Tiramisú"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tiramisu_comida" />
+
+                    <!-- Fila 3 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Tiramisu"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fila 4 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                        android:textColor="#000000"
+                        android:textSize="6sp" />
+
+                    <!-- Fila 5 -->
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Icono de Estrella"
+                        android:src="@drawable/estrella_icono"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="#FDFFEB"
+                app:cardCornerRadius="8dp"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Fila 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="5dp"
+                            android:contentDescription="Icono de Persona"
+                            android:src="@drawable/persona_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:text="Nombre Usuario"
+                            android:textColor="#000000"
+                            android:textSize="6sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="Flecha hacia la derecha"
+                            android:src="@drawable/flecha_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                    </LinearLayout>
+
+                    <!-- Fila 2 -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Imagen de Tiramisú"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tiramisu_comida"
+                        app:srcCompat="@drawable/pancakes_comida" />
+
+                    <!-- Fila 3 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Pancakes"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fila 4 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                        android:textColor="#000000"
+                        android:textSize="6sp" />
+
+                    <!-- Fila 5 -->
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Icono de Estrella"
+                        android:src="@drawable/estrella_icono"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="#FDFFEB"
+                app:cardCornerRadius="8dp"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Fila 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="5dp"
+                            android:contentDescription="Icono de Persona"
+                            android:src="@drawable/persona_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:text="Nombre Usuario"
+                            android:textColor="#000000"
+                            android:textSize="6sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="Flecha hacia la derecha"
+                            android:src="@drawable/flecha_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                    </LinearLayout>
+
+                    <!-- Fila 2 -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Imagen de Tiramisú"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tiramisu_comida"
+                        app:srcCompat="@drawable/chickenfried_comida" />
+
+                    <!-- Fila 3 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Chicken Fried"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fila 4 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                        android:textColor="#000000"
+                        android:textSize="6sp" />
+
+                    <!-- Fila 5 -->
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Icono de Estrella"
+                        android:src="@drawable/estrella_icono"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="#FDFFEB"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Fila 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="5dp"
+                            android:contentDescription="Icono de Persona"
+                            android:src="@drawable/persona_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:text="Nombre Usuario"
+                            android:textColor="#000000"
+                            android:textSize="6sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="Flecha hacia la derecha"
+                            android:src="@drawable/flecha_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                    </LinearLayout>
+
+                    <!-- Fila 2 -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Imagen de Tiramisú"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tiramisu_comida"
+                        app:srcCompat="@drawable/spaghetti_comida" />
+
+                    <!-- Fila 3 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Spaghetti"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fila 4 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                        android:textColor="#000000"
+                        android:textSize="6sp" />
+
+                    <!-- Fila 5 -->
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Icono de Estrella"
+                        android:src="@drawable/estrella_icono"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="#FDFFEB"
+                app:cardCornerRadius="8dp"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Fila 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="5dp"
+                            android:contentDescription="Icono de Persona"
+                            android:src="@drawable/persona_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:text="Nombre Usuario"
+                            android:textColor="#000000"
+                            android:textSize="6sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="Flecha hacia la derecha"
+                            android:src="@drawable/flecha_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                    </LinearLayout>
+
+                    <!-- Fila 2 -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Imagen de Tiramisú"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tiramisu_comida"
+                        app:srcCompat="@drawable/churros_comida" />
+
+                    <!-- Fila 3 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Churros"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fila 4 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                        android:textColor="#000000"
+                        android:textSize="6sp" />
+
+                    <!-- Fila 5 -->
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Icono de Estrella"
+                        android:src="@drawable/estrella_icono"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="52dp"
+                app:cardBackgroundColor="#FDFFEB"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar5"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Fila 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="5dp"
+                            android:contentDescription="Icono de Persona"
+                            android:src="@drawable/persona_icono"
+                            android:tint="#000000"
+                            tools:ignore="HardcodedText,UseAppTint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:text="Nombre Usuario"
+                            android:textColor="#000000"
+                            android:textSize="6sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="Flecha hacia la derecha"
+                            android:src="@drawable/flecha_icono"
+                            android:tint="#000000"
+                            tools:ignore="UseAppTint" />
+
+                    </LinearLayout>
+
+                    <!-- Fila 2 -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Imagen de Tiramisú"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tiramisu_comida"
+                        app:srcCompat="@drawable/carne_comida" />
+
+                    <!-- Fila 3 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Carne"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fila 4 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                        android:textColor="#000000"
+                        android:textSize="6sp" />
+
+                    <!-- Fila 5 -->
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="Icono de Estrella"
+                        android:src="@drawable/estrella_icono"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+    </ScrollView>
+    <!-- Menú de abajo -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="413dp"
+        android:layout_height="57dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:outlineProvider="none">
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:contentDescription="Home"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/home_icono" />
+
+            <ImageButton
+                android:id="@+id/btn_buscar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Buscar"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+                app:srcCompat="@drawable/lupa_icono"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_agregar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Agregar Receta"
+                android:tint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+                app:srcCompat="@drawable/mas_icono"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_favoritos"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Favoritos"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/estrella_icono"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_perfil"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Perfil"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/persona_icono"
+                tools:ignore="UseAppTint" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
