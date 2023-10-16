@@ -4,4 +4,6 @@
     <string name="title_mail">Correo electrónico</string>
     <string name="title_password">Contraseña</string>
     <string name="btn_eliminarCuenta">Eliminar Cuenta</string>
+    <string name="title_eliminarPerfil">Estas seguro de eliminar tu cuenta?</string>
+    <string name="subtitle_eliminarPerfil">Si realizas esta acción se perderán todos los datos de tu cuenta</string>
 </resources>

@@ -1,13 +1,20 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Button;
+import android.app.Dialog;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.LayoutInflater;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +28,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         ImageButton btnBackPerfil = findViewById(R.id.btn_backPerfil);
+        Button btnEliminarCuenta = findViewById(R.id.btn_eliminarCuenta);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,5 +75,51 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        btnEliminarCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mostrarDialogEliminarCuenta();
+            }
+        });
+    }
+    private void mostrarDialogEliminarCuenta() {
+        // final Dialog dialog = new Dialog(this);
+        // dialog.setContentView(R.layout.dialog_eliminar_cuenta);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Inflar el diseño personalizado
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
+        builder.setView(dialogView);
+
+        // Button btnAceptar = dialog.findViewById(R.id.btn_aceptar);
+        // Button btnCancelar = dialog.findViewById(R.id.btn_cancelar);
+
+        // capturo los id de los elementos
+        TextView dialogTitle = dialogView.findViewById(R.id.dialog_title);
+        TextView dialogMessage = dialogView.findViewById(R.id.dialog_message);
+        Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
+        Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
+
+        // Configurar los clics de los botones
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Implementa aquí la lógica para eliminar la cuenta
+                // ...
+                // Cierra el diálogo
+                dialog.dismiss();
+            }
+        });
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Cierra el diálogo
+                dialog.dismiss();
+            }
+        });
+
+        // Crear y mostrar el diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
