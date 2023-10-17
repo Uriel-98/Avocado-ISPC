@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class PerfilActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class PerfilActivity extends AppCompatActivity {
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+        Button btnEditar = findViewById(R.id.btn_editar);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +54,15 @@ public class PerfilActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Crear un Intent para abrir PerfilActivity
                 Intent intent = new Intent(PerfilActivity.this, PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir ModificarPerfilActivity
+                Intent intent = new Intent(PerfilActivity.this, ModificarPerfilActivity.class);
                 startActivity(intent);
             }
         });
