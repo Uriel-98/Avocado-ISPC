@@ -5,8 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrarseActivity">
+<<<<<<< Updated upstream
 
 
+=======
+    
+>>>>>>> Stashed changes
         <TextView
             android:id="@+id/textView2"
             android:layout_width="332dp"
@@ -136,3 +140,12 @@
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+<<<<<<< Updated upstream
+=======
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<<<<<<< Updated upstream
+</androidx.constraintlayout.widget.ConstraintLayout>
+=======
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
