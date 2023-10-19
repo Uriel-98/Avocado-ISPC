@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">ProyectoAvocado</string>
-    <string name="title_editPerfil">Editar perfil</string>
-    <string name="title_mail">Correo electrónico</string>
-    <string name="title_password">Contraseña</string>
-    <string name="btn_eliminarCuenta">Eliminar Cuenta</string>
 </resources>
