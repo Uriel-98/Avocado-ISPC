@@ -45,6 +45,11 @@ public class Receta implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Receta(String imagen, String nombre) {
+        this.imagen = imagen;
+        this.nombre = nombre;
+    }
+
     // Getter y Setter para el nombre
     public String getNombre() {
         return nombre;
