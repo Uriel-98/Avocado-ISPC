@@ -9,6 +9,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 const sql = require('../Backend/conection')
 require('dotenv').config()
 
@@ -80,12 +81,6 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-
-
-
-
-
-
 //Sesión
 app.use(session({
   secret: process.env.SESSION_SECRET || 'claveSecreta',
@@ -96,6 +91,18 @@ app.use(session({
   }
 }))
 
+//Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'))
+app.use(cors())
+
+
 //Rutas 
 app.use('/receta', recetaRouter)
 app.use('/usuario', usuarioRouter)
@@ -104,14 +111,6 @@ app.use('/logout', logoutRouter)
 app.use('/registro', registroRouter)
 
 
-//Middlewares
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'))
-app.use(cors())
 
 
 //Error
