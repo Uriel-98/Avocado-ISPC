@@ -75,6 +75,7 @@ private void llamar(){
         public void onResponse(String response) {
         try {
             JSONObject json = new JSONObject(response);
+
             String title = json.getString("title");
             Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {

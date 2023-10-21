@@ -12,6 +12,8 @@ email VARCHAR(200) UNIQUE NOT NULL,
 contraseña CHAR(60) NOT NULL
 );
 
+SELECT * FROM usuarios WHERE idUsuario = 3;
+
 CREATE TABLE recetas(
 idReceta INT PRIMARY KEY,
 titulo VARCHAR(250) NOT NULL,

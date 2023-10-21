@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class InicioActivity extends AppCompatActivity {
-private DatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
