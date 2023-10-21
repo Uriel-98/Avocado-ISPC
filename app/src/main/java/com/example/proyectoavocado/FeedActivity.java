@@ -9,6 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,9 +109,64 @@ public class FeedActivity extends AppCompatActivity {
         return new ArrayList<>();
     }*/
 
-    String url = "direccion de la API con recetas";
+    private void conexion(){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/login";
 
-    JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+        StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    // Parsear la respuesta JSON y crear la lista de recetas
+                    List<Receta> listaRecetas = parsearRespuesta(response);
+
+                    // Crear un adaptador con la lista de recetas
+                    RecipeCardAdapter adapter = new RecipeCardAdapter(listaRecetas, FeedActivity.this);
+
+                    // Configurar el RecyclerView con el adaptador
+                    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
+                } catch (JSONException e) {
+                    Log.e("Error en la request", "Error al parsear los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al parsear los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        });
+        Volley.newRequestQueue(this).add(get);
+    }
+    private List<Receta> parsearRespuesta(String response) throws JSONException {
+        List<Receta> listaRecetas = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(response);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            // Obtener datos de la receta del objeto JSON y crear un objeto Receta
+            String nombre = jsonObject.getString("nombre");
+            String imagenURL = jsonObject.getString("imagen"); // Suponiendo que la URL de la imagen está en el campo "imagen"
+            String descripcion = jsonObject.getString("descripcion");
+            // ... Parsear otros datos si es necesario
+
+            // Crear objeto Receta y agregarlo a la lista
+            Receta receta = new Receta(nombre, imagenURL, descripcion);
+            listaRecetas.add(receta);
+        }
+
+        return listaRecetas;
+
+        //String url = "direccion de la API con recetas";
+
+    /*JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
             response -> {
                 // Parsear la respuesta JSON y crear la lista de recetas
                 List<Receta> listaRecetas = parsearRespuesta(response);
@@ -118,6 +184,6 @@ public class FeedActivity extends AppCompatActivity {
             });
 
     // Agregar la solicitud a la cola de solicitudes de Volley
-        VolleySingleton.getInstance(this).addToRequestQueue(request);
-
+        VolleySingleton.getInstance(this).addToRequestQueue(request);*/
+    }
 }
