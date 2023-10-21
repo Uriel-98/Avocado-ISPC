@@ -1,11 +1,22 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class favoritesActivity extends AppCompatActivity {
 
@@ -67,4 +78,5 @@ public class favoritesActivity extends AppCompatActivity {
             }
         });
     }
+
 }
