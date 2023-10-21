@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/configuraciones
+/configuraciones/dev_yaninaconfig.properties
