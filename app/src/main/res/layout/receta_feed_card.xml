@@ -10,11 +10,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="10dp"
-        android:layout_margin="10dp"
-        tools:ignore="MissingConstraints"
-        app:cardElevation="8dp">
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,8 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:text="Nombre Usuario"
                     android:fontFamily="@font/roboto_bold"
+                    android:text="Nombre Usuario"
                     android:textColor="#3C5B27"
                     android:textSize="15sp" />
 
@@ -83,10 +85,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
                 android:textColor="#000000"
-                android:fontFamily="@font/roboto"
                 android:textSize="15sp" />
 
             <!-- Fila 5 -->

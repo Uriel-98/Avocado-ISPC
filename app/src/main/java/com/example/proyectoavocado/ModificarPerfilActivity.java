@@ -3,6 +3,7 @@ package com.example.proyectoavocado;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
@@ -10,6 +11,14 @@ import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
     private AlertDialog dialog;
@@ -80,6 +89,33 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
     }
+    private void eliminarCuenta() {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
+
+        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Cuenta eliminada con éxito
+                Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+
+                // Redirigir a la actividad de inicio
+                Intent intent = new Intent(ModificarPerfilActivity.this, InicioActivity.class);
+                startActivity(intent);
+                finish(); // Cierra la actividad actual para evitar volver atrás
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Error al eliminar la cuenta
+                Toast.makeText(getApplicationContext(), "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
+                // Log de errores
+                Log.e("Error", "Error al eliminar la cuenta: " + error.getMessage());
+            }
+        });
+
+        Volley.newRequestQueue(this).add(deleteRequest);
+    }
     private void mostrarDialogEliminarCuenta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflar el diseño personalizado
@@ -96,11 +132,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Implementa aquí la lógica para eliminar la cuenta
-                // ...
+                eliminarCuenta();
+
                 // Cierra el diálogo
                 dialog.dismiss();
             }
         });
+
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
