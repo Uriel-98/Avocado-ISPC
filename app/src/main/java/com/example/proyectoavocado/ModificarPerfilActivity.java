@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
-import android.app.Dialog;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -83,20 +81,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         });
     }
     private void mostrarDialogEliminarCuenta() {
-        // final Dialog dialog = new Dialog(this);
-        // dialog.setContentView(R.layout.dialog_eliminar_cuenta);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflar el diseño personalizado
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
         builder.setView(dialogView);
 
-        // Button btnAceptar = dialog.findViewById(R.id.btn_aceptar);
-        // Button btnCancelar = dialog.findViewById(R.id.btn_cancelar);
-
         // capturo los id de los elementos
-        TextView dialogTitle = dialogView.findViewById(R.id.dialog_title);
-        TextView dialogMessage = dialogView.findViewById(R.id.dialog_message);
         Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
         Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
 

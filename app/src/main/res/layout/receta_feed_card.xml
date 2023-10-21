@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:cardBackgroundColor="#FDFFEB"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="10dp"
+        tools:ignore="MissingConstraints"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Fila 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="Icono de Persona"
+                    android:src="@drawable/persona_icono"
+                    android:tint="#000000"
+                    tools:ignore="UseAppTint" />
+
+                <TextView
+                    android:id="@+id/usuario_id_nombre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Nombre Usuario"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="#3C5B27"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <!-- Fila 2 -->
+            <ImageView
+                android:id="@+id/imagen_comida"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Imagen de Tiramisú"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tiramisu_comida"
+                app:srcCompat="@drawable/pancakes_comida" />
+
+            <!-- Fila 3 -->
+            <TextView
+                android:id="@+id/titulo_receta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="Pancakes"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Fila 4 -->
+            <TextView
+                android:id="@+id/descripcion_receta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, est eu sollicitudin tincidunt, libero odio tempus eros, in varius eros mi nec est."
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto"
+                android:textSize="15sp" />
+
+            <!-- Fila 5 -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="Icono de Estrella"
+                android:src="@drawable/estrella_icono"
+                android:tint="#000000"
+                tools:ignore="UseAppTint" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
