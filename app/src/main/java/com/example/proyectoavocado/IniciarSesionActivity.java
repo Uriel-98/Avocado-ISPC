@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,24 +69,32 @@ public class IniciarSesionActivity extends AppCompatActivity {
     }
 
 private void llamar(){
-        String url = "https://fakestoreapi.com/products/1";
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/login";
 
     StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
         try {
             JSONObject json = new JSONObject(response);
-
-            String title = json.getString("title");
-            Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
+            String jsonString = json.toString();
+            Log.d("JSON", jsonString);
+            String title = json.getString("nombreCompleto");
+           Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+            throw new RuntimeException("Error al traer los datos");
         }
         }
     }, new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.e("Error", error.getMessage());
+            String errorMessage = error.getMessage();
+            if (errorMessage != null) {
+                Log.e("Error", errorMessage);
+            } else {
+                Log.e("Error", "Mensaje de error nulo");
+            }
         }
     });
     Volley.newRequestQueue(this).add(get);
