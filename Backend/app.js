@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override')
 const sql = require('../Backend/conection')
+require('dotenv').config()
 
 
 const app = express()
@@ -35,10 +36,7 @@ const conexionDB = async () => {
 conexionDB()
 
 
-
 //Puerto
-
-// agregar archivos .env para el puerto
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
@@ -89,9 +87,8 @@ server.on('listening', onListening);
 
 
 //Sesión
-// agregar secret al .env
 app.use(session({
-  secret: 'asdjgesougbjnsdf123',
+  secret: process.env.SESSION_SECRET || 'claveSecreta',
   resave: true,
   saveUninitialized: false,
   cookie: {
