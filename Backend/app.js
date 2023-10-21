@@ -3,17 +3,37 @@ const http = require('http')
 const debug = require('debug')
 const session = require('express-session')
 const expressValidator = require('express-validator')
-const mysql2 = require('mysql2')
 const cors = require('cors')
 const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override')
+const sql = require('../Backend/conection')
 
 const app = express()
 
+//Importar rutas
+const recetaRouter = require('./routes/receta')
+const usuarioRouter = require('./routes/usuario')
+const loginRouter = require('./routes/login')
+const logoutRouter = require('./routes/logout')
+const registroRouter = require('./routes/registro')
+
 //conexión db
+const conexionDB = async () => {
+  try{
+    await sql.connect()
+    console.log('Conectado exitosamente a la base de datos')
+  }
+  catch (err){
+    console.log(err)
+  }
+}
+
+conexionDB()
+
+
 
 //Puerto
 
@@ -41,7 +61,7 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
+  
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -63,12 +83,12 @@ server.on('listening', onListening);
 
 
 
-//Rutas 
 
 
 
 
 //Sesión
+// agregar secret al .env
 app.use(session({
   secret: 'asdjgesougbjnsdf123',
   resave: true,
@@ -77,6 +97,14 @@ app.use(session({
     maxAge: null
   }
 }))
+
+//Rutas 
+app.use('/receta', recetaRouter)
+app.use('/usuario', usuarioRouter)
+app.use('/login', loginRouter)
+app.use('/logout', logoutRouter)
+app.use('/registro', registroRouter)
+
 
 //Middlewares
 app.use(logger('dev'));
