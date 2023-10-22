@@ -3,7 +3,7 @@ const router = express.Router()
 const db = require('../conection')
 const bcrypt = require('bcrypt')
 const { checkSchema, validationResult} = require('express-validator')
-const validaciones = require('../utils/validaciones')
+const validaciones = require('../utils/validacionesLogin')
 
 // Iniciar sesión
 router.post('/',checkSchema(validaciones), (req, res) => {
@@ -18,7 +18,7 @@ const resValidaciones = validationResult(req).array()
 if(resValidaciones.length > 0){
   res.send({
     success: false,
-    message: "Error en registro. Campos inválidos",
+    message: "Error al iniciar sesión. Campos inválidos",
     content: resValidaciones
   })
   return
