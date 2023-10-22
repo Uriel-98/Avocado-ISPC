@@ -138,6 +138,24 @@ END IF;
 END
 //
 
-CALL sp_registro('Juampi Lopez','lalari@example.com', '$2b$12$sl4R1G4fR9sj527A4hqUWe2dpY/DmHiQ/pHrxPpTiQ1Ub7j7m2v8e');
+DELIMITER //
+CREATE TRIGGER onUserDelete BEFORE DELETE ON usuarios
+FOR EACH ROW 
+DELETE FROM recetas WHERE creadoPor = OLD.idUsuario
+//
 
-SELECT * FROM usuarios WHERE email = 'tuvieja@example.com';
+DELIMITER //
+CREATE TRIGGER onRecipeDeleteCategories BEFORE DELETE ON recetas
+FOR EACH ROW
+DELETE FROM recetas_categorias WHERE idReceta = OLD.idReceta;
+//
+
+DELIMITER //
+CREATE TRIGGER onRecipeDeleteSteps BEFORE DELETE ON recetas
+FOR EACH ROW
+DELETE FROM pasos WHERE idReceta = OLD.idReceta;
+//
+
+DROP TRIGGER onRecipeDelete;
+
+SELECT * FROM recetas_categorias;
