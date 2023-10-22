@@ -52,8 +52,6 @@ public class IniciarSesionActivity extends AppCompatActivity {
                 //Intent intent = new Intent(IniciarSesionActivity.this, FeedActivity.class);
                 //startActivity(intent);
                 llamar();
-
-
             }
         });
 

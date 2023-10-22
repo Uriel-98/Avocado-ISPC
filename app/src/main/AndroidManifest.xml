@@ -17,12 +17,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ModificarRecetaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ModificarPerfilActivity"
-            android:exported="false" />
-        <activity
             android:name=".InicioActivity"
             android:exported="true">
             <intent-filter>
@@ -55,6 +49,12 @@
         <activity
             android:name=".PerfilActivity"
             android:exported="true" />
+        <activity
+            android:name=".ModificarRecetaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModificarPerfilActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
