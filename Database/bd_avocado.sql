@@ -53,6 +53,15 @@ CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario),
 CONSTRAINT fk_favReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta)
 );
 
+ALTER TABLE recetas_categorias DROP CONSTRAINT fk_catReceta;
+ALTER TABLE favoritos DROP CONSTRAINT fk_favUsuario;
+ALTER TABLE recetas DROP CONSTRAINT fk_receta;
+
+ALTER TABLE usuarios MODIFY idUsuario INT AUTO_INCREMENT;
+
+ALTER TABLE recetas_categorias ADD CONSTRAINT fk_catReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta);
+ALTER TABLE favoritos ADD CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario);
+ALTER TABLE recetas ADD CONSTRAINT fk_creado FOREIGN KEY(creadoPor) REFERENCES usuarios(idUsuario);
 
 CREATE TABLE recetas_categorias(
 idRecetaCategoria INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,7 +107,13 @@ SELECT r.titulo, i.idIngrediente, i.nombre FROM recetas r
 INNER JOIN ingredientes i 
 ON r.idReceta = i.idReceta
 WHERE r.idReceta = 1;
+
+SELECT * FROM pasos WHERE idReceta = 2;
+
+ INSERT INTO pasos (idReceta, titulo, descripcion) 
+ VALUES (2, 'Batir', 'Batir yogur');
   
+
 /*
 - crear consulta que me traiga una lista de las recetas con sus categorías, pasos e ingredientes dado el id del usuario. (las recetas que  creó él)
 - Procedimiento almacenado para cuando modifique una receta, tengo que modificar receta, categoria, pasos e ingredientes
@@ -138,6 +153,47 @@ END IF;
 END
 //
 
+
+DELIMITER //
+CREATE PROCEDURE `sp_actualizarPerfil` (IN userEmail VARCHAR(200), IN userFullName VARCHAR(150), IN userImg BLOB, IN userName VARCHAR(15))
+BEGIN 
+DECLARE consulta VARCHAR(500);
+SET consulta = 'UPDATE usuarios SET ';
+
+IF userFullName IS NOT NULL
+THEN SET consulta = CONCAT(consulta, 'nombreCompleto = "', userFullName, '", ');
+END IF;
+
+IF userImg IS NOT NULL
+THEN SET consulta = CONCAT(consulta, 'imagen = "', userImg, '", ');
+END IF;
+
+IF userName IS NOT NULL
+THEN SET consulta = CONCAT(consulta, 'usuario = "', userName, '", ');
+END IF;
+
+SET consulta = SUBSTRING(consulta, 1, LENGTH(consulta) - 2);
+SET consulta = CONCAT(consulta, ' WHERE email = "', userEmail, '";');
+
+SET @stmt = consulta;
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt; 
+END
+//
+
+SELECT * FROM usuarios WHERE email = 'lalari@example.com';
+
+
+
+
+
+
+
+
+
+-- TRIGGERS
+
 DELIMITER //
 CREATE TRIGGER onUserDelete BEFORE DELETE ON usuarios
 FOR EACH ROW 
@@ -156,6 +212,3 @@ FOR EACH ROW
 DELETE FROM pasos WHERE idReceta = OLD.idReceta;
 //
 
-DROP TRIGGER onRecipeDelete;
-
-SELECT * FROM recetas_categorias;
