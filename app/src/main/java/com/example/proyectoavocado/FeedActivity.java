@@ -9,13 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.proyectoavocado.controllers.Receta;
+import com.example.proyectoavocado.reciclesAdaptadores.RecipeCardAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

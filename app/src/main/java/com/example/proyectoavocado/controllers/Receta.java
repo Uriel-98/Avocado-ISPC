@@ -1,4 +1,4 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.controllers;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -16,6 +16,9 @@ public class Receta implements Serializable {
     private Date fechaActualizacion;
     private List<String> categorias;
     private List<String> pasos;
+
+    private List<String> ingredientes;
+
 
 
 
@@ -152,6 +155,7 @@ public class Receta implements Serializable {
                 ", dificultad='" + dificultad + '\'' +
                 ", fechaCreacion='" + fechaCreacion + '\'' +
                 ", fechaActualizacion='" + fechaActualizacion + '\'' +
+                ", ingredientes=" + ingredientes +  '\'' +
                 ", pasos=" + pasos +  '\'' +
                 ", categorias=" + categorias +  '\'' +
                 '}';
