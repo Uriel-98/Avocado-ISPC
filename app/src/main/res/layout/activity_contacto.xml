@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ContactoActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar7"
         android:layout_width="match_parent"
@@ -23,92 +24,92 @@
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
             android:contentDescription="Botón de volver al Feed"
-            app:srcCompat="?attr/homeAsUpIndicator"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="6dp" />
+            app:srcCompat="?attr/homeAsUpIndicator" />
 
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="115dp"
-            android:layout_height="31dp"
+            android:layout_height="40dp"
             app:srcCompat="@drawable/logo_nombre" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="57dp"
-        android:layout_marginBottom="57dp"
-        android:orientation="vertical"
-        android:padding="16dp"
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="145dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar7"
+        app:srcCompat="@drawable/logo_palta"
+        tools:ignore="MissingConstraints" />
 
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="142dp"
-            android:layout_height="156dp"
-            app:srcCompat="@drawable/logo_palta"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="134dp"
-            tools:layout_editor_absoluteY="116dp" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto"
+        android:text="En qué podemos ayudarte?"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="En qué podemos ayudarte?"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="115dp"
-            tools:layout_editor_absoluteY="284dp" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_asunto"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/roboto"
+        android:hint="Deja aquí tu asunto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:ignore="MissingConstraints" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_asunto"
-            android:layout_width="264dp"
-            android:layout_height="48dp"
-            android:fontFamily="@font/roboto"
-            android:hint="Deja aquí tu asunto"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="73dp"
-            tools:layout_editor_absoluteY="366dp" />
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="269dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Coméntanos tu problema"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_asunto"
+        tools:ignore="MissingConstraints" />
 
-        <EditText
-            android:id="@+id/editTextTextMultiLine"
-            android:layout_width="269dp"
-            android:layout_height="108dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:text="Coméntanos tu problema"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="71dp"
-            tools:layout_editor_absoluteY="447dp" />
 
-        <Button
-            android:id="@+id/btn_enviar"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#B8E092"
-            android:fontFamily="@font/roboto"
-            android:text="Enviar"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            app:cornerRadius="5dp"
-            app:iconPadding="2dp"
-            app:iconSize="14dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="135dp"
-            tools:layout_editor_absoluteY="588dp" />
-
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/btn_enviar"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#B8E092"
+        android:fontFamily="@font/roboto"
+        android:text="Enviar"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:cornerRadius="5dp"
+        app:iconPadding="2dp"
+        app:iconSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
