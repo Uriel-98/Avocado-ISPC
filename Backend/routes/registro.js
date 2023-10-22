@@ -3,7 +3,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const db = require('../conection')
 const { checkSchema, validationResult} = require('express-validator')
-const validaciones = require('../utils/validaciones')
+const validaciones = require('../utils/validacionesRegistro')
 
 router.post('/', checkSchema(validaciones), (req, res) => {
   if(Object.keys(req.body).length === 0 || typeof req.body.password === 'undefined' || typeof req.body.email === 'undefined' || typeof req.body.nombreCompleto === 'undefined'){
