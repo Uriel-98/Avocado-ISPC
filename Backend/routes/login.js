@@ -37,7 +37,7 @@ router.post('/', checkSchema(validaciones), (req, res) => {
         if (bcrypt.compareSync(pass, response.result)) {
           resBody = { success: true, message: "Sesión iniciada" }
           req.session.user = {
-            email: req.body.emal
+            email: req.body.email
           }
         }
         else { resBody = { success: false, message: "Contraseña incorrecta" } }

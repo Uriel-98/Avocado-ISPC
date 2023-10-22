@@ -53,6 +53,15 @@ CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario),
 CONSTRAINT fk_favReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta)
 );
 
+ALTER TABLE recetas_categorias DROP CONSTRAINT fk_catReceta;
+ALTER TABLE favoritos DROP CONSTRAINT fk_favUsuario;
+ALTER TABLE recetas DROP CONSTRAINT fk_receta;
+
+ALTER TABLE usuarios MODIFY idUsuario INT AUTO_INCREMENT;
+
+ALTER TABLE recetas_categorias ADD CONSTRAINT fk_catReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta);
+ALTER TABLE favoritos ADD CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario);
+ALTER TABLE recetas ADD CONSTRAINT fk_creado FOREIGN KEY(creadoPor) REFERENCES usuarios(idUsuario);
 
 CREATE TABLE recetas_categorias(
 idRecetaCategoria INT PRIMARY KEY AUTO_INCREMENT,
@@ -173,11 +182,17 @@ DEALLOCATE PREPARE stmt;
 END
 //
 
-CALL sp_actualizarPerfil('lalari@example.com', 'Super LALA RI', NULL, 'lalaRi24');
-
-DROP PROCEDURE sp_actualizarPerfil;
-
 SELECT * FROM usuarios WHERE email = 'lalari@example.com';
+
+
+
+
+
+
+
+
+
+-- TRIGGERS
 
 DELIMITER //
 CREATE TRIGGER onUserDelete BEFORE DELETE ON usuarios
