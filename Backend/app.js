@@ -9,7 +9,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 const sql = require('../Backend/conection')
+require('dotenv').config()
+
 
 const app = express()
 
@@ -34,10 +37,7 @@ const conexionDB = async () => {
 conexionDB()
 
 
-
 //Puerto
-
-// agregar archivos .env para el puerto
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
@@ -81,22 +81,27 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-
-
-
-
-
-
 //Sesión
-// agregar secret al .env
 app.use(session({
-  secret: 'asdjgesougbjnsdf123',
+  secret: process.env.SESSION_SECRET || 'claveSecreta',
   resave: true,
   saveUninitialized: false,
   cookie: {
     maxAge: null
   }
 }))
+
+//Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'))
+app.use(cors())
+
 
 //Rutas 
 app.use('/receta', recetaRouter)
@@ -106,14 +111,6 @@ app.use('/logout', logoutRouter)
 app.use('/registro', registroRouter)
 
 
-//Middlewares
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'))
-app.use(cors())
 
 
 //Error

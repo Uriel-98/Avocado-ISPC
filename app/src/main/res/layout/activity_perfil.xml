@@ -6,214 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".PerfilActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="125dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="246dp"
-        android:layout_marginBottom="130dp"
-        app:cardBackgroundColor="#FDFFEB"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView19"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                app:srcCompat="@drawable/pancakes_comida" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Nombre receta"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="125dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="343dp"
-        app:cardBackgroundColor="#B8E092"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                app:srcCompat="@drawable/chickenfried_comida" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Nombre receta"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="125dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="187dp"
-        android:layout_marginEnd="47dp"
-        app:cardBackgroundColor="#B8E092"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView16"
-                android:layout_width="128dp"
-                android:layout_height="74dp"
-                app:srcCompat="@drawable/tiramisu_comida" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Nombre receta"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="125dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="239dp"
-        android:layout_marginTop="507dp"
-        android:layout_marginEnd="47dp"
-        app:cardBackgroundColor="#B8E092"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView20"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                app:srcCompat="@drawable/spaghetti_comida" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Nombre receta"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="125dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="343dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="294dp"
-        app:cardBackgroundColor="#FDFFEB"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                android:textAlignment="center"
-                app:srcCompat="@drawable/churros_comida" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Nombre receta"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView1"
-        android:layout_width="125dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="187dp"
-        app:cardBackgroundColor="#FDFFEB"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="128dp"
-                android:layout_height="74dp"
-                app:srcCompat="@drawable/carne_comida" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Nombre receta"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="409dp"
@@ -224,6 +16,22 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/boton_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="Boton para abrir menu"
+        android:tint="#3C5B27"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_sort_by_size"
+        tools:ignore="UseAppTint" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -287,6 +95,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="675dp"
@@ -385,5 +194,37 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="466dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.921">
+
+        <GridLayout
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingLeft="50dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/receta_perfil_card" />
+        </GridLayout>
+    </ScrollView>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
