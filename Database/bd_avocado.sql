@@ -12,8 +12,6 @@ email VARCHAR(200) UNIQUE NOT NULL,
 contraseña CHAR(60) NOT NULL
 );
 
-SELECT * FROM usuarios WHERE idUsuario = 3;
-
 CREATE TABLE recetas(
 idReceta INT PRIMARY KEY,
 titulo VARCHAR(250) NOT NULL,
@@ -25,6 +23,7 @@ fechaCreacion DATETIME NOT NULL,
 fechaActualizacion DATETIME NOT NULL,
 CONSTRAINT fk_creado FOREIGN KEY(creadoPor) REFERENCES usuarios(idUsuario)
 );
+
 
 CREATE TABLE categorias(
 idCategoria INT PRIMARY KEY,
@@ -53,6 +52,7 @@ idReceta INT NOT NULL,
 CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario),
 CONSTRAINT fk_favReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta)
 );
+
 
 CREATE TABLE recetas_categorias(
 idRecetaCategoria INT PRIMARY KEY AUTO_INCREMENT,
@@ -110,28 +110,34 @@ WHERE r.idReceta = 1;
 -- Registro
 
 -- Iniciar sesión
+
 DELIMITER //
-CREATE PROCEDURE `sp_iniciarSesion` (IN userEmail VARCHAR(200), IN userPass CHAR(60))
+CREATE PROCEDURE `sp_iniciarSesion`(IN userEmail VARCHAR(200))
 BEGIN
 DECLARE mailBD VARCHAR(200);
-DECLARE passBD CHAR(60);
 SET mailBD = (SELECT email FROM usuarios WHERE email = userEmail);
 IF mailBD IS NOT NULL
-    THEN SET passBD = (SELECT contraseña FROM usuarios WHERE email = mailBD);
-		CASE 
-			WHEN passBD = userPass
-			THEN SELECT true  AS success, "Sesión iniciada" AS message;
-		ELSE SELECT false AS success, "Contraseña incorrecta" AS message;
-        END CASE;
-	ELSE SELECT false AS success, "No existe un email registrado" AS message;
-    END IF; 
-END //
+ THEN SELECT true AS success, (SELECT contraseña FROM usuarios WHERE email = mailBD) AS result;
+ ELSE SELECT false AS success, '' AS result;
+END IF;
+END
+//
 
-SELECT * FROM usuarios;
+DELIMITER //
+CREATE PROCEDURE `sp_registro`(IN userFullName VARCHAR(150), IN userEmail VARCHAR(200), IN pass CHAR(60))
+BEGIN
+DECLARE mailBD VARCHAR(200);
+SET mailBD = (SELECT email FROM usuarios WHERE email = userEmail);
+IF mailBD IS NULL 
+THEN 
+	INSERT INTO usuarios (nombreCompleto, imagen, usuario, email, contraseña)
+    VALUES(userFullName, NULL, NULL, userEmail, pass);
+    SELECT true AS success, 'Usuario registrado' AS message;
+ELSE SELECT false AS success, 'Ya existe un usuario con este email' AS message;
+END IF;
+END
+//
 
-DROP PROCEDURE sp_iniciarSesion;
+CALL sp_registro('Juampi Lopez','lalari@example.com', '$2b$12$sl4R1G4fR9sj527A4hqUWe2dpY/DmHiQ/pHrxPpTiQ1Ub7j7m2v8e');
 
-CALL sp_iniciarSesion('juan@example.com', '3a6d8e9f1b27c5a0d4e9f7b3e2c1a8d5e6f2c7a1d3b5e2f1a8d5e6f2c7a1');
-
-UPDATE usuarios
-SET contraseña = '$2b$12$Ny/9PKToHPraWd4HVqHeiulDuixOtfxKyyO80AysrK6cKuf8QrKXG' WHERE idUsuario = 8;
+SELECT * FROM usuarios WHERE email = 'tuvieja@example.com';
