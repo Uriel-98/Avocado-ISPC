@@ -105,3 +105,33 @@ WHERE r.idReceta = 1;
 - Crear trigger que se active cuando elimine una receta. Eliminar los pasos, las categorías y los ingredientes. 
 */
   
+/*Procedimientos almacenados*/
+
+-- Registro
+
+-- Iniciar sesión
+DELIMITER //
+CREATE PROCEDURE `sp_iniciarSesion` (IN userEmail VARCHAR(200), IN userPass CHAR(60))
+BEGIN
+DECLARE mailBD VARCHAR(200);
+DECLARE passBD CHAR(60);
+SET mailBD = (SELECT email FROM usuarios WHERE email = userEmail);
+IF mailBD IS NOT NULL
+    THEN SET passBD = (SELECT contraseña FROM usuarios WHERE email = mailBD);
+		CASE 
+			WHEN passBD = userPass
+			THEN SELECT true  AS success, "Sesión iniciada" AS message;
+		ELSE SELECT false AS success, "Contraseña incorrecta" AS message;
+        END CASE;
+	ELSE SELECT false AS success, "No existe un email registrado" AS message;
+    END IF; 
+END //
+
+SELECT * FROM usuarios;
+
+DROP PROCEDURE sp_iniciarSesion;
+
+CALL sp_iniciarSesion('juan@example.com', '3a6d8e9f1b27c5a0d4e9f7b3e2c1a8d5e6f2c7a1d3b5e2f1a8d5e6f2c7a1');
+
+UPDATE usuarios
+SET contraseña = '$2b$12$Ny/9PKToHPraWd4HVqHeiulDuixOtfxKyyO80AysrK6cKuf8QrKXG' WHERE idUsuario = 8;
