@@ -1,13 +1,4 @@
 const validaciones = {
-  nombreCompleto: {
-    notEmpty: {
-      errorMessage: 'Campo obligatorio'
-    },
-    matches: {
-      options: /^[A-Za-z\s]+$/,
-      errorMessage: 'El nombre no debe contener números ni caracteres especiales'
-    }
-  },
   email: {
     notEmpty: {
       errorMessage: 'Campo obligatorio',
@@ -18,6 +9,12 @@ const validaciones = {
     }
   },
   password: {
+    notEmpty: {
+      errorMessage: 'Campo obligatorio',
+      bail: true
+    }
+  },
+  nuevoPassword: {
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
