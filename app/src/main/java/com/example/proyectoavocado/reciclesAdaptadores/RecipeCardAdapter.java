@@ -1,4 +1,4 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.reciclesAdaptadores;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectoavocado.R;
+import com.example.proyectoavocado.controllers.Receta;
+import com.example.proyectoavocado.VistaDetalladaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
