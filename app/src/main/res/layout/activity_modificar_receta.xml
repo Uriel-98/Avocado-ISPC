@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModificarRecetaActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/menuPrincipal"
+        android:layout_width="409dp"
+        android:layout_height="57dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="407dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="13dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true">
+
+                <ImageButton
+                    android:id="@+id/btn_backFeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="1dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="Botón volver"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="?attr/actionModeCloseDrawable"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignStart="@id/btn_backFeed"
+                    android:layout_marginStart="48dp"
+                    android:contentDescription="Logo Avocado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/logo_nombre"
+                    tools:ignore="HardcodedText,MissingConstraints"
+                    tools:layout_editor_absoluteY="6dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_aceptar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="14dp"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/check_icon" />
+
+                <ImageButton
+                    android:id="@+id/btn_cancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="9dp"
+                    android:layout_toStartOf="@+id/btn_aceptar"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/x_icon" />
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="616dp"
+        android:layout_marginTop="58dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/recipeImage"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="Imagen de comida"
+                android:scaleType="centerCrop"
+                android:src="@drawable/carne_comida"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloReceta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Título de la Receta"
+                    android:textColor="#3C5B27"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds,HardcodedText" />
+
+                <TextView
+                    android:id="@+id/creadoPor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\@nombreDeUsuario"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/contenido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="12dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim. Suspendisse sed justo in ipsum rhoncus ornare. Nam est tellus, sodales vitae consectetur et, aliquet sed mauris."
+                    tools:ignore="DuplicateIds,HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="12dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Icono reloj"
+                        android:paddingEnd="8dp"
+                        android:src="@drawable/clock_icon"
+                        android:tint="#B8E092"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tiempo de cocción"
+                        tools:ignore="HardcodedText" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="8dp"
+                        android:src="@drawable/batidor_icon"
+                        android:tint="#B8E092"
+                        android:tintMode="src_in"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nivel de dificultad" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloReceta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredientes"
+                    android:textColor="#3C5B27"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FDFFEB" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloReceta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pasos de preparación"
+                    android:textColor="#3C5B27"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Paso 1 - Masa"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Paso 2 - Relleno"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Paso 3 - Salsa"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Paso 4 - Armado"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloReceta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categorías"
+                    android:textColor="#3C5B27"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tituloReceta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        android:background="#B8E092"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Cena"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        tools:ignore="DuplicateIds" />
+
+                    <TextView
+                        android:id="@+id/tituloReceta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        android:background="#B8E092"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Plato principal"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        tools:ignore="DuplicateIds" />
+
+                    <TextView
+                        android:id="@+id/tituloReceta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        android:background="#B8E092"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Tradicional"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        tools:ignore="DuplicateIds,HardcodedText" />
+                </GridLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="413dp"
+        android:layout_height="57dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:outlineProvider="none"
+            tools:layout_editor_absoluteY="7dp">
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:contentDescription="Home"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/home_icono" />
+
+            <ImageButton
+                android:id="@+id/btn_buscar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Buscar"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+                app:srcCompat="@drawable/lupa_icono"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_agregar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Agregar Receta"
+                android:tint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+                app:srcCompat="@drawable/mas_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="128dp" />
+
+            <ImageButton
+                android:id="@+id/btn_favoritos"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Favoritos"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/estrella_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="269dp"
+                tools:layout_editor_absoluteY="680dp" />
+
+            <ImageButton
+                android:id="@+id/btn_perfil"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Perfil"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/persona_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="330dp"
+                tools:layout_editor_absoluteY="678dp" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
