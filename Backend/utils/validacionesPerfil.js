@@ -29,8 +29,7 @@ const validaciones = {
       options: /^\S+$/,
       errorMessage: 'El nombre de usuario no debe contener espacios',
       bail: true
-    },
-    
+    } 
   }
 }
 
