@@ -16,7 +16,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
         //capturo los id de los botones
         ImageButton btnVolver = findViewById(R.id.btn_backInicio);
-        Button btnRegistrarse = findViewById(R.id.btn_iniciarsesion);
+        Button btnRegistrarse = findViewById(R.id.btn_registrarse);
 
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
