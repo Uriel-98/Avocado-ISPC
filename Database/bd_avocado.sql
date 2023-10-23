@@ -219,10 +219,27 @@ BEGIN
 END
 //
 
+-- Buscar receta
+DELIMITER //
+CREATE PROCEDURE `sp_buscarReceta` (IN tituloReceta VARCHAR(250))
+BEGIN
+	DECLARE buscar VARCHAR(300);
+    SET buscar = CONCAT("%", tituloReceta, "%");
+	CREATE TEMPORARY TABLE IF NOT EXISTS temp AS (SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, r.imagen, r.fechaCreacion, r.fechaActualizacion 
+	FROM recetas r 
+	INNER JOIN usuarios u 
+	ON u.idUsuario = r.creadoPor 
+	WHERE r.titulo LIKE buscar);
+    IF (SELECT COUNT(*) FROM temp) > 0
+		THEN SELECT * FROM temp;
+	    ELSE SELECT 'Sin resultados' AS result;
+    END IF;
+    DROP TABLE temp;
+END
+//
 
-
-
-
+CALL sp_buscarReceta('pollo');
+DROP PROCEDURE sp_buscarReceta;
 
 
 /*------ TRIGGERS ------*/
