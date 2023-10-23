@@ -39,4 +39,29 @@ router.get('/getRecetaById/:id', (req, res)=>{
   
 })
 
+router.post('/getRecetasUsuario', (req, res) => {
+const email = req.body.email
+if(!email){
+  res.status(400).json('Error. Email obligatorio.')
+  return
+}
+
+db.query(`CALL sp_getRecetasUsuario('${email}')`, function(error, results){
+  if(error){
+    res.send({
+      success: false,
+      message: error
+    })
+    return
+  }
+  else {
+    res.send({
+      success: true,
+      message: '',
+      content: results[0]
+    })
+  }
+})
+})
+
 module.exports = router
