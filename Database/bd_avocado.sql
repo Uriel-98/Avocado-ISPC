@@ -4,7 +4,7 @@ USE Avocado;
 /*Tabla Usuarios*/
 
 CREATE TABLE usuarios(
-idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+idUsuario INT PRIMARY KEY,
 nombreCompleto VARCHAR(150) NOT NULL,
 imagen BLOB,
 usuario VARCHAR(15) UNIQUE,
@@ -13,7 +13,7 @@ contraseña CHAR(60) NOT NULL
 );
 
 CREATE TABLE recetas(
-idReceta INT PRIMARY KEY AUTO_INCREMENT,
+idReceta INT PRIMARY KEY,
 titulo VARCHAR(250) NOT NULL,
 creadoPor INT NOT NULL,
 tiempoCoccion VARCHAR(20),
@@ -52,16 +52,6 @@ idReceta INT NOT NULL,
 CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario),
 CONSTRAINT fk_favReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta)
 );
-
-ALTER TABLE recetas_categorias DROP CONSTRAINT fk_catReceta;
-ALTER TABLE favoritos DROP CONSTRAINT fk_favUsuario;
-ALTER TABLE recetas DROP CONSTRAINT fk_receta;
-
-ALTER TABLE usuarios MODIFY idUsuario INT AUTO_INCREMENT;
-
-ALTER TABLE recetas_categorias ADD CONSTRAINT fk_catReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta);
-ALTER TABLE favoritos ADD CONSTRAINT fk_favUsuario FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario);
-ALTER TABLE recetas ADD CONSTRAINT fk_creado FOREIGN KEY(creadoPor) REFERENCES usuarios(idUsuario);
 
 CREATE TABLE recetas_categorias(
 idRecetaCategoria INT PRIMARY KEY AUTO_INCREMENT,
@@ -131,19 +121,20 @@ END
 
 -- Registro
 DELIMITER //
-CREATE PROCEDURE `sp_registro`(IN userFullName VARCHAR(150), IN userEmail VARCHAR(200), IN pass CHAR(60))
+CREATE PROCEDURE `sp_registro`(IN userEmail VARCHAR(200), IN userFullName VARCHAR(150), IN userName VARCHAR(15), IN pass CHAR(60))
 BEGIN
 	DECLARE mailBD VARCHAR(200);
 	SET mailBD = (SELECT email FROM usuarios WHERE email = userEmail);
 	IF mailBD IS NULL 
 		THEN 
 			INSERT INTO usuarios (nombreCompleto, imagen, usuario, email, contraseña)
-			VALUES(userFullName, NULL, NULL, userEmail, pass);
+			VALUES(userFullName, NULL, userName, userEmail, pass);
 			SELECT true AS success, 'Usuario registrado' AS message;
 		ELSE SELECT false AS success, 'Ya existe un usuario con este email' AS message;
 	END IF;
 END
 //
+
 
 -- Actualizar datos de perfil
 DELIMITER //
