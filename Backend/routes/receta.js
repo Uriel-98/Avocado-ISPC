@@ -2,6 +2,23 @@ const express = require('express')
 const router = express.Router()
 const db = require('../conection')
 
+router.get('/getCategorias', (req, res)=> {
+  db.query(`SELECT * FROM categorias;`,function(error, results){
+    if(error){
+      res.send({
+        success:false,
+        message: error
+      })
+    } else {
+      res.send({
+        success:true,
+        message: '',
+        content: results
+      })
+    }
+  })
+})
+
 router.get('/getRecetasFeed', (req, res) => {
   db.query(`SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, r.imagen, r.fechaCreacion, r.fechaActualizacion FROM recetas r INNER JOIN usuarios u ON u.idUsuario = r.creadoPor LIMIT 20;`, function(error, results){
     if(error){
@@ -14,6 +31,24 @@ router.get('/getRecetasFeed', (req, res) => {
         success:true,
         message: '',
         content: results
+      })
+    }
+  })
+})
+
+router.get('/buscarReceta/:titulo', (req, res)=> {
+const titulo = req.params.titulo
+  db.query(`CALL sp_buscarReceta('${titulo}');`, function(error, results){
+    if(error){
+      res.send({
+        success:false,
+        message: error
+      })
+    } else {
+      res.send({
+        success:true,
+        message: '',
+        content: results[0]
       })
     }
   })
