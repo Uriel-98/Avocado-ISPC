@@ -99,4 +99,28 @@ db.query(`CALL sp_getRecetasUsuario('${email}')`, function(error, results){
 })
 })
 
+router.delete('/eliminarReceta/:id', (req, res) => {
+  const id = req.params.id
+  db.query(`DELETE FROM recetas WHERE idReceta = ${id}`,function(error, results){
+    if(error){
+      res.send({
+        success:false,
+        message: error
+      })
+    } else {
+      if(results.affectedRows === 0){
+        res.send({
+          success: false,
+          message: 'No hay recetas con ese ID'
+        })
+      } else {
+        res.send({
+          success: true,
+          message: 'Se eliminó la receta correctamente'
+        })
+      }
+    }
+  })
+})
+
 module.exports = router
