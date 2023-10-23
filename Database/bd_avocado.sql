@@ -92,9 +92,12 @@ VALUES
   
 INSERT INTO recetas (idReceta, titulo, creadoPor, tiempoCoccion, dificultad, fechaCreacion, fechaActualizacion)
 VALUES
+ (2, 'Yogur con cereal', 3, '45 minutos', 'Medio', NOW(), NOW()),
   (1, 'Sanguche de jamón y queso', 1, '30 minutos', 'Fácil', NOW(), NOW()),
-  (2, 'Yogur con cereal', 3, '45 minutos', 'Medio', NOW(), NOW()),
   (3, 'Pan con mermelada', 5, '60 minutos', 'Difícil', NOW(), NOW());
+  
+  SELECT * FROM recetas;
+  DELETE FROM recetas WHERE idReceta = 4;
   
   INSERT INTO pasos (idReceta, titulo, descripcion)
   VALUES
