@@ -32,7 +32,7 @@
             android:padding="10dp"
             android:text="Paso de Preparación"
             android:textColor="#3C5B27"
-            android:textSize="25dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/subtitulo_paso"
@@ -42,7 +42,7 @@
             android:padding="10dp"
             android:text="Paso"
             android:textColor="#000"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/text_tituloPaso"
@@ -63,7 +63,7 @@
             android:padding="10dp"
             android:text="Descripción"
             android:textColor="#000"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/text_descripcionPaso"

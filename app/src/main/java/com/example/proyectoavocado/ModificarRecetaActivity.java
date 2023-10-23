@@ -8,24 +8,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.proyectoavocado.controllers.Categoria;
 import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteRecipeAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasosRecetaRecipeAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +48,8 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     private IngredienteRecipeAdapter ingredienteAdapter;
     private PasosRecetaRecipeAdapter pasoAdapter;
 
-
+    Button btnAgregarCategorias;
+    LinearLayout containerCategoriasView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +90,17 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mostrarDialogoAgregarPaso();
+            }
+        });
+
+        //capturar el id del boton de agregar categorias para mostrar el dialog
+        Button btnAgregarIngredientes = findViewById(R.id.btn_agregarIngredientes);
+        LinearLayout containerCategorias = findViewById(R.id.container_categorias);
+        btnAgregarIngredientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mostrar el diálogo de categorías aquí
+                mostrarDialogoCategorias();
             }
         });
 
@@ -413,6 +431,71 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(postRequest);
     }
+
+    //Dialog para categorias
+    private void mostrarDialogoCategorias() {
+        // URL de la API para obtener la lista de categorías
+        String url = "http://tu_api_para_obtener_categorias";
+
+        // Hacer una solicitud GET a la API usando Volley
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    // Lista para almacenar las categorías obtenidas
+                    List<Categoria> categoriasList = new ArrayList<>();
+
+                    // Iterar por la respuesta JSON y convertirla en objetos Categoria
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject categoriaJson = response.getJSONObject(i);
+                        Categoria categoria = new Categoria();
+                        categoria.setIdCategoria(categoriaJson.getInt("id"));
+                        categoria.setNombre(categoriaJson.getString("nombre"));
+
+                        // Agregar la categoría a la lista
+                        categoriasList.add(categoria);
+                    }
+
+                    // Iterar por las categorías y agregar vistas al LinearLayout
+                    for (Categoria categoria : categoriasList) {
+                        View categoriaView = LayoutInflater.from(ModificarRecetaActivity.this).inflate(R.layout.categoria_layout, null);
+                        TextView categoriaTextView = categoriaView.findViewById(R.id.categoria_view);
+                        categoriaTextView.setText(categoria.getNombre());
+
+                        // Configurar el clic en la vista para hacer lo que desees al hacer clic en una categoría
+                        categoriaView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Lógica cuando se hace clic en una categoría
+                                // Puedes utilizar categoria.getId() o categoria.getNombre() para obtener detalles de la categoría
+                                int categoriaId = categoria.getIdCategoria(); // Obtener el ID de la categoría seleccionada
+                                String nombreCategoria = categoria.getNombre(); // Obtener el nombre de la categoría seleccionada
+
+                                // Ejemplo: Mostrar un Toast con el ID y el nombre de la categoría
+                                Toast.makeText(ModificarRecetaActivity.this, "ID: " + categoriaId + ", Nombre: " + nombreCategoria, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        // Agregar la vista al LinearLayout
+                        containerCategoriasView.addView(categoriaView);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    // Manejar errores al procesar la respuesta JSON
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Manejar errores de la solicitud
+                error.printStackTrace();
+            }
+        });
+
+        // Agregar la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(ModificarRecetaActivity.this).add(request);
+    }
+
 
     private void mostrarMensaje(String mensaje) {
         Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();

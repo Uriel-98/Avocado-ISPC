@@ -11,7 +11,11 @@ public class Categoria {
         this.selected = false;  // Por defecto, la categoría no está seleccionada
     }
 
-    public int getIdCategoria() {
+    public Categoria() {
+
+    }
+
+    public Integer getIdCategoria() {
         return idCategoria;
     }
 
@@ -34,5 +38,7 @@ public class Categoria {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+
 }
 

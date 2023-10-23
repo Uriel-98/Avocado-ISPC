@@ -353,7 +353,7 @@
                     android:padding="10dp">
 
                     <LinearLayout
-                        android:id="@+id/container_categorias"
+                        android:id="@+id/container_categorias_view"
                         android:layout_width="307dp"
                         android:layout_height="46dp"
                         android:orientation="vertical">
