@@ -71,20 +71,6 @@
                     app:srcCompat="@drawable/check_icon"
                     tools:ignore="TouchTargetSizeCheck" />
 
-                <ImageButton
-                    android:id="@+id/btn_cancelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="9dp"
-                    android:layout_toStartOf="@+id/btn_aceptar"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="boton para cancelar editar"
-                    app:srcCompat="@drawable/x_icon"
-                    tools:ignore="TouchTargetSizeCheck" />
-
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -249,6 +235,7 @@
                     tools:ignore="DuplicateIds" />
 
                 <LinearLayout
+                    android:id="@+id/container_ingredientes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#FDFFEB"
@@ -304,6 +291,7 @@
                     tools:ignore="DuplicateIds" />
 
                 <LinearLayout
+                    android:id="@+id/container_pasos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -325,7 +313,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_agregarPasoDialog"
                     android:layout_width="250dp"
                     android:layout_height="48dp"
                     android:backgroundTint="#B8E092"
@@ -362,8 +350,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
-                    android:rowCount="5"
                     android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/container_categorias"
+                        android:layout_width="307dp"
+                        android:layout_height="46dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tituloReceta"
@@ -392,7 +387,20 @@
                         app:srcCompat="@android:drawable/ic_menu_delete"
                         tools:ignore="UseAppTint" />
                 </GridLayout>
-
+                <Button
+                    android:id="@+id/btn_agregarCategoriaDialog"
+                    android:layout_width="250dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="#B8E092"
+                    android:fontFamily="@font/roboto"
+                    android:text="Agregar Categoría"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="10dp"
+                    app:cornerRadius="100dp"
+                    android:layout_gravity="center"
+                    app:icon="@drawable/mas_icono"
+                    app:iconPadding="2dp" />
             </LinearLayout>
 
         </LinearLayout>
