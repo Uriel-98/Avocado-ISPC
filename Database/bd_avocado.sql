@@ -4,7 +4,7 @@ USE Avocado;
 /*Tabla Usuarios*/
 
 CREATE TABLE usuarios(
-idUsuario INT PRIMARY KEY,
+idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 nombreCompleto VARCHAR(150) NOT NULL,
 imagen BLOB,
 usuario VARCHAR(15) UNIQUE,
@@ -13,7 +13,7 @@ contraseña CHAR(60) NOT NULL
 );
 
 CREATE TABLE recetas(
-idReceta INT PRIMARY KEY,
+idReceta INT PRIMARY KEY AUTO_INCREMENT,
 titulo VARCHAR(250) NOT NULL,
 creadoPor INT NOT NULL,
 tiempoCoccion VARCHAR(20),
