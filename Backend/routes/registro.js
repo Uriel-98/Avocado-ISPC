@@ -28,7 +28,8 @@ const reemplazar = {
   0: false,
   1: true
 }
-db.query(`CALL sp_registro('${req.body.nombreCompleto}','${req.body.email}', '${pass}');`, function (error, results, fields){
+
+db.query(`CALL sp_registro('${req.body.email}','${req.body.nombreCompleto}','${req.body.usuario}', '${pass}');`, function (error, results, fields){
   const response = results[0][0]
   console.log(response)
   res.send({
