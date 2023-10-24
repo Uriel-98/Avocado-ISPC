@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/roboto_bold"
-            android:marginStart="10dp"
             android:padding="10dp"
             android:text="Categorías"
             android:textColor="#3C5B27"

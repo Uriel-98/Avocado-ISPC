@@ -58,7 +58,7 @@ public class IngredienteRecipeAdapter extends RecyclerView.Adapter<IngredienteRe
         IngredienteViewHolder(View itemView) {
             super(itemView);
             nombreIngrediente = itemView.findViewById(R.id.nombre_ingrediente);
-            eliminarButton = itemView.findViewById(R.id.btn_eliminarInrediente);
+            eliminarButton = itemView.findViewById(R.id.btn_eliminarIngrediente);
         }
     }
 }
