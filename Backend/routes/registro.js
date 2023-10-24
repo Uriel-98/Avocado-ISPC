@@ -30,28 +30,25 @@ const reemplazar = {
 }
 
 db.query(`CALL sp_registro('${req.body.email}','${req.body.nombreCompleto}','${req.body.usuario}', '${pass}');`, function (error, results, fields){
-//   console.log(results)
-//   const response = results[0]
+  const response = results[0][0]
 
-//   if(error){
-//     res.send({
-//       success: false,
-//       message: error
-//     })
-//   }
-//   if(response.success == 0){
-//     res.send({
-//       success: false,
-//       message: response.message
-//     })
-//   } else {
-//     res.send({
-//       success: true,
-//       message: response.message
-//     })
-//   }
-
-  res.send(results)
+  if(error){
+    res.send({
+      success: false,
+      message: error
+    })
+  }
+  if(response.success == 0){
+    res.send({
+      success: false,
+      message: response.message
+    })
+  } else {
+    res.send({
+      success: true,
+      message: response.message
+    })
+  }
 })
 })
 
