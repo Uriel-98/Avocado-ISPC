@@ -29,7 +29,7 @@
             android:textSize="15dp" />
 
         <ImageButton
-            android:id="@+id/btn_eliminarInrediente"
+            android:id="@+id/btn_eliminarIngrediente"
             android:layout_width="1dp"
             android:layout_height="55dp"
             android:layout_weight="1"

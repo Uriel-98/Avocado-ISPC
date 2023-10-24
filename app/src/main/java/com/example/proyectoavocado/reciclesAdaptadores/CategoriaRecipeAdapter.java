@@ -4,7 +4,8 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,17 +41,7 @@ public class CategoriaRecipeAdapter extends RecyclerView.Adapter<CategoriaRecipe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Categoria categoria = categorias.get(position);
-        holder.categoriaTextView.setText(categoria.getNombre());
-
-        // Manejar el clic en el CheckBox
-        holder.checkBox.setOnCheckedChangeListener(null);
-        holder.checkBox.setChecked(categoria.isSelected());
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            categoria.setSelected(isChecked);
-            if (listener != null) {
-                listener.onCategoriaClick(categoria, isChecked);
-            }
-        });
+        holder.bind(categoria, listener);
     }
 
     @Override
@@ -60,12 +51,27 @@ public class CategoriaRecipeAdapter extends RecyclerView.Adapter<CategoriaRecipe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView categoriaTextView;
-        CheckBox checkBox;
+        RadioButton checkBox;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoriaTextView = itemView.findViewById(R.id.categoria_view);
-            checkBox = itemView.findViewById(R.id.checkbox_categoria);
+            checkBox = itemView.findViewById(R.id.categoria_item);
+        }
+
+        public void bind(final Categoria categoria, final OnCategoriaClickListener listener) {
+            categoriaTextView.setText(categoria.getNombre());
+            checkBox.setChecked(categoria.isSelected());
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    categoria.setSelected(isChecked);
+                    if (listener != null) {
+                        listener.onCategoriaClick(categoria, isChecked);
+                    }
+                }
+            });
         }
     }
 }

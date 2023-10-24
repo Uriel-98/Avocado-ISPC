@@ -45,7 +45,7 @@ public class PerfilRecipeCardAdapter extends RecyclerView.Adapter<PerfilRecipeCa
         Receta receta = recetas.get(position);
 
         // Configurar las vistas de la tarjeta con datos de la receta
-        holder.titulo_receta_perfil.setText(receta.getNombre());
+        holder.titulo_receta_perfil.setText(receta.getTitulo());
 
         // Cargar la imagen usando Picasso (o la biblioteca que prefieras)
         Picasso.get().load(receta.getImagen()).into(holder.img_receta);

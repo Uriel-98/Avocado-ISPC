@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Categoria;
@@ -50,6 +52,9 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
     Button btnAgregarCategorias;
     LinearLayout containerCategoriasView;
+
+    private List<Categoria> categoriasSeleccionadas = new ArrayList<>();
+    private List<Ingrediente> listaIngredientes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +100,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
         //capturar el id del boton de agregar categorias para mostrar el dialog
         Button btnAgregarIngredientes = findViewById(R.id.btn_agregarIngredientes);
-        LinearLayout containerCategorias = findViewById(R.id.container_categorias);
         btnAgregarIngredientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,18 +108,41 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             }
         });
 
+        @SuppressLint("WrongViewCast") Button btnEliminarCategoria = findViewById(R.id.btn_eliminarCategoria);
+        btnEliminarCategoria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Verificar si hay categorías seleccionadas para eliminar
+                if (!categoriasSeleccionadas.isEmpty()) {
+                    // Crear una lista de IDs de categorías seleccionadas
+                    List<Integer> idsCategoriasSeleccionadas = new ArrayList<>();
+                    for (Categoria categoria : categoriasSeleccionadas) {
+                        idsCategoriasSeleccionadas.add(categoria.getIdCategoria());
+                    }
+
+                    // Enviar solicitud al servidor para eliminar las categorías seleccionadas de la receta
+                    enviarSolicitudEliminarCategorias(idsCategoriasSeleccionadas);
+                } else {
+                    // Si no hay categorías seleccionadas, mostrar un mensaje al usuario
+                    mostrarMensaje("No hay categorías seleccionadas para eliminar.");
+                }
+            }
+        });
+
         //Inicializa los RecyclerView
         recyclerViewPasos = findViewById(R.id.recycler_pasos);
         recyclerViewIngredientes = findViewById(R.id.recycler_ingredientes);
+        // Inicializa el RecyclerView y el adaptador
+        ingredienteAdapter = new IngredienteRecipeAdapter(listaIngredientes, (IngredienteRecipeAdapter.OnItemClickListener) this);
+        recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewIngredientes.setAdapter(ingredienteAdapter);
+
 
         // Crea listas de ejemplo para pasos y ingredientes
         List<Paso> listaPasos = new ArrayList<>();
         listaPasos.add(new Paso("Paso 1", "Descripción del paso 1"));
         listaPasos.add(new Paso("Paso 2", "Descripción del paso 2"));
 
-        List<Ingrediente> listaIngredientes = new ArrayList<>();
-        listaIngredientes.add(new Ingrediente("Ingrediente 1"));
-        listaIngredientes.add(new Ingrediente("Ingrediente 2"));
 
         // Configura el RecyclerView para los pasos
         recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
@@ -293,39 +320,39 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     }
 
     // Método para mostrar el cuadro de diálogo para agregar ingredientes
-    private void mostrarDialogoAgregarIngrediente() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_agregar_ingrediente, null);
-        builder.setView(view);
+        private void mostrarDialogoAgregarIngrediente() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_agregar_ingrediente, null);
+            builder.setView(view);
 
-        final EditText editTextNombreIngrediente = view.findViewById(R.id.text_ingrediente);
-        Button btnAgregarIngredienteLista = view.findViewById(R.id.btn_agregarIngredienteLista);
-        Button btnCloseDialog = view.findViewById(R.id.btn_close_dialog);
+            final EditText editTextNombreIngrediente = view.findViewById(R.id.text_ingrediente);
+            Button btnAgregarIngredienteLista = view.findViewById(R.id.btn_agregarIngredienteLista);
+            Button btnCloseDialog = view.findViewById(R.id.btn_close_dialog);
 
-        final AlertDialog dialog = builder.create();
+            final AlertDialog dialog = builder.create();
 
-        btnAgregarIngredienteLista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nombreIngrediente = editTextNombreIngrediente.getText().toString().trim();
-                if (!nombreIngrediente.isEmpty()) {
-                    // Enviar solicitud POST para agregar el ingrediente
-                    agregarIngrediente(nombreIngrediente, dialog);
-                } else {
-                    mostrarMensaje("Por favor, ingresa un nombre para el ingrediente.");
+            btnAgregarIngredienteLista.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String nombreIngrediente = editTextNombreIngrediente.getText().toString().trim();
+                    if (!nombreIngrediente.isEmpty()) {
+                        // Enviar solicitud POST para agregar el ingrediente
+                        agregarIngrediente(nombreIngrediente, dialog);
+                    } else {
+                        mostrarMensaje("Por favor, ingresa un nombre para el ingrediente.");
+                    }
                 }
-            }
-        });
+            });
 
-        btnCloseDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+            btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
 
-        dialog.show();
-    }
+            dialog.show();
+        }
 
     // Método para enviar una solicitud POST y agregar un ingrediente a través de la API REST
     private void agregarIngrediente(final String nombreIngrediente, final AlertDialog dialog) {
@@ -360,6 +387,20 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(postRequest);
     }
+    public void onDeleteClick(int position) {
+        // Obtener el ingrediente en la posición especificada
+        Ingrediente ingrediente = listaIngredientes.get(position);
+
+        // Eliminar el ingrediente de la lista
+        listaIngredientes.remove(position);
+
+        // Notificar al adaptador que se eliminó un elemento en la posición especificada
+        ingredienteAdapter.notifyItemRemoved(position);
+
+        // Aquí puedes realizar acciones adicionales, como eliminar el ingrediente de la base de datos
+        // o mostrar un mensaje de eliminación exitosa
+    }
+
     //Dialog para agregar el Paso de la Receta y llamada a la bd
     private void mostrarDialogoAgregarPaso() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -462,17 +503,21 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                         TextView categoriaTextView = categoriaView.findViewById(R.id.categoria_view);
                         categoriaTextView.setText(categoria.getNombre());
 
-                        // Configurar el clic en la vista para hacer lo que desees al hacer clic en una categoría
+                        // Configurar el clic en la vista para manejar la selección de categorías
                         categoriaView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // Lógica cuando se hace clic en una categoría
-                                // Puedes utilizar categoria.getId() o categoria.getNombre() para obtener detalles de la categoría
-                                int categoriaId = categoria.getIdCategoria(); // Obtener el ID de la categoría seleccionada
-                                String nombreCategoria = categoria.getNombre(); // Obtener el nombre de la categoría seleccionada
+                                // Verificar si la categoría ya está seleccionada
+                                if (categoriasSeleccionadas.contains(categoria)) {
+                                    // Si está seleccionada, quitarla de la lista de seleccionadas
+                                    categoriasSeleccionadas.remove(categoria);
+                                } else {
+                                    // Si no está seleccionada, agregarla a la lista de seleccionadas
+                                    categoriasSeleccionadas.add(categoria);
+                                }
 
-                                // Ejemplo: Mostrar un Toast con el ID y el nombre de la categoría
-                                Toast.makeText(ModificarRecetaActivity.this, "ID: " + categoriaId + ", Nombre: " + nombreCategoria, Toast.LENGTH_SHORT).show();
+                                // Actualizar la vista de categorías seleccionadas
+                                mostrarCategoriasSeleccionadas();
                             }
                         });
 
@@ -494,6 +539,60 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
         // Agregar la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(ModificarRecetaActivity.this).add(request);
+    }
+
+    private void mostrarCategoriasSeleccionadas() {
+        // Limpiar el contenedor antes de agregar las vistas
+        containerCategoriasView.removeAllViews();
+
+        // Iterar por las categorías seleccionadas y agregar vistas al LinearLayout
+        for (Categoria categoria : categoriasSeleccionadas) {
+            View categoriaView = LayoutInflater.from(ModificarRecetaActivity.this).inflate(R.layout.categoria_layout, null);
+            TextView categoriaTextView = categoriaView.findViewById(R.id.categoria_view);
+            categoriaTextView.setText(categoria.getNombre());
+
+            // Agregar la vista al LinearLayout
+            containerCategoriasView.addView(categoriaView);
+        }
+    }
+
+    // Método para enviar solicitud al servidor para eliminar categorías de la receta
+    private void enviarSolicitudEliminarCategorias(List<Integer> idsCategoriasSeleccionadas) {
+        // URL de la API para eliminar categorías de la receta
+        String urlEliminarCategorias = "http://tu_api_para_eliminar_categorias";
+
+        // Crear un objeto JSON con los IDs de las categorías seleccionadas
+        JSONObject jsonObject = new JSONObject();
+        try {
+            JSONArray jsonArrayIdsCategorias = new JSONArray(idsCategoriasSeleccionadas);
+            jsonObject.put("ids_categorias", jsonArrayIdsCategorias);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Enviar una solicitud POST al servidor con el objeto JSON
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlEliminarCategorias, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Manejar la respuesta del servidor si es necesario
+                        mostrarMensaje("Categorías eliminadas correctamente.");
+                        // Puedes realizar acciones adicionales si es necesario
+                        // Por ejemplo, actualizar la vista de categorías
+                        // ...
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud si es necesario
+                        mostrarMensaje("Error al eliminar categorías. Inténtalo de nuevo más tarde.");
+                        Log.e("Error", "Error en la solicitud: " + error.getMessage());
+                    }
+                });
+
+        // Agregar la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(request);
     }
 
 
