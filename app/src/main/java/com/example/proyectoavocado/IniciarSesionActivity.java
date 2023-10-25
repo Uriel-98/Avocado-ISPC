@@ -52,11 +52,9 @@ public class IniciarSesionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir FeedActivity
-                //Intent intent = new Intent(IniciarSesionActivity.this, FeedActivity.class);
-                //startActivity(intent);
-                llamar();
-
-
+                Intent intent = new Intent(IniciarSesionActivity.this, FeedActivity.class);
+                startActivity(intent);
+                //llamar();
             }
         });
 
@@ -82,7 +80,7 @@ public class IniciarSesionActivity extends AppCompatActivity {
         });
     }
 
-private void llamar(){
+/*private void llamar(){
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/login";
 
@@ -112,5 +110,5 @@ private void llamar(){
         }
     });
     Volley.newRequestQueue(this).add(get);
-}
+}*/
 }
