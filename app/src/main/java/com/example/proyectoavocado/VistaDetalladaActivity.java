@@ -21,6 +21,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+        ImageButton btnMenuReceta = findViewById(R.id.btn_menu_receta);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
