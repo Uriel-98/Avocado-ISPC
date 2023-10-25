@@ -116,6 +116,56 @@ public class ModificarPerfilActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(deleteRequest);
     }
+
+    private void eliminarCuenta() {
+        // Obtener el correo electrónico del usuario desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        String userEmail = sharedPreferences.getString("email", null);
+
+        if (userEmail != null) {
+            // El correo electrónico del usuario está disponible, puedes enviar la solicitud para eliminar la cuenta
+
+            String pc_ip = getResources().getString(R.string.pc_ip);
+            String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
+
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Cuenta eliminada con éxito
+                            Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+
+                            // Redirigir a la actividad de inicio
+                            Intent intent = new Intent(ModificarPerfilActivity.this, InicioActivity.class);
+                            startActivity(intent);
+                            finish(); // Cierra la actividad actual para evitar volver atrás
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // Error al eliminar la cuenta
+                            Toast.makeText(getApplicationContext(), "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
+                            // Log de errores
+                            Log.e("Error", "Error al eliminar la cuenta: " + error.getMessage());
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    // Parámetros del cuerpo de la solicitud (correo electrónico del usuario)
+                    Map<String, String> params = new HashMap<>();
+                    params.put("email", userEmail);
+                    return params;
+                }
+            };
+
+            // Agregar la solicitud a la cola de solicitudes
+            Volley.newRequestQueue(this).add(postRequest);
+        } else {
+            // El correo electrónico del usuario no está disponible en SharedPreferences, muestra un mensaje de error o maneja la situación como desees
+        }
+    }
     private void mostrarDialogEliminarCuenta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflar el diseño personalizado
