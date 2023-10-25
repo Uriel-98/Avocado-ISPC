@@ -1,11 +1,14 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -62,8 +65,19 @@ public class IniciarSesionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir registrarseActivity
-                Intent intent = new Intent(IniciarSesionActivity.this, RegistrarseActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(IniciarSesionActivity.this, RegistrarseActivity.class);
+                //startActivity(intent);
+                EditText emailEditText = findViewById(R.id.input_email);
+                String email = emailEditText.getText().toString();
+
+                // Guarda el correo electrónico en SharedPreferences después de iniciar sesión
+                SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email", email);
+                editor.apply();
+
+                // Llama al método para hacer la solicitud de inicio de sesión
+                llamar();
             }
         });
     }
