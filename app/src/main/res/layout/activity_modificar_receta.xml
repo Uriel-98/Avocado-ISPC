@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModificarRecetaActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/menuPrincipal"
+        android:layout_width="409dp"
+        android:layout_height="57dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="407dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="13dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true">
+
+                <ImageButton
+                    android:id="@+id/btn_backFeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="1dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="Botón volver"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="?attr/actionModeCloseDrawable"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignStart="@id/btn_backFeed"
+                    android:layout_marginStart="48dp"
+                    android:contentDescription="Logo Avocado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/logo_nombre"
+                    tools:ignore="HardcodedText,MissingConstraints"
+                    tools:layout_editor_absoluteY="6dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_aceptar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="14dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="conton para aceptar edicion"
+                    app:srcCompat="@drawable/check_icon"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="616dp"
+        android:layout_marginTop="58dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/recipeImage"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="Imagen de comida"
+                android:scaleType="centerCrop"
+                android:src="@drawable/carne_comida"
+                tools:ignore="HardcodedText" />
+
+            <ImageButton
+                android:id="@+id/btn_cambiarImagenReceta"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="boton para cambiar la imagen de la receta"
+                android:layout_gravity="end"
+                android:tint="#000000"
+                app:srcCompat="@android:drawable/ic_menu_camera"
+                tools:ignore="UseAppTint" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titulo_receta"
+                        android:layout_width="328dp"
+                        android:layout_height="wrap_content"
+                        android:text="Título de la Receta"
+                        android:textColor="#3C5B27"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        tools:ignore="DuplicateIds,HardcodedText" />
+
+                    <ImageButton
+                        android:id="@+id/btn_edit_tituloReceta"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="boton para editar el titulo de la receta"
+                        app:srcCompat="@drawable/pen_icon"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/creadoPor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\@nombreDeUsuario"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/contenido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="12dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim. Suspendisse sed justo in ipsum rhoncus ornare. Nam est tellus, sodales vitae consectetur et, aliquet sed mauris."
+                    tools:ignore="DuplicateIds,HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="12dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Icono reloj"
+                        android:paddingEnd="8dp"
+                        android:src="@drawable/clock_icon"
+                        android:tint="#B8E092"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:id="@+id/tiempo_coccion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tiempo de cocción"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="8dp"
+                        android:src="@drawable/batidor_icon"
+                        android:tint="#B8E092"
+                        android:tintMode="src_in"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:id="@+id/dificultad_receta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nivel de dificultad" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_editar_descripcion_coccion_dificultad"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="boton para editar descripcion, nivel de coccion, nivel de dificultad"
+                    app:srcCompat="@drawable/pen_icon"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloIngredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredientes"
+                    android:textColor="#3C5B27"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"
+                    tools:ignore="DuplicateIds" />
+
+                <LinearLayout
+                    android:id="@+id/container_ingredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FDFFEB"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_ingredientes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tituloIngredientes" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_agregarIngredientes"
+                    android:layout_width="250dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="#B8E092"
+                    android:fontFamily="@font/roboto"
+                    android:text="Agregar Ingredientes"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="10dp"
+                    app:cornerRadius="100dp"
+                    android:layout_gravity="center"
+                    app:icon="@drawable/mas_icono"
+                    app:iconPadding="2dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloPasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pasos de preparación"
+                    android:textColor="#3C5B27"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+
+                <LinearLayout
+                    android:id="@+id/container_pasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:background="#FDFFEB"
+                    android:paddingBottom="12dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_pasos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/tituloPasos"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_agregarPasoDialog"
+                    android:layout_width="250dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="#B8E092"
+                    android:fontFamily="@font/roboto"
+                    android:text="Agregar Pasos"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="10dp"
+                    app:cornerRadius="100dp"
+                    android:layout_gravity="center"
+                    app:icon="@drawable/mas_icono"
+                    app:iconPadding="2dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tituloReceta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categorías"
+                    android:textColor="#3C5B27"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/container_categorias_view"
+                        android:layout_width="307dp"
+                        android:layout_height="46dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tituloReceta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        android:background="#B8E092"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Cena"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        tools:ignore="DuplicateIds" />
+
+                    <ImageButton
+                        android:id="@+id/btn_eliminarCategoria"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_row="0"
+                        android:contentDescription="boton para eliminar categoria"
+                        android:layout_column="1"
+                        android:backgroundTint="#00FFFFFF"
+                        android:tint="#000000"
+                        app:srcCompat="@android:drawable/ic_menu_delete"
+                        tools:ignore="UseAppTint" />
+                </GridLayout>
+                <Button
+                    android:id="@+id/btn_agregarCategoriaDialog"
+                    android:layout_width="250dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="#B8E092"
+                    android:fontFamily="@font/roboto"
+                    android:text="Agregar Categoría"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="10dp"
+                    app:cornerRadius="100dp"
+                    android:layout_gravity="center"
+                    app:icon="@drawable/mas_icono"
+                    app:iconPadding="2dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="413dp"
+        android:layout_height="57dp"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:outlineProvider="none"
+            tools:layout_editor_absoluteY="7dp">
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:contentDescription="Home"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/home_icono" />
+
+            <ImageButton
+                android:id="@+id/btn_buscar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Buscar"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+                app:srcCompat="@drawable/lupa_icono"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_agregar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Agregar Receta"
+                android:tint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+                app:srcCompat="@drawable/mas_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="128dp" />
+
+            <ImageButton
+                android:id="@+id/btn_favoritos"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Favoritos"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/estrella_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="269dp"
+                tools:layout_editor_absoluteY="680dp" />
+
+            <ImageButton
+                android:id="@+id/btn_perfil"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Perfil"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/persona_icono"
+                tools:ignore="UseAppTint"
+                tools:layout_editor_absoluteX="330dp"
+                tools:layout_editor_absoluteY="678dp" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

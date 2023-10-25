@@ -1,4 +1,4 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.reciclesAdaptadores;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectoavocado.R;
+import com.example.proyectoavocado.controllers.Receta;
+import com.example.proyectoavocado.VistaDetalladaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,12 +45,12 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         Receta receta = recetas.get(position);
 
         // Configurar las vistas de la tarjeta con datos de la receta
-        holder.titulo_receta.setText(receta.getNombre());
+        holder.titulo_receta.setText(receta.getTitulo());
         holder.descripcion_receta.setText(receta.getDescripcion());
+        holder.usuario_id_nombre.setText(receta.getCreadoPor());
 
-        // Cargar la imagen usando Picasso (asegúrate de agregar la dependencia en el archivo build.gradle)
         // Cargar la imagen utilizando Picasso desde la URL
-        Picasso.get().load(receta.getImagen()).into(holder.imagen_comida);
+        //Picasso.get().load(receta.getImagen()).into(holder.imagen_comida);
 
         // Configurar el clic de la tarjeta
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +65,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imagen_comida;
+        //ImageView imagen_comida;
         TextView usuario_id_nombre;
         TextView titulo_receta;
         TextView descripcion_receta;
@@ -70,7 +73,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             // Inicializar las vistas
-            imagen_comida = itemView.findViewById(R.id.imagen_comida);
+           //imagen_comida = itemView.findViewById(R.id.imagen_comida);
             usuario_id_nombre = itemView.findViewById(R.id.usuario_id_nombre);
             titulo_receta = itemView.findViewById(R.id.titulo_receta);
             descripcion_receta = itemView.findViewById(R.id.descripcion_receta);
