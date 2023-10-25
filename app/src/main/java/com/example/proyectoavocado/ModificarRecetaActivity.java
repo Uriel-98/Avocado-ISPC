@@ -476,7 +476,8 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     //Dialog para categorias
     private void mostrarDialogoCategorias() {
         // URL de la API para obtener la lista de categorías
-        String url = "http://tu_api_para_obtener_categorias";
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://"+ pc_ip +":3000/receta/getCategorias";
 
         // Hacer una solicitud GET a la API usando Volley
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
