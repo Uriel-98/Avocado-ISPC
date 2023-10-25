@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ProyectoAvocado</string>
+    <string name="title_editPerfil">Editar perfil</string>
+    <string name="title_mail">Correo electrónico</string>
+    <string name="title_password">Contraseña</string>
+    <string name="btn_eliminarCuenta">Eliminar Cuenta</string>
+    <string name="title_eliminarPerfil">Estas seguro de eliminar tu cuenta?</string>
+    <string name="subtitle_eliminarPerfil">Si realizas esta acción se perderán todos los datos de tu cuenta</string>
+    <string name="selecciona_dificultad">Selecciona la dificultad</string>
+    <string-array name="niveles_dificultad">
+        <item>Principiante</item>
+        <item>Intermedio</item>
+        <item>Avanzado</item>
+    </string-array>
 </resources>
