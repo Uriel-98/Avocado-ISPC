@@ -1,4 +1,4 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.reciclesAdaptadores;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectoavocado.R;
+import com.example.proyectoavocado.controllers.Receta;
+import com.example.proyectoavocado.VistaDetalladaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,7 +45,7 @@ public class PerfilRecipeCardAdapter extends RecyclerView.Adapter<PerfilRecipeCa
         Receta receta = recetas.get(position);
 
         // Configurar las vistas de la tarjeta con datos de la receta
-        holder.titulo_receta_perfil.setText(receta.getNombre());
+        holder.titulo_receta_perfil.setText(receta.getTitulo());
 
         // Cargar la imagen usando Picasso (o la biblioteca que prefieras)
         Picasso.get().load(receta.getImagen()).into(holder.img_receta);
