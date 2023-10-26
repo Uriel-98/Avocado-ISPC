@@ -21,9 +21,9 @@ dificultad VARCHAR(12),
 imagen BLOB,
 fechaCreacion DATETIME NOT NULL,
 fechaActualizacion DATETIME NOT NULL,
+descripcion TEXT NOT NULL,
 CONSTRAINT fk_creado FOREIGN KEY(creadoPor) REFERENCES usuarios(idUsuario)
 );
-
 
 CREATE TABLE categorias(
 idCategoria INT PRIMARY KEY,
@@ -61,6 +61,7 @@ CONSTRAINT fk_catReceta FOREIGN KEY(idReceta) REFERENCES recetas(idReceta),
 CONSTRAINT fk_catCategoria FOREIGN KEY(idCategoria) REFERENCES categorias(idCategoria)
 );
 
+
 -- INSERTAR CATEGORIAS PARA LA TABLA CATEGORIAS
 INSERT INTO categorias (idCategoria, nombre) VALUES (1, 'Desayuno'), (2, 'Almuerzo'), (3, 'Cena'), (4, 'Entradas'), (5, 'Aperitivos'), (6, 'Snacks'), 
 (7, 'Ensaladas'), (8, 'Platos principales'), (9, 'Guarniciones'), (10, 'Sopas y caldos'), (11, 'Postres'), (12, 'Panadería'), (13, 'Batidos y smoothies'), (14, 'Comida saludable'),
@@ -85,9 +86,6 @@ VALUES
  (2, 'Yogur con cereal', 3, '45 minutos', 'Medio', NOW(), NOW()),
   (1, 'Sanguche de jamón y queso', 1, '30 minutos', 'Fácil', NOW(), NOW()),
   (3, 'Pan con mermelada', 5, '60 minutos', 'Difícil', NOW(), NOW());
-  
-  SELECT * FROM recetas;
-  DELETE FROM recetas WHERE idReceta = 4;
   
   INSERT INTO pasos (idReceta, titulo, descripcion)
   VALUES
@@ -232,9 +230,94 @@ BEGIN
 END
 //
 
-CALL sp_buscarReceta('pollo');
-DROP PROCEDURE sp_buscarReceta;
+-- Insertar un ingrediente
+DELIMITER //
+CREATE PROCEDURE `sp_crearIngrediente` (IN idR INT, IN ingredientes JSON)
+BEGIN
+	DECLARE largo INT;
+	DECLARE i INT;
+	DECLARE indice VARCHAR(5);
+	SELECT JSON_LENGTH(ingredientes) INTO largo;
+	SET i = 0;
+	WHILE i < largo DO
+		SELECT CONCAT('$[', i, ']') INTO indice;
+		SET @nombre = JSON_UNQUOTE(JSON_EXTRACT(ingredientes, indice));
+        
+		INSERT INTO ingredientes (idReceta, nombre)
+		VALUES (idR, @nombre);
+        
+		SET i = i + 1;
+	END WHILE;
+END
+//
 
+DELIMITER //
+CREATE PROCEDURE `sp_crearPaso` (IN idR INT, IN pasos JSON)
+BEGIN
+DECLARE largo INT;
+	DECLARE i INT;
+	DECLARE indiceTitulo VARCHAR(25);
+    DECLARE indiceDescripcion VARCHAR(25);
+	SELECT JSON_LENGTH(pasos) INTO largo;
+	SET i = 0;
+	WHILE i < largo DO
+		SELECT CONCAT('$[', i, '].titulo') INTO indiceTitulo;
+        SELECT CONCAT('$[', i, '].descripcion') INTO indiceDescripcion;
+        
+		SET @titulo = JSON_UNQUOTE(JSON_EXTRACT(pasos, indiceTitulo));
+        SET @descripcion = JSON_UNQUOTE(JSON_EXTRACT(pasos, indiceDescripcion));
+        
+		INSERT INTO pasos (idReceta, titulo, descripcion)
+		VALUES (idR, @titulo, @descripcion);
+        
+		SET i = i + 1;
+	END WHILE;
+END
+//
+
+DELIMITER //
+CREATE PROCEDURE `sp_crearCategoria` (IN idR INT, IN categorias JSON)
+BEGIN
+DECLARE largo INT;
+	DECLARE i INT;
+	DECLARE indice VARCHAR(5);
+	SELECT JSON_UNQUOTE(JSON_LENGTH(categorias)) INTO largo;
+	SET i = 0;
+	WHILE i < largo DO
+		SELECT CONCAT('$[', i, ']') INTO indice;
+		SET @categoria = CAST(JSON_EXTRACT(categorias, indice) AS SIGNED);
+        
+		INSERT INTO recetas_categorias (idReceta, idCategoria)
+		VALUES (idR, @categoria);
+        
+		SET i = i + 1;
+	END WHILE;
+END
+//
+
+
+DELIMITER //
+CREATE PROCEDURE `sp_crearReceta` (IN tituloR VARCHAR(250) , IN emailCreador VARCHAR(250), IN tiempoCoccionR VARCHAR(20), IN dificultadR VARCHAR(12), 
+IN descripcionR TEXT, IN imagenR BLOB, IN ingredientes JSON , IN pasos JSON, IN categorias JSON)
+BEGIN
+	DECLARE idR INT;
+	DECLARE idUser INT;
+	SET idUSer = (SELECT idUsuario FROM usuarios WHERE email = emailCreador);
+	IF idUser IS NOT NULL
+		THEN
+			INSERT INTO recetas (titulo, creadoPor, tiempoCoccion, dificultad, imagen, fechaCreacion, fechaActualizacion, descripcion)
+			VALUES (tituloR, idUser, tiempoCoccionR, dificultadR, imagenR, NOW(), NOW(), descripcionR);
+			SET idR = LAST_INSERT_ID();
+			CALL sp_crearIngrediente(idR, ingredientes);
+			CALL sp_crearPaso(idR, pasos);
+				IF categorias IS NOT NULL
+					THEN CALL sp_crearCategoria(idR, categorias);
+				END IF;
+		SELECT true AS success, 'Receta creada correctamente' AS message; 
+		ELSE SELECT false AS success, 'El usuario no existe' AS message;
+	END IF;
+END
+//
 
 /*------ TRIGGERS ------*/
 
@@ -255,4 +338,5 @@ CREATE TRIGGER onRecipeDeleteSteps BEFORE DELETE ON recetas
 FOR EACH ROW
 DELETE FROM pasos WHERE idReceta = OLD.idReceta;
 //
+
 
