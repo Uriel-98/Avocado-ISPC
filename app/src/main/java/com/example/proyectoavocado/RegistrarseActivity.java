@@ -69,8 +69,6 @@ public class RegistrarseActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                //Todo lo que esté contenido en el bloque try catch es lo que tienen
-                //que modificar de acuerdo a lo que necesiten para su Activity
                 try {
                     JSONObject json = new JSONObject(response);
                     Log.d("Result", nombre);
@@ -80,7 +78,6 @@ public class RegistrarseActivity extends AppCompatActivity {
                     Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
                     throw new RuntimeException("Error al traer los datos");
                 }
-// Todo lo que sigue de acá lo dejan como está
             }
         }, new Response.ErrorListener() {
             @Override
