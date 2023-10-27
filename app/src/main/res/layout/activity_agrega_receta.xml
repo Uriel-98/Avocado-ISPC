@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AgregaRecetaActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="409dp"
@@ -13,9 +14,10 @@
         android:background="#B8E092"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -26,14 +28,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageButton
             android:id="@+id/btn_back"
             android:layout_width="57dp"
             android:layout_height="55dp"
+            android:layout_marginRight="10dp"
             android:backgroundTint="#00FFFFFF"
             android:tint="@color/white"
             app:srcCompat="?attr/actionModeCloseDrawable"
             tools:ignore="MissingConstraints,UseAppTint,SpeakableTextPresentCheck" />
+
 
         <ImageView
             android:id="@+id/imageView4"
@@ -44,16 +49,18 @@
             app:srcCompat="@drawable/logo_nombre"
             tools:ignore="MissingConstraints" />
 
+
         <ImageButton
             android:id="@+id/btn_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
-            android:layout_marginRight="10px"
+            android:layout_marginRight="15px"
             android:backgroundTint="#00FFFFFF"
             android:contentDescription="Botón de cerrar la edicion"
             app:srcCompat="@drawable/x_icon"
             tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
 
         <ImageButton
             android:id="@+id/btn_confirm"
@@ -64,49 +71,58 @@
             android:contentDescription="Botón de confirmar edicion"
             app:srcCompat="@drawable/check_icon"
             tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
-
     </LinearLayout>
 
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="417dp"
         android:layout_height="613dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.306">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
                 android:orientation="vertical"
+                android:paddingTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
 
                 <ImageView
                     android:id="@+id/img_comida"
                     android:layout_width="match_parent"
-                    android:layout_height="124dp"
+                    android:layout_height="130dp"
                     app:srcCompat="@drawable/pancakes_comida" />
 
+
                 <ImageButton
-                    android:layout_margin="10dp"
                     android:id="@+id/btn_camera"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end"
+                    android:layout_margin="10dp"
                     android:backgroundTint="#00FFFFFF"
                     android:contentDescription="Botón para subir imagenes"
                     android:tint="#000000"
                     app:srcCompat="@android:drawable/ic_menu_camera"
                     tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck" />
 
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="406dp"
@@ -114,21 +130,22 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
+                android:padding="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
 
+                <EditText
+                    android:id="@+id/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Titulo de la Receta"
+                    android:textColor="#3C5B27"
+                    android:textSize="18sp"
+                    tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
-                    <EditText
-                        android:id="@+id/text_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Titulo de la Receta"
-                        android:textColor="#3C5B27"
-                        android:textSize="18sp"
-                        android:layout_paddingStart="5dp"
-                        tools:ignore="MissingConstraints" />
+
 
 
                 <EditText
@@ -137,31 +154,34 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:layout_marginBottom="10px"
+                    android:fontFamily="@font/roboto"
                     android:inputType="textMultiLine"
                     android:lines="8"
-                    android:fontFamily="@font/roboto"
                     android:text="Descripción de la Receta"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     tools:ignore="MissingConstraints" />
 
+
                 <LinearLayout
-                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="15px"
                     android:orientation="horizontal">
 
+
                     <ImageView
-                        android:layout_gravity="center"
                         android:id="@+id/img_clock"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="18dp"
                         android:layout_marginRight="18dp"
                         android:tint="#B8E092"
                         app:srcCompat="@drawable/clock_icon"
                         tools:ignore="MissingConstraints,UseAppTint" />
+
 
                     <EditText
                         android:id="@+id/text_tiempoCoccion"
@@ -171,49 +191,56 @@
                         android:text="Tiempo de cocción"
                         android:textColor="#000000"
                         android:textSize="15sp"
-                        tools:ignore="MissingConstraints" />
+                        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+
                     <ImageView
-                        android:layout_gravity="center"
                         android:id="@+id/imageView7"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="18dp"
                         android:layout_marginRight="18dp"
                         android:tint="#B8E092"
                         app:srcCompat="@drawable/batidor_icon"
                         tools:ignore="MissingConstraints,UseAppTint" />
 
+
                     <EditText
-                        android:layout_marginLeft="10dp"
                         android:id="@+id/text_dificultad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:fontFamily="@font/roboto"
                         android:text="Nivel de dificultad"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        tools:ignore="MissingConstraints" />
+                        tools:ignore="MissingConstraints,TextSizeCheck,TouchTargetSizeCheck" />
+
 
                 </LinearLayout>
 
+
             </LinearLayout>
 
+
             <LinearLayout
-                android:padding='10dp'
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="56dp"
                 android:orientation="vertical"
+                android:padding='10dp'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
+
 
                 <TextView
                     android:id="@+id/title_ingredientes"
@@ -227,16 +254,30 @@
                     android:textSize="16sp"
                     tools:ignore="MissingConstraints" />
 
+
                 <LinearLayout
                     android:id="@+id/contenedor_ingredientes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#FDFFEB"
+                    android:orientation="vertical"
                     android:padding="10dp">
 
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewIngredientes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/title_ingredientes"
+                        android:layout_gravity="center"
+                        android:foregroundGravity="center"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/ingrediente_receta" />
+
+
                 </LinearLayout>
+
 
                 <Button
                     android:id="@+id/btn_ingredientes"
@@ -258,6 +299,7 @@
                     app:iconSize="14dp"
                     tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
+
                 <TextView
                     android:id="@+id/title_pasos"
                     android:layout_width="wrap_content"
@@ -271,13 +313,28 @@
                     android:textSize="16sp"
                     tools:ignore="MissingConstraints" />
 
+
                 <LinearLayout
                     android:id="@+id/contenedor_pasos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#FDFFEB"
-                    android:padding="10dp"></LinearLayout>
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPasos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/title_pasos"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/pasos_receta" />
+
+
+                </LinearLayout>
 
 
                 <Button
@@ -300,6 +357,7 @@
                     app:iconSize="14dp"
                     tools:ignore="MissingConstraints" />
 
+
                 <TextView
                     android:id="@+id/title_categorias"
                     android:layout_width="wrap_content"
@@ -312,13 +370,45 @@
                     android:textSize="16sp"
                     tools:ignore="MissingConstraints" />
 
+
                 <LinearLayout
-                    android:id="@+id/contenedor_categorias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center"
                     android:background="#FDFFEB"
-                    android:padding="10dp"></LinearLayout>
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:id="@+id/contenedor_categorias"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:background="#FDFFEB"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+
+                        <!--<androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerCategorias"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_below="@id/title_categorias"
+                            tools:listitem="@layout/categoria_layout"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            />-->
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="end"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="boton para eliminar las categorias"
+                        android:src="@android:drawable/ic_menu_delete"
+                        app:tint="#292727" />
+                </LinearLayout>
 
 
                 <Button
@@ -346,3 +436,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
