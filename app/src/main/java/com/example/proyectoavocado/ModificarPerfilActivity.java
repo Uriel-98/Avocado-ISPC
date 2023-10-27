@@ -3,15 +3,19 @@ package com.example.proyectoavocado;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -19,8 +23,22 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
+
+    EditText perfilPassword1;
+    TextView perfilEmail;
+    EditText perfilNombreCompleto;
+
+    EditText perfilNombreUsuario;
+
+    String nombrePlaceholder;
+
+    String usuarioPlaceholder;
     private AlertDialog dialog;
 
     @Override
@@ -37,6 +55,71 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         ImageButton btnBackPerfil = findViewById(R.id.btn_backPerfil);
         Button btnEliminarCuenta = findViewById(R.id.btn_eliminarCuenta);
 
+        ImageButton btnEditNombre = findViewById(R.id.btnEditNombre);
+        ImageButton btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
+        ImageButton btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
+
+        //EditTexts
+        perfilPassword1 = findViewById(R.id.perfilPassword1);
+        perfilEmail = findViewById(R.id.perfilEmail);
+        perfilNombreCompleto = findViewById(R.id.perfilNombreCompleto);
+        perfilNombreUsuario = findViewById(R.id.perfilNombreUsuario);
+
+        perfilPassword1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        //Deshabilitar los EditText
+        perfilNombreCompleto.setEnabled(false);
+        perfilNombreUsuario.setEnabled(false);
+        perfilPassword1.setEnabled(false);
+
+        traerDatosPerfil("lalari@example.com");
+
+        btnEditNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnEditNombre.setVisibility(View.GONE);
+                btnAceptarEditNombre.setVisibility(View.VISIBLE);
+                btnCancelEditNombre.setVisibility(View.VISIBLE);
+
+                usuarioPlaceholder = perfilNombreUsuario.getText().toString();
+                nombrePlaceholder = perfilNombreCompleto.getText().toString();
+
+                perfilNombreCompleto.setEnabled(true);
+                perfilNombreUsuario.setEnabled(true);
+            }
+        });
+
+        btnCancelEditNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perfilNombreUsuario.setText(usuarioPlaceholder);
+                perfilNombreCompleto.setText(nombrePlaceholder);
+
+                perfilNombreCompleto.setEnabled(false);
+                perfilNombreUsuario.setEnabled(false);
+
+                btnAceptarEditNombre.setVisibility(View.GONE);
+                btnCancelEditNombre.setVisibility(View.GONE);
+                btnEditNombre.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnAceptarEditNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //llamar actualizar
+                actualizarNombres(String.valueOf(perfilEmail));
+              // cambiar visibilidad
+                btnAceptarEditNombre.setVisibility(View.GONE);
+                btnCancelEditNombre.setVisibility(View.GONE);
+                btnEditNombre.setVisibility(View.VISIBLE);
+              // deshabilitar
+                perfilNombreUsuario.setEnabled(false);
+                perfilNombreCompleto.setEnabled(false);
+            }
+        });
+
+        // Otros botones
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,4 +234,100 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    private void traerDatosPerfil(String userEmail){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/getUsuario/" + userEmail;
+
+
+        StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String jsonString = json.toString();
+                    JSONObject content = json.getJSONObject("content");
+                    Log.d("JSON",jsonString);
+                    String nombreCompleto = content.getString("nombreCompleto");
+                    String usuario =  content.getString("usuario");
+                    String email =  content.getString("email");
+                    // agregar imagen después
+
+                    perfilNombreCompleto.setText(nombreCompleto);
+                    perfilNombreUsuario.setText(usuario);
+                    perfilEmail.setText(email);
+
+
+
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al traer los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        });
+        Volley.newRequestQueue(this).add(get);
+    }
+
+    private void actualizarNombres(String userEmail){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/actualizarPerfil?_method=PUT";
+
+        JSONObject datos = new JSONObject();
+        try {
+            datos.put("nombreCompleto", perfilNombreCompleto.getText().toString());
+            datos.put("usuario", perfilNombreUsuario.getText().toString());
+            datos.put("email", perfilEmail.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al traer los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return datos.toString().getBytes();
+            }
+        };
+
+        Volley.newRequestQueue(this).add(post);
+    }
+
+
 }

@@ -6,6 +6,26 @@ const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesPerfil')
 const validacionesPass = require('../utils/validacionesPassword')
 
+router.get('/getUsuario/:email', (req, res) => {
+  console.log(req.params.email)
+  db.query(`SELECT email, nombreCompleto, usuario, imagen FROM usuarios WHERE email = '${req.params.email}'`, function(error, results){
+    if(error){
+      res.send({
+        success: true,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: "",
+        content: results[0]
+      })
+
+    }
+  })
+})
+
 router.put('/actualizarPerfil', checkSchema(validaciones), (req, res) => {
   const resValidaciones = validationResult(req).array()
   const nombreCompleto = req.body.nombreCompleto || null;
