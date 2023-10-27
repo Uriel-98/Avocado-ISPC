@@ -24,19 +24,17 @@ if(resValidaciones.length > 0){
 
 // lógica de registro
 const pass = bcrypt.hashSync(req.body.password, 12)
-const reemplazar = {
-  0: false,
-  1: true
-}
 
 db.query(`CALL sp_registro('${req.body.email}','${req.body.nombreCompleto}','${req.body.usuario}', '${pass}');`, function (error, results, fields){
   const response = results[0][0]
-
   if(error){
     res.send({
       success: false,
       message: error
     })
+
+    return
+
   }
   if(response.success == 0){
     res.send({
