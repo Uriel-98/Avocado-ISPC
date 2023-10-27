@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="#B8E092">
 
-
     <RadioButton
         android:id="@+id/categoria_item"
         android:layout_width="match_parent"

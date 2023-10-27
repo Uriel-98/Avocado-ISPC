@@ -123,6 +123,7 @@ public class FeedActivity extends AppCompatActivity {
             Integer idReceta = jsonObject.getInt("idReceta");
             String titulo = jsonObject.getString("titulo");
             String creadoPor = jsonObject.getString("creadoPor");
+            String descripcion = jsonObject.getString("descripcion");
             // Puedes obtener otros campos de la receta de manera similar
             // ...
 
