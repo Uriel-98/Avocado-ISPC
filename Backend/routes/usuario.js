@@ -112,7 +112,10 @@ router.delete('/eliminar', (req, res) => {
     else {
       req.session.destroy(err => {
         if (err) {
-          res.send(err)
+          res.send({
+            success: false,
+            message: err
+          })
           return
         }
       })
