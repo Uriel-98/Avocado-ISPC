@@ -1,6 +1,9 @@
 package com.example.proyectoavocado;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,8 +12,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 
 import com.android.volley.Request;
@@ -25,7 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
-    private AlertDialog dialog;
+
+    private Dialog dialog; // Usar Dialog en lugar de AlertDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        btnEliminarCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mostrarDialogEliminarCuenta();
+            }
+        });
+
         btnBackPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,60 +94,55 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btnEliminarCuenta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mostrarDialogEliminarCuenta();
-            }
-        });
     }
 
     private void mostrarDialogEliminarCuenta() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Inflar el diseño personalizado
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
-        builder.setView(dialogView);
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_eliminar_cuenta);
 
-        // capturo los id de los elementos
-        Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
-        Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
+        // captura los id de los elementos dentro del diálogo
+        Button positiveButton = dialog.findViewById(R.id.btn_aceptar);
+        Button negativeButton = dialog.findViewById(R.id.btn_cancelar);
 
-        // Configurar los clics de los botones
+        // Configurar los clics de los botones dentro del diálogo
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Cierra el diálogo
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Implementa aquí la lógica para eliminar la cuenta
                 eliminarCuenta();
-
                 // Cierra el diálogo
-                dialog.dismiss();
-            }
-        });
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Cierra el diálogo
-                dialog.dismiss();
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
             }
         });
 
-        // Crear y mostrar el diálogo
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        // Asegúrate de que dialog no sea nulo antes de mostrarlo
+        if (dialog != null) {
+            dialog.show();
+        }
     }
 
     private void eliminarCuenta() {
         // Obtener el correo electrónico del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        String userEmail = sharedPreferences.getString("email", null);
+        //String userEmail = sharedPreferences.getString("email", null);
+        String userEmail = "pedro@example.com";
 
         if (userEmail != null) {
             // El correo electrónico del usuario está disponible, puedes enviar la solicitud para eliminar la cuenta
 
             String pc_ip = getResources().getString(R.string.pc_ip);
-            String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
+            String url = " http://" + pc_ip + ":3000/usuario/eliminar?_method=DELETE"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
 
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
@@ -146,6 +150,11 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                         public void onResponse(String response) {
                             // Cuenta eliminada con éxito
                             Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+
+                            // Limpiar datos de sesión (cerrar sesión)
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.remove("email"); // Elimina el correo electrónico u otros datos de sesión que estés almacenando
+                            editor.apply();
 
                             // Redirigir a la actividad de inicio
                             Intent intent = new Intent(ModificarPerfilActivity.this, InicioActivity.class);
@@ -176,6 +185,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             Volley.newRequestQueue(this).add(postRequest);
         } else {
             // El correo electrónico del usuario no está disponible en SharedPreferences, muestra un mensaje de error o maneja la situación como desees
+            Toast.makeText(getApplicationContext(), "Error mail no existe", Toast.LENGTH_SHORT).show();
         }
     }
 }

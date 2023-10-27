@@ -28,7 +28,7 @@ public class Receta implements Serializable {
 
 
     // Constructor
-    public Receta(Integer idReceta, String titulo, String imagen,String descripcion, String creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion ) {
+    public Receta(Integer idReceta, String titulo, String imagen,String descripcion, String creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion, List<String> pasos, List<String> categorias, List<String> ingredientes) {
         this.idReceta = idReceta;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -40,23 +40,20 @@ public class Receta implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
         this.pasos = pasos;
         this.categorias = categorias;
+        this.ingredientes = ingredientes;
     }
 
-    public Receta(String nombre, String imagen, String descripcion) {
+    public Receta(String nombre, String imagen) {
         this.titulo = nombre;
         this.imagen = imagen;
-        this.descripcion = descripcion;
+
     }
 
-    public Receta(String imagen, String nombre) {
-        this.imagen = imagen;
-        this.titulo = nombre;
-    }
-
-    public Receta(Integer idReceta, String titulo, String creadoPor) {
+    public Receta(Integer idReceta, String titulo, String creadoPor, String descripcion) {
         this.idReceta = idReceta;
         this.titulo = titulo;
         this.creadoPor = creadoPor;
+        this.descripcion = descripcion;
     }
 
     // Getter y Setter para el id
@@ -163,7 +160,7 @@ public class Receta implements Serializable {
     public String toString() {
         return "Receta{" +
                 "id=" + idReceta +
-                ", nombre='" + titulo + '\'' +
+                ", titulo='" + titulo + '\'' +
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", creadoPor='" + creadoPor + '\'' +
@@ -174,6 +171,7 @@ public class Receta implements Serializable {
                 ", ingredientes=" + ingredientes +  '\'' +
                 ", pasos=" + pasos +  '\'' +
                 ", categorias=" + categorias +  '\'' +
+                ", ingredientes=" + ingredientes +  '\'' +
                 '}';
     }
 }
