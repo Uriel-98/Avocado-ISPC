@@ -45,7 +45,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/perfilImagen"
         android:layout_width="91dp"
         android:layout_height="77dp"
         android:layout_marginTop="132dp"
@@ -55,30 +55,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icono_perfil" />
 
-    <TextView
-        android:id="@+id/text_nombre"
+    <EditText
+        android:id="@+id/perfilNombreCompleto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="140dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Nombre y Apellido"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_nombreusuario"
+    <EditText
+        android:id="@+id/perfilNombreUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="176dp"
         android:fontFamily="@font/roboto_bold"
         android:text="nombreUsuario"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_nombre" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -186,8 +187,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
+    <TextView
+        android:id="@+id/perfilEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -219,30 +220,54 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/btn_editNombre"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
+        android:id="@+id/btnCancelEditNombre"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="326dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="568dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="boton para editar Nombre"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/x_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/btnAceptarEditNombre"
+        android:layout_width="53dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="349dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="548dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="boton para editar Nombre"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/check_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/btnEditNombre"
+        android:layout_width="62dp"
+        android:layout_height="47dp"
         android:layout_marginTop="140dp"
         android:backgroundTint="#00FFFFFF"
         android:contentDescription="boton para editar Nombre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pen_icon"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <ImageButton
-        android:id="@+id/btn_editUserName"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#00FFFFFF"
-        android:contentDescription="boton para editar nombre de usuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_editNombre"
         app:srcCompat="@drawable/pen_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -251,10 +276,13 @@
         android:layout_width="23dp"
         android:layout_height="23dp"
         android:layout_marginTop="308dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="264dp"
         android:backgroundTint="#00FFFFFF"
         android:contentDescription="boton para editar contraseña"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_editNombre"
         app:srcCompat="@drawable/pen_icon"
@@ -304,13 +332,13 @@
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/perfilPassword1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="*********"
+        android:hint="password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:textColor="#3C5B27"
