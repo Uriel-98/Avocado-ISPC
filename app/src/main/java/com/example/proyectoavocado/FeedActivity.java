@@ -128,7 +128,7 @@ public class FeedActivity extends AppCompatActivity {
             // ...
 
             // Crear objeto Receta y agregarlo a la lista
-            Receta receta = new Receta(idReceta, titulo, creadoPor);
+            Receta receta = new Receta(idReceta, titulo, creadoPor, descripcion);
             listaRecetas.add(receta);
         }
         return listaRecetas;

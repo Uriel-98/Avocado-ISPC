@@ -40,7 +40,6 @@ import java.util.List;
 
 public class AgregaRecetaActivity extends AppCompatActivity {
 
-
     private EditText editTextTitulo, editTextDescripcion, editTextTiempoCoccion, editTextDificultad;
     private RecyclerView recyclerViewIngredientes, recyclerViewPasos;
     private IngredienteRecipeAdapter ingredienteAdapter;
@@ -260,12 +259,15 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         // Crear el objeto JSON para la solicitud
         JSONObject requestObject = new JSONObject();
         try {
+            requestObject.put("email", "juan@example.com");
             requestObject.put("titulo", titulo);
             requestObject.put("descripcion", descripcion);
             requestObject.put("tiempoCoccion", tiempoCoccion);
             requestObject.put("dificultad", dificultad);
+            requestObject.put("imagen", "SG9sYSwgdGVzdCBkZSBjb25jYXJhIGVuIEJhc2U2NC4=");
             requestObject.put("ingredientes", new JSONArray(ingredientes));
             requestObject.put("pasos", new JSONArray(pasos));
+            Log.d("TAG", String.valueOf(requestObject));
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(this, "Error al crear el objeto JSON", Toast.LENGTH_SHORT).show();
