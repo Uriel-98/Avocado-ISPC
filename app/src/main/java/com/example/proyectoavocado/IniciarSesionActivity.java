@@ -80,7 +80,7 @@ public class IniciarSesionActivity extends AppCompatActivity {
         });
     }
 
-/*private void llamar(){
+private void llamar(){
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/login";
 
@@ -110,5 +110,5 @@ public class IniciarSesionActivity extends AppCompatActivity {
         }
     });
     Volley.newRequestQueue(this).add(get);
-}*/
+}
 }

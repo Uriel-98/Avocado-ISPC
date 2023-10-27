@@ -70,7 +70,7 @@ router.get('/getCategorias', (req, res)=> {
 })
 
 router.get('/getRecetasFeed', (req, res) => {
-  db.query(`SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, r.imagen, r.fechaCreacion, r.fechaActualizacion FROM recetas r INNER JOIN usuarios u ON u.idUsuario = r.creadoPor LIMIT 20;`, function(error, results){
+  db.query(`SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, r.imagen, r.fechaCreacion, r.descripcion, r.fechaActualizacion FROM recetas r INNER JOIN usuarios u ON u.idUsuario = r.creadoPor LIMIT 20;`, function(error, results){
     if(error){
       res.send({
         success:false,

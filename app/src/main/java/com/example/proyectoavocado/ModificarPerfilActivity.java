@@ -2,6 +2,7 @@ package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
     private AlertDialog dialog;
@@ -89,32 +93,40 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
     }
-    private void eliminarCuenta() {
-        String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
 
-        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+    private void mostrarDialogEliminarCuenta() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Inflar el diseño personalizado
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
+        builder.setView(dialogView);
+
+        // capturo los id de los elementos
+        Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
+        Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
+
+        // Configurar los clics de los botones
+        positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                // Cuenta eliminada con éxito
-                Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                // Implementa aquí la lógica para eliminar la cuenta
+                eliminarCuenta();
 
-                // Redirigir a la actividad de inicio
-                Intent intent = new Intent(ModificarPerfilActivity.this, InicioActivity.class);
-                startActivity(intent);
-                finish(); // Cierra la actividad actual para evitar volver atrás
+                // Cierra el diálogo
+                dialog.dismiss();
             }
-        }, new Response.ErrorListener() {
+        });
+        negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                // Error al eliminar la cuenta
-                Toast.makeText(getApplicationContext(), "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
-                // Log de errores
-                Log.e("Error", "Error al eliminar la cuenta: " + error.getMessage());
+            public void onClick(View view) {
+                // Cierra el diálogo
+                dialog.dismiss();
             }
         });
 
-        Volley.newRequestQueue(this).add(deleteRequest);
+        // Crear y mostrar el diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void eliminarCuenta() {
@@ -165,40 +177,5 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         } else {
             // El correo electrónico del usuario no está disponible en SharedPreferences, muestra un mensaje de error o maneja la situación como desees
         }
-    }
-    private void mostrarDialogEliminarCuenta() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Inflar el diseño personalizado
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
-        builder.setView(dialogView);
-
-        // capturo los id de los elementos
-        Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
-        Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
-
-        // Configurar los clics de los botones
-        positiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Implementa aquí la lógica para eliminar la cuenta
-                eliminarCuenta();
-
-                // Cierra el diálogo
-                dialog.dismiss();
-            }
-        });
-
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Cierra el diálogo
-                dialog.dismiss();
-            }
-        });
-
-        // Crear y mostrar el diálogo
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 }
