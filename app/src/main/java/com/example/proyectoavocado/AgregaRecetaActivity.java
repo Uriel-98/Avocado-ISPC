@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
 
 import android.widget.Toast;
 import com.android.volley.Request;
@@ -29,10 +32,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class AgregaRecetaActivity extends AppCompatActivity {
+
 
     private EditText editTextTitulo, editTextDescripcion, editTextTiempoCoccion, editTextDificultad;
     private RecyclerView recyclerViewIngredientes, recyclerViewPasos;
@@ -49,20 +56,21 @@ public class AgregaRecetaActivity extends AppCompatActivity {
 
         // Inicializa los componentes
         ImageButton btnBack = findViewById(R.id.btn_back);
-        Button btnIngredientes = findViewById(R.id.btn_ingredientes);
-        Button btnPasos = findViewById(R.id.btn_pasos);
-        ImageButton btnClose = findViewById(R.id.btn_close);
-        ImageButton btnConfirm = findViewById(R.id.btn_confirm);
         editTextTitulo = findViewById(R.id.text_title);
         editTextDescripcion = findViewById(R.id.text_descripcion);
         editTextTiempoCoccion = findViewById(R.id.text_tiempoCoccion);
         editTextDificultad = findViewById(R.id.text_dificultad);
         recyclerViewIngredientes = findViewById(R.id.recyclerViewIngredientes);
         recyclerViewPasos = findViewById(R.id.recyclerViewPasos);
+        Button btnIngredientes = findViewById(R.id.btn_ingredientes);
+        Button btnPasos = findViewById(R.id.btn_pasos);
+        ImageButton btnConfirm = findViewById(R.id.btn_confirm);
+        ImageButton btnClose = findViewById(R.id.btn_close);
 
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
         pasosList = new ArrayList<>();
+
 
         // Configura el adaptador de ingredientes
         ingredienteAdapter = new IngredienteRecipeAdapter(ingredientesList, new IngredienteRecipeAdapter.OnItemClickListener() {
@@ -75,6 +83,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewIngredientes.setAdapter(ingredienteAdapter);
 
+
         // Configura el adaptador de pasos
         pasosAdapter = new PasosRecetaRecipeAdapter(pasosList, new PasosRecetaRecipeAdapter.OnItemClickListener() {
             @Override
@@ -85,6 +94,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         });
         recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPasos.setAdapter(pasosAdapter);
+
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,16 +111,25 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                'Log.d("TAG", "Botón presionado")'
+                Log.d("TAG", "Botón presionado");
                 finish(); // Cierra la actividad actual
                 Intent intent = new Intent(AgregaRecetaActivity.this, FeedActivity.class);
                 startActivity(intent);
             }
         });
 
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TAG", "Botón presionado");
+                finish(); // Cierra la actividad actual
+            }
+        });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("TAG", "Botón presionado");
                 // Crear un Intent para abrir FeedActivity
                 Intent intent = new Intent(AgregaRecetaActivity.this, FeedActivity.class);
                 startActivity(intent);
@@ -120,6 +139,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         btnIngredientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("TAG", "Botón presionado");
                 mostrarDialogoIngredientes();
             }
         });
@@ -127,11 +147,11 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         btnPasos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("TAG", "Botón presionado");
                 mostrarDialogoPasos();
             }
         });
     }
-
     private void mostrarDialogoIngredientes() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -266,14 +286,12 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                                 // La receta se agregó correctamente
                                 String mensaje = response.getString("mensaje");
                                 Toast.makeText(AgregaRecetaActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-
                                 // Puedes finalizar la actividad si la receta se agregó con éxito
                                 finish();
                             } else {
                                 // La receta no se agregó correctamente
                                 String errorMensaje = response.getString("mensaje");
                                 Toast.makeText(AgregaRecetaActivity.this, "Error: " + errorMensaje, Toast.LENGTH_SHORT).show();
-
                                 // Puedes hacer más cosas aquí según la respuesta de la API
                             }
                         } catch (JSONException e) {
@@ -292,8 +310,9 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                         Toast.makeText(AgregaRecetaActivity.this, "Error al agregar la receta: " + errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
-
                 // Agregar la solicitud a la cola de solicitudes de Volley
                  Volley.newRequestQueue(this).add(request);
         }
 }
+
+

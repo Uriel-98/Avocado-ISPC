@@ -81,11 +81,11 @@ VALUES
   (9, 'Marta Torres', 'marta555', 'marta@example.com', 'clave555'),
   (10, 'Santiago Rodríguez', 'santiago333', 'santiago@example.com', 'contraseña333');
   
-INSERT INTO recetas (idReceta, titulo, creadoPor, tiempoCoccion, dificultad, fechaCreacion, fechaActualizacion)
+INSERT INTO recetas (idReceta, titulo, creadoPor, tiempoCoccion, dificultad, fechaCreacion, fechaActualizacion, descripcion)
 VALUES
- (2, 'Yogur con cereal', 3, '45 minutos', 'Medio', NOW(), NOW()),
-  (1, 'Sanguche de jamón y queso', 1, '30 minutos', 'Fácil', NOW(), NOW()),
-  (3, 'Pan con mermelada', 5, '60 minutos', 'Difícil', NOW(), NOW());
+ (2, 'Yogur con cereal', 3, '45 minutos', 'Medio', NOW(), NOW(), 'lalalalalalalalalalaa'),
+  (1, 'Sanguche de jamón y queso', 1, '30 minutos', 'Fácil', NOW(), NOW(), 'lalalalalalalalalalaa'),
+  (3, 'Pan con mermelada', 5, '60 minutos', 'Difícil', NOW(), NOW(), 'lalalalalalalalalalaa');
   
   INSERT INTO pasos (idReceta, titulo, descripcion)
   VALUES
@@ -138,25 +138,18 @@ END
 DELIMITER //
 CREATE PROCEDURE `sp_actualizarPerfil` (IN userEmail VARCHAR(200), IN userFullName VARCHAR(150), IN userImg BLOB, IN userName VARCHAR(15))
 BEGIN 
-	DECLARE consulta VARCHAR(500);
-	SET consulta = 'UPDATE usuarios SET ';
 		IF userFullName IS NOT NULL
-			THEN SET consulta = CONCAT(consulta, 'nombreCompleto = "', userFullName, '", ');
+			THEN UPDATE usuarios SET nombreCompleto = userFullName WHERE email = userEmail;
 		END IF;
 		IF userImg IS NOT NULL
-			THEN SET consulta = CONCAT(consulta, 'imagen = "', userImg, '", ');
+			THEN UPDATE usuarios SET imagen = userImg WHERE email = userEmail;
 		END IF;
 		IF userName IS NOT NULL
-			THEN SET consulta = CONCAT(consulta, 'usuario = "', userName, '", ');
+			THEN UPDATE usuarios SET usuario = userName WHERE email = userEmail;
 		END IF;
-	SET consulta = SUBSTRING(consulta, 1, LENGTH(consulta) - 2);
-	SET consulta = CONCAT(consulta, ' WHERE email = "', userEmail, '";');
-	SET @stmt = consulta;
-	PREPARE stmt FROM @stmt;
-	EXECUTE stmt;
-	DEALLOCATE PREPARE stmt; 
 END
 //
+
 
 -- Traer toda la info de una receta (vista detallada)
 DELIMITER //
@@ -252,6 +245,15 @@ END
 //
 
 DELIMITER //
+CREATE PROCEDURE `sp_actualizarIngredientes` (IN idR INT, IN ingredientes JSON)
+BEGIN
+DELETE FROM ingredientes WHERE idReceta = idR;
+CALL sp_crearIngrediente(idR, ingredientes);
+UPDATE recetas SET fechaActualizacion = NOW() WHERE idReceta = idR;
+END
+//
+
+DELIMITER //
 CREATE PROCEDURE `sp_crearPaso` (IN idR INT, IN pasos JSON)
 BEGIN
 DECLARE largo INT;
@@ -276,6 +278,19 @@ END
 //
 
 DELIMITER //
+CREATE PROCEDURE `sp_actualizarPasos` (IN idR INT, IN pasos JSON)
+BEGIN
+IF (SELECT idReceta FROM recetas WHERE idReceta = idR) IS NOT NULL
+THEN
+DELETE FROM pasos WHERE idReceta = idR;
+CALL sp_crearPaso(idR, pasos);
+UPDATE recetas SET fechaActualizacion = NOW() WHERE idReceta = idR;
+ELSE SELECT 'La receta no existe' AS message;
+END IF;
+END
+//
+
+DELIMITER //
 CREATE PROCEDURE `sp_crearCategoria` (IN idR INT, IN categorias JSON)
 BEGIN
 DECLARE largo INT;
@@ -295,6 +310,16 @@ DECLARE largo INT;
 END
 //
 
+DELIMITER //
+CREATE PROCEDURE `sp_actualizarCategoria` (IN idR INT, IN categorias JSON)
+BEGIN
+DELETE FROM recetas_categorias WHERE idReceta = idR;
+IF categorias IS NOT NULL
+THEN CALL sp_crearCategoria(idR, categorias);
+END IF;
+UPDATE recetas SET fechaActualizacion = NOW() WHERE idReceta = idR;
+END
+//
 
 DELIMITER //
 CREATE PROCEDURE `sp_crearReceta` (IN tituloR VARCHAR(250) , IN emailCreador VARCHAR(250), IN tiempoCoccionR VARCHAR(20), IN dificultadR VARCHAR(12), 
@@ -318,6 +343,22 @@ BEGIN
 	END IF;
 END
 //
+
+
+DELIMITER //
+CREATE PROCEDURE `sp_actualizarDatosReceta`(IN idR INT, IN descripcionR TEXT, IN tiempoCoccionR VARCHAR(20), IN dificultadR VARCHAR(15))
+BEGIN 
+	UPDATE recetas SET descripcion = descripcionR WHERE idReceta = idR;
+		IF tiempoCoccionR IS NOT NULL
+			THEN UPDATE recetas SET tiempoCoccion = tiempoCoccionR WHERE idReceta = idR;
+		END IF;
+		IF dificultadR IS NOT NULL
+			THEN UPDATE recetas SET dificultad = dificultadR WHERE idReceta = idR;
+		END IF;
+	UPDATE recetas SET fechaActualizacion = NOW();
+END
+//
+
 
 /*------ TRIGGERS ------*/
 
