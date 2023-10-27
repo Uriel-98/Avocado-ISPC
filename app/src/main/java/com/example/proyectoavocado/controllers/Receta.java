@@ -1,21 +1,24 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.controllers;
 
 import java.util.Date;
 import java.io.Serializable;
 import java.util.List;
 
 public class Receta implements Serializable {
-    private Integer id;
-    private String nombre;
+    private Integer idReceta;
+    private String titulo;
     private String imagen;
     private String descripcion;
-    private Integer creadoPor;
+    private String creadoPor;
     private String tiempoCoccion;
     private String dificultad;
     private Date fechaCreacion;
     private Date fechaActualizacion;
     private List<String> categorias;
     private List<String> pasos;
+
+    private List<String> ingredientes;
+
 
 
 
@@ -25,9 +28,9 @@ public class Receta implements Serializable {
 
 
     // Constructor
-    public Receta(Integer id, String nombre, String imagen,String descripcion, Integer creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion ) {
-        this.id = id;
-        this.nombre = nombre;
+    public Receta(Integer idReceta, String titulo, String imagen,String descripcion, String creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion ) {
+        this.idReceta = idReceta;
+        this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.creadoPor = creadoPor;
@@ -39,24 +42,40 @@ public class Receta implements Serializable {
         this.categorias = categorias;
     }
 
-    public Receta(String nombre, String imagen,String descripcion) {
-        this.nombre = nombre;
+    public Receta(String nombre, String imagen, String descripcion) {
+        this.titulo = nombre;
         this.imagen = imagen;
         this.descripcion = descripcion;
     }
 
     public Receta(String imagen, String nombre) {
         this.imagen = imagen;
-        this.nombre = nombre;
+        this.titulo = nombre;
     }
+
+    public Receta(Integer idReceta, String titulo, String creadoPor) {
+        this.idReceta = idReceta;
+        this.titulo = titulo;
+        this.creadoPor = creadoPor;
+    }
+
+    // Getter y Setter para el id
+    public Integer getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(String titulo) {
+        this.idReceta = idReceta;
+    }
+
 
     // Getter y Setter para el nombre
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     // Getter y Setter para la imagen
@@ -79,11 +98,11 @@ public class Receta implements Serializable {
     }
 
     // Getter y Setter para creadoPor
-    public Integer getCreadoPor() {
+    public String getCreadoPor() {
         return creadoPor;
     }
 
-    public void setCreadoPor(Integer creadoPor) {
+    public void setCreadoPor(String creadoPor) {
         this.creadoPor = creadoPor;
     }
 
@@ -143,8 +162,8 @@ public class Receta implements Serializable {
 
     public String toString() {
         return "Receta{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
+                "id=" + idReceta +
+                ", nombre='" + titulo + '\'' +
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", creadoPor='" + creadoPor + '\'' +
@@ -152,6 +171,7 @@ public class Receta implements Serializable {
                 ", dificultad='" + dificultad + '\'' +
                 ", fechaCreacion='" + fechaCreacion + '\'' +
                 ", fechaActualizacion='" + fechaActualizacion + '\'' +
+                ", ingredientes=" + ingredientes +  '\'' +
                 ", pasos=" + pasos +  '\'' +
                 ", categorias=" + categorias +  '\'' +
                 '}';
