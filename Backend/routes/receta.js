@@ -52,6 +52,146 @@ db.query(`CALL sp_crearReceta('${req.body.titulo}', '${req.body.email}', ${tiemp
 
 } )
 
+router.put('/modificarImagenReceta', (req, res)=> {
+  if(typeof req.body.imagen === 'undefined' || typeof req.body.idReceta === 'undefined'){
+    res.status(400).json('Error. idReceta e imagen obligatorios')
+    return
+  }
+
+  db.query(`UPDATE recetas SET imagen = '${req.body.imagen}', fechaActualizacion = NOW() WHERE idReceta = ${req.body.idReceta}; `, function(error, results){
+    if(error){
+      res.send({
+        success: false,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'Imagen actualizada'
+      })
+    }
+    return
+  } )
+})
+
+router.put('/modificarTituloReceta', (req, res)=> {
+  if(typeof req.body.titulo === 'undefined' || typeof req.body.idReceta === 'undefined'){
+    res.status(400).json('Error. idReceta e imagen obligatorios')
+    return
+  }
+
+  db.query(`UPDATE recetas SET titulo = '${req.body.titulo}', fechaActualizacion = NOW() WHERE idReceta = ${req.body.idReceta}; `, function(error, results){
+    if(error){
+      res.send({
+        success: false,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'Título actualizado'
+      })
+    }
+    return
+  } )
+})
+
+router.put('/modificarDescripcionReceta', (req, res)=> {
+  if(typeof req.body.descripcion === 'undefined' || typeof req.body.idReceta === 'undefined'){
+    res.status(400).json('Error. idReceta y descripcion obligatorias')
+    return
+  }
+
+  db.query(`CALL sp_actualizarDatosReceta(${req.body.idReceta} , '${req.body.descripcion}', '${req.body.tiempoCoccion}', '${req.body.dificultad}'); `, function(error, results){
+    if(error){
+      res.send({
+        success: false,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'Datos actualizados'
+      })
+    }
+    return
+  } )
+})
+
+router.put('/modificarCategorias', (req, res) => {
+  if(typeof req.body.categorias === 'undefined' || typeof req.body.idReceta === 'undefined'){
+    res.status(400).json('Error. idReceta y categorias obligatorias')
+    return
+  }
+
+  const categorias = req.body.categorias.length === 0 ? null : `'${JSON.stringify(req.body.categorias)}'`
+
+  db.query(`CALL sp_actualizarCategoria(${req.body.idReceta} , ${categorias}); `, function(error, results){
+    if(error){
+      res.send({
+        success: false,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'Datos actualizados'
+      })
+    }
+    return
+  } )
+})
+
+router.put('/modificarIngredientes', (req, res) => {
+  if(typeof req.body.ingredientes === 'undefined' || typeof req.body.idReceta === 'undefined'){
+    res.status(400).json('Error. idReceta e ingredientes obligatorios')
+    return
+  }
+
+  db.query(`CALL sp_actualizarIngredientes(${req.body.idReceta} , '${JSON.stringify(req.body.ingredientes)}'); `, function(error, results){
+    if(error){
+      res.send({
+        success: false,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'Datos actualizados'
+      })
+    }
+    return
+  } )
+})
+
+router.put('/modificarPasos', (req, res) => {
+  if(typeof req.body.pasos === 'undefined' || typeof req.body.idReceta === 'undefined'){
+    res.status(400).json('Error. idReceta y pasos obligatorios')
+    return
+  }
+
+  db.query(`CALL sp_actualizarPasos(${req.body.idReceta} , '${JSON.stringify(req.body.pasos)}'); `, function(error, results){
+    if(error){
+      res.send({
+        success: false,
+        message: error
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'Datos actualizados'
+      })
+    }
+    return
+  } )
+})
+
 router.get('/getCategorias', (req, res)=> {
   db.query(`SELECT * FROM categorias;`,function(error, results){
     if(error){

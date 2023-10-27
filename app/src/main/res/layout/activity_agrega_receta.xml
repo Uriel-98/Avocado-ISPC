@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AgregaRecetaActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="409dp"
@@ -17,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -25,6 +27,7 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -36,6 +39,7 @@
             app:srcCompat="?attr/actionModeCloseDrawable"
             tools:ignore="MissingConstraints,UseAppTint,SpeakableTextPresentCheck" />
 
+
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="115dp"
@@ -44,6 +48,7 @@
             android:layout_marginRight="350px"
             app:srcCompat="@drawable/logo_nombre"
             tools:ignore="MissingConstraints" />
+
 
         <ImageButton
             android:id="@+id/btn_close"
@@ -55,6 +60,7 @@
             android:contentDescription="Botón de cerrar la edicion"
             app:srcCompat="@drawable/x_icon"
             tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
 
         <ImageButton
             android:id="@+id/btn_confirm"
@@ -108,7 +114,6 @@
                     android:tint="#000000"
                     app:srcCompat="@android:drawable/ic_menu_camera"
                     tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -205,7 +210,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
