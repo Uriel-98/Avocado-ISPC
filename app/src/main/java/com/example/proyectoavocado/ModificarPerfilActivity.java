@@ -17,10 +17,12 @@ import android.view.LayoutInflater;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +30,7 @@ import java.util.Map;
 public class ModificarPerfilActivity extends AppCompatActivity {
 
     private Dialog dialog; // Usar Dialog en lugar de AlertDialog
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,19 +138,28 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private void eliminarCuenta() {
         // Obtener el correo electrónico del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        //String userEmail = sharedPreferences.getString("email", null);
-        String userEmail = "pedro@example.com";
+        String userEmail = sharedPreferences.getString("email", null);
+        //String userEmail = "pedro@example.com";
 
         if (userEmail != null) {
             // El correo electrónico del usuario está disponible, puedes enviar la solicitud para eliminar la cuenta
 
             String pc_ip = getResources().getString(R.string.pc_ip);
-            String url = " http://" + pc_ip + ":3000/usuario/eliminar?_method=DELETE"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
+            String url = "http://" + pc_ip + ":3000/usuario/eliminar?_method=DELETE";
 
-            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                    new Response.Listener<String>() {
+            // Crea un objeto JSON con el correo electrónico del usuario
+            JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody.put("email", userEmail);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Crea una solicitud POST con el cuerpo JSON
+            JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                    new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
                             // Cuenta eliminada con éxito
                             Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
 
@@ -170,16 +182,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                             // Log de errores
                             Log.e("Error", "Error al eliminar la cuenta: " + error.getMessage());
                         }
-                    }
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    // Parámetros del cuerpo de la solicitud (correo electrónico del usuario)
-                    Map<String, String> params = new HashMap<>();
-                    params.put("email", userEmail);
-                    return params;
-                }
-            };
+                    });
 
             // Agregar la solicitud a la cola de solicitudes
             Volley.newRequestQueue(this).add(postRequest);
