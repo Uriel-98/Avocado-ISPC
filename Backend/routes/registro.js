@@ -27,13 +27,14 @@ const pass = bcrypt.hashSync(req.body.password, 12)
 
 db.query(`CALL sp_registro('${req.body.email}','${req.body.nombreCompleto}','${req.body.usuario}', '${pass}');`, function (error, results, fields){
   const response = results[0][0]
-  console.log(response)
   if(error){
     res.send({
       success: false,
       message: error
     })
+
     return
+
   }
   if(response.success == 0){
     res.send({
