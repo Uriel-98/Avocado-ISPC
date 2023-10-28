@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#B8E092"
+    app:cornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="328dp"
+        android:layout_height="462dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_close_dialog"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/x_icon" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="10dp"
+            android:text="Descripción"
+            android:textColor="#3C5B27"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/editTextDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#ffff"
+            android:fontFamily="@font/roboto"
+            android:hint="Descripción"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:padding="5dp" />
+
+        <EditText
+            android:id="@+id/editTextTiempoCoccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="#fff"
+            android:hint="Tiempo de Cocción"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/titulo_dificultad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="5dp"
+            android:text="Nivel de dificultad"
+            android:textColor="#3C5B27"
+            android:textSize="15dp" />
+
+        <Spinner
+            android:id="@+id/spinnerDificultad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/niveles_dificultad"
+            android:prompt="@string/selecciona_dificultad" />
+
+        <Button
+            android:id="@+id/btn_confirmarCambios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FDFFEB"
+            android:fontFamily="@font/roboto"
+            android:text="Modificar"
+            android:textAllCaps="false"
+            android:textColor="#000"
+            android:textSize="15sp"
+            app:cornerRadius="100dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

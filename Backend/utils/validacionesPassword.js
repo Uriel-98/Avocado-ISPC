@@ -1,14 +1,4 @@
 const validaciones = {
-  nombreCompleto: {
-    notEmpty: {
-      errorMessage: 'Campo obligatorio',
-      bail: true
-    },
-    matches: {
-      options: /^[A-Za-z\s]+$/,
-      errorMessage: 'El nombre no debe contener números ni caracteres especiales'
-    }
-  },
   email: {
     notEmpty: {
       errorMessage: 'Campo obligatorio',
@@ -19,6 +9,12 @@ const validaciones = {
     }
   },
   password: {
+    notEmpty: {
+      errorMessage: 'Campo obligatorio',
+      bail: true
+    }
+  },
+  nuevoPassword: {
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
@@ -34,25 +30,6 @@ const validaciones = {
       },
       errorMessage: 'La contraseña debe tener entre 8 y 24 caracteres, una mayúscula, una minúscula, un caracter especial y un número'
     }
-  },
-  usuario: {
-    notEmpty: {
-      errorMessage: 'Campo obligatorio',
-      bail: true
-    },
-    isLength: {
-      options: {
-        min: 5,
-        max: 15,
-      },
-      errorMessage: 'El nombre de usuario debe tener entre 5 y 15 caracteres',
-      bail: true
-    },
-    matches: {
-      options: /^\S+$/,
-      errorMessage: 'El nombre de usuario no debe contener espacios',
-      bail: true
-    } 
   }
 }
 
