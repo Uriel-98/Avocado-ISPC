@@ -1,27 +1,73 @@
 package com.example.proyectoavocado;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
+
+    private EditText perfilPassword1;
+    private EditText perfilPassword2;
+    private TextView perfilEmail;
+    private EditText perfilNombreCompleto;
+    private EditText perfilNombreUsuario;
+    private String nombrePlaceholder;
+   private String usuarioPlaceholder;
     private AlertDialog dialog;
+    private ImageButton btnEditNombre;
+    private ImageButton btnAceptarEditNombre;
+    private ImageButton btnCancelEditNombre;
+    private ImageButton btnCambiarContraseña;
+    private ImageButton btnCancelCambiarContraseña;
+    private ImageButton btnAceptarCambiarContraseña;
+    private ImageButton btnSubirImagen;
+
+    private ImageView perfilImagen;
+
+    Bitmap bitmap;
+
+
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +83,145 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         ImageButton btnBackPerfil = findViewById(R.id.btn_backPerfil);
         Button btnEliminarCuenta = findViewById(R.id.btn_eliminarCuenta);
 
+        btnEditNombre = findViewById(R.id.btnEditNombre);
+        btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
+        btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
+        btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
+        btnCancelCambiarContraseña = findViewById(R.id.btnCancelCambiarContraseña);
+        btnAceptarCambiarContraseña = findViewById(R.id.btnAceptarCambiarContraseña);
+        btnSubirImagen = findViewById(R.id.btnSubirImagen);
+
+
+        //EditTexts
+        perfilPassword1 = findViewById(R.id.perfilPassword1);
+        perfilPassword2 = findViewById(R.id.perfilPassword2);
+        perfilEmail = findViewById(R.id.perfilEmail);
+        perfilNombreCompleto = findViewById(R.id.perfilNombreCompleto);
+        perfilNombreUsuario = findViewById(R.id.perfilNombreUsuario);
+
+        perfilImagen = findViewById(R.id.perfilImagen);
+
+        //Deshabilitar los EditText
+        perfilNombreCompleto.setEnabled(false);
+        perfilNombreUsuario.setEnabled(false);
+        perfilPassword1.setEnabled(false);
+
+        traerDatosPerfil("lalari@example.com");
+
+        btnCancelCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perfilPassword1.setHint("*********");
+                perfilPassword1.setEnabled(false);
+
+                perfilPassword2.setEnabled(false);
+                perfilPassword2.setVisibility(View.GONE);
+
+                btnAceptarCambiarContraseña.setVisibility(View.GONE);
+                btnCancelCambiarContraseña.setVisibility(View.GONE);
+                btnCambiarContraseña.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnCambiarContraseña.setVisibility(View.GONE);
+                btnAceptarCambiarContraseña.setVisibility(View.VISIBLE);
+                btnCancelCambiarContraseña.setVisibility(View.VISIBLE);
+                perfilPassword2.setVisibility(View.VISIBLE);
+
+                perfilPassword1.setEnabled(true);
+                perfilPassword2.setEnabled(true);
+
+                perfilPassword1.setText("");
+                perfilPassword2.setText("");
+
+            }
+        });
+
+        btnEditNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnEditNombre.setVisibility(View.GONE);
+                btnAceptarEditNombre.setVisibility(View.VISIBLE);
+                btnCancelEditNombre.setVisibility(View.VISIBLE);
+
+                usuarioPlaceholder = perfilNombreUsuario.getText().toString();
+                nombrePlaceholder = perfilNombreCompleto.getText().toString();
+
+                perfilNombreCompleto.setEnabled(true);
+                perfilNombreUsuario.setEnabled(true);
+            }
+        });
+
+        btnCancelEditNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perfilNombreUsuario.setText(usuarioPlaceholder);
+                perfilNombreCompleto.setText(nombrePlaceholder);
+
+                perfilNombreCompleto.setEnabled(false);
+                perfilNombreUsuario.setEnabled(false);
+
+                btnAceptarEditNombre.setVisibility(View.GONE);
+                btnCancelEditNombre.setVisibility(View.GONE);
+                btnEditNombre.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnAceptarCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //llamar actualizar pass
+                cambiarContraseña();
+
+            }
+        });
+        btnAceptarEditNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //llamar actualizar
+                actualizarNombres(String.valueOf(perfilEmail));
+                convertirImagen();
+              // cambiar visibilidad
+                btnAceptarEditNombre.setVisibility(View.GONE);
+                btnCancelEditNombre.setVisibility(View.GONE);
+                btnEditNombre.setVisibility(View.VISIBLE);
+              // deshabilitar
+                perfilNombreUsuario.setEnabled(false);
+                perfilNombreCompleto.setEnabled(false);
+            }
+        });
+
+        ActivityResultLauncher<Intent> activityResultLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            try {
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                perfilImagen.setImageBitmap(bitmap);
+                                convertirImagen();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                });
+        btnSubirImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            activityResultLauncher.launch(intent);
+
+            }
+        });
+
+        // Otros botones
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +274,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
     }
+
     private void eliminarCuenta() {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
@@ -150,5 +336,254 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         // Crear y mostrar el diálogo
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void traerDatosPerfil(String userEmail){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/getUsuario/" + userEmail;
+
+
+        StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String jsonString = json.toString();
+                    JSONObject content = json.getJSONObject("content");
+                    String nombreCompleto = content.getString("nombreCompleto");
+                    String usuario =  content.getString("usuario");
+                    String email =  content.getString("email");
+                    JSONObject imagen = content.getJSONObject("imagen");
+                    JSONArray data = imagen.getJSONArray("data");
+
+                    if (data.length() == 0 || imagen == null) {
+                        perfilImagen.setImageResource(R.drawable.icono_perfil);
+                    } else {
+                        byte[] imageBytes = Base64.decode(String.valueOf(data), Base64.DEFAULT);
+                        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                        perfilImagen.setImageBitmap(decodedImage);
+                    }
+
+                    perfilNombreCompleto.setText(nombreCompleto);
+                    perfilNombreUsuario.setText(usuario);
+                    perfilEmail.setText(email);
+
+
+
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al traer los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        });
+        Volley.newRequestQueue(this).add(get);
+    }
+
+    private void actualizarNombres(String userEmail){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/actualizarPerfil?_method=PUT";
+
+        JSONObject datos = new JSONObject();
+        try {
+            datos.put("nombreCompleto", perfilNombreCompleto.getText().toString());
+            datos.put("usuario", perfilNombreUsuario.getText().toString());
+            datos.put("email", perfilEmail.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al traer los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return datos.toString().getBytes();
+            }
+        };
+
+        Volley.newRequestQueue(this).add(post);
+    }
+
+    private void cambiarContraseña(){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/modificarPassword?_method=PUT";
+
+        JSONObject datos = new JSONObject();
+        try {
+            datos.put("password", perfilPassword1.getText().toString());
+            datos.put("nuevoPassword", perfilPassword2.getText().toString());
+            datos.put("email", perfilEmail.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Drawable original;
+                try {
+                    JSONObject json = new JSONObject(response);
+                    Boolean success = json.getBoolean("success");
+                    String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_LONG).show();
+                    if(success){
+                        perfilPassword1.setText("");
+                        perfilPassword2.setText("");
+                        perfilPassword1.setEnabled(false);
+                        perfilPassword2.setEnabled(false);
+                        perfilPassword2.setVisibility(View.GONE);
+                        btnAceptarCambiarContraseña.setVisibility(View.GONE);
+                        btnCancelCambiarContraseña.setVisibility(View.GONE);
+                        btnCambiarContraseña.setVisibility(View.VISIBLE);
+                    } else {
+                        original = perfilPassword1.getBackground();
+                        perfilPassword1.setBackgroundResource(R.drawable.borde_rojo);
+                        perfilPassword2.setBackgroundResource(R.drawable.borde_rojo);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                perfilPassword1.setBackground(original);
+                                perfilPassword2.setBackground(original);
+                            }
+                        }, 2000);
+                    }
+
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al actualizar los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al actualizar los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return datos.toString().getBytes();
+            }
+        };
+
+        Volley.newRequestQueue(this).add(post);
+    }
+
+    private void convertirImagen(){
+        //convertir imagen
+        ByteArrayOutputStream byteArrayOutputStream;
+        byteArrayOutputStream = new ByteArrayOutputStream();
+        if(bitmap != null){
+            //convertir bitmap a string
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] bytes = byteArrayOutputStream.toByteArray();
+            final String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+            subirImagen(base64);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Ninguna imagen seleccionada", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void subirImagen(String imagen){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/actualizarImagen?_method=PUT";
+        // String url = "http://" + pc_ip + ":3000/usuario/mostrar";
+        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al actualizar los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al actualizar los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("email", String.valueOf(perfilEmail.getText()));
+                    jsonObject.put("imagen", imagen);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return jsonObject.toString().getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+
+        Volley.newRequestQueue(this).add(post);
     }
 }
