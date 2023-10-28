@@ -1,16 +1,26 @@
 package com.example.proyectoavocado;
 
+import static com.example.proyectoavocado.R.drawable.icono_perfil;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
@@ -24,9 +34,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +53,19 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private String nombrePlaceholder;
    private String usuarioPlaceholder;
     private AlertDialog dialog;
-    private boolean cambioContraseña = false;
     private ImageButton btnEditNombre;
     private ImageButton btnAceptarEditNombre;
     private ImageButton btnCancelEditNombre;
     private ImageButton btnCambiarContraseña;
     private ImageButton btnCancelCambiarContraseña;
     private ImageButton btnAceptarCambiarContraseña;
+    private ImageButton btnSubirImagen;
+
+    private ImageView perfilImagen;
+
+
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +87,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
         btnCancelCambiarContraseña = findViewById(R.id.btnCancelCambiarContraseña);
         btnAceptarCambiarContraseña = findViewById(R.id.btnAceptarCambiarContraseña);
+        btnSubirImagen = findViewById(R.id.btnSubirImagen);
 
 
         //EditTexts
@@ -76,6 +96,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         perfilEmail = findViewById(R.id.perfilEmail);
         perfilNombreCompleto = findViewById(R.id.perfilNombreCompleto);
         perfilNombreUsuario = findViewById(R.id.perfilNombreUsuario);
+
+        perfilImagen = findViewById(R.id.perfilImagen);
 
         //Deshabilitar los EditText
         perfilNombreCompleto.setEnabled(false);
@@ -169,6 +191,15 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        btnSubirImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galeria = new Intent(Intent.ACTION_PICK);
+                galeria.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galeria,PICK_IMAGE_REQUEST);
+            }
+        });
+
         // Otros botones
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +252,33 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 mostrarDialogEliminarCuenta();
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==RESULT_OK){
+            if(requestCode==PICK_IMAGE_REQUEST){
+                //para la galería
+                perfilImagen.setImageURI(data.getData());
+                Uri imagenElegida = data.getData();
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(imagenElegida);
+                    byte[] bytes = new byte[inputStream.available()];
+                    inputStream.read(bytes);
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+                    cambiarImagen(base64Image);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     private void eliminarCuenta() {
         String pc_ip = getResources().getString(R.string.pc_ip);
@@ -301,7 +359,16 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     String nombreCompleto = content.getString("nombreCompleto");
                     String usuario =  content.getString("usuario");
                     String email =  content.getString("email");
-                    // agregar imagen después
+                    JSONObject imagen = content.getJSONObject("imagen");
+                    JSONArray data = imagen.getJSONArray("data");
+
+                    if (data.length() == 0) {
+                        perfilImagen.setImageResource(R.drawable.icono_perfil);
+                    } else {
+                        byte[] imageBytes = Base64.decode(String.valueOf(data), Base64.DEFAULT);
+                        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                        perfilImagen.setImageBitmap(decodedImage);
+                    }
 
                     perfilNombreCompleto.setText(nombreCompleto);
                     perfilNombreUsuario.setText(usuario);
@@ -454,4 +521,55 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
+    private void cambiarImagen(String imagen){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        // String url = "http://" + pc_ip + ":3000/usuario/actualizarImagen?_method=PUT";
+        String url = "http://" + pc_ip + ":3000/usuario/mostrar";
+        JSONObject datos = new JSONObject();
+        try {
+            datos.put("email", perfilEmail.getText().toString());
+            datos.put("imagen", imagen);
+            Log.d("JSON", String.valueOf(imagen));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String ok = String.valueOf(json);
+                  //  String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(), ok , Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al actualizar los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al actualizar los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return datos.toString().getBytes();
+            }
+        };
+
+        Volley.newRequestQueue(this).add(post);
+    }
 }
