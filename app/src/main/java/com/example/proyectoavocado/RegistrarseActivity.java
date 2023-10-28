@@ -1,6 +1,9 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,21 +62,35 @@ public class RegistrarseActivity extends AppCompatActivity {
     }
 
     private void registrarse(String nombre, String email, String usuario, String password){
-        // Importar el recurso y asignarlo a una variable
         String pc_ip = getResources().getString(R.string.pc_ip);
-        // Concatenarlo con la url (se los voy a dar hecho)
         String url = "http://" + pc_ip + ":3000/registro";
 
-
-        //Recuerden especificar bien el método que van a usar
     StringRequest post = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject json = new JSONObject(response);
-                    Log.d("Result", nombre);
                     Toast.makeText(getApplicationContext(), "RESULTADO = " + response, Toast.LENGTH_LONG).show();
+                    Boolean success = json.getBoolean("success");
+                    if (!success){
+                        JSONArray contentArray = json.getJSONArray("content");
+                        JSONObject contentObject = contentArray.getJSONObject(0); // Obtenemos el primer objeto del arreglo "content"
+                        String mensaje = contentObject.getString("msg");
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage(mensaje);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Puedes hacer algo aquí si el usuario hace clic en "Aceptar"
+                            }
+                        });
+                        builder.setCancelable(false); // No permite cerrar el AlertDialog haciendo clic fuera de él
+                        builder.show();
+                    }
+
                 } catch (JSONException e) {
                     //Modificar el mensaje para personalizarlo (mensaje para logcat)
                     Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
