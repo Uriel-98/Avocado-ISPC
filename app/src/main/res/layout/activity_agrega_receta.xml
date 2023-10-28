@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Titulo de la Receta"
+                    android:hint="Titulo de la Receta"
                     android:textColor="#3C5B27"
                     android:textSize="18sp"
                     tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
@@ -146,7 +146,7 @@
                     android:fontFamily="@font/roboto"
                     android:inputType="textMultiLine"
                     android:lines="8"
-                    android:text="Descripción de la Receta"
+                    android:hint="Descripción de la Receta"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     tools:ignore="MissingConstraints" />
@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
-                        android:text="Tiempo de cocción"
+                        android:hint="Tiempo de cocción"
                         android:textColor="#000000"
                         android:textSize="15sp"
                         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/roboto"
-                        android:text="Nivel de dificultad"
+                        android:hint="Nivel de dificultad"
                         android:textColor="#000000"
                         android:textSize="15dp"
                         tools:ignore="MissingConstraints,TextSizeCheck,TouchTargetSizeCheck" />
