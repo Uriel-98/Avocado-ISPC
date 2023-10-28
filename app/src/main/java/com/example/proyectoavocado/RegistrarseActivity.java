@@ -1,6 +1,9 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,29 +62,63 @@ public class RegistrarseActivity extends AppCompatActivity {
     }
 
     private void registrarse(String nombre, String email, String usuario, String password){
-        // Importar el recurso y asignarlo a una variable
         String pc_ip = getResources().getString(R.string.pc_ip);
-        // Concatenarlo con la url (se los voy a dar hecho)
         String url = "http://" + pc_ip + ":3000/registro";
 
-
-        //Recuerden especificar bien el método que van a usar
     StringRequest post = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                //Todo lo que esté contenido en el bloque try catch es lo que tienen
-                //que modificar de acuerdo a lo que necesiten para su Activity
                 try {
                     JSONObject json = new JSONObject(response);
-                    Log.d("Result", nombre);
-                    Toast.makeText(getApplicationContext(), "RESULTADO = " + response, Toast.LENGTH_LONG).show();
+                    Boolean success = json.getBoolean("success");
+                    String msg = "";
+
+                    if (!success){
+                        if (json.has("content")) {
+                            JSONArray contentArray = json.getJSONArray("content");
+
+                            for (int i = 0; i < contentArray.length(); i++) {
+                                JSONObject contentObject = contentArray.getJSONObject(i); // Obtenemos el primer objeto del arreglo "content"
+                                String mensaje = contentObject.getString("msg");
+                                msg = mensaje + "\n\n" + msg;
+                            }
+                        } else {
+                            msg = json.getString("message");
+                        }
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage(msg);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+                    } else {
+
+                        msg = json.getString("message");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
+                        builder.setMessage(msg);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(RegistrarseActivity.this, InicioActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+                    }
+
+
                 } catch (JSONException e) {
                     //Modificar el mensaje para personalizarlo (mensaje para logcat)
                     Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
                     throw new RuntimeException("Error al traer los datos");
                 }
-// Todo lo que sigue de acá lo dejan como está
             }
         }, new Response.ErrorListener() {
             @Override

@@ -75,6 +75,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="616dp"
@@ -152,7 +153,10 @@
                     android:layout_marginBottom="5dp"
                     tools:ignore="HardcodedText" />
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0da604f96d3ed35514d7b1fe973275745374f08a
                 <EditText
                     android:id="@+id/editDescripcion"
                     android:layout_width="match_parent"
@@ -192,7 +196,6 @@
                         android:fontFamily="@font/roboto"
                         android:textSize="20sp"
                         tools:ignore="HardcodedText" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -231,7 +234,6 @@
                     android:contentDescription="boton para editar descripcion, nivel de coccion, nivel de dificultad"
                     app:srcCompat="@drawable/pen_icon"
                     tools:ignore="TouchTargetSizeCheck" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -288,7 +290,6 @@
                     android:layout_gravity="center"
                     app:icon="@drawable/mas_icono"
                     app:iconPadding="2dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -344,7 +345,6 @@
                     android:layout_gravity="center"
                     app:icon="@drawable/mas_icono"
                     app:iconPadding="2dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -420,7 +420,9 @@
                     app:iconPadding="2dp" />
             </LinearLayout>
 
+
         </LinearLayout>
+
 
     </ScrollView>
 
