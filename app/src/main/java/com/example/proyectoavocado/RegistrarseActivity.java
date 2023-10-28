@@ -71,25 +71,48 @@ public class RegistrarseActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject json = new JSONObject(response);
-                    Toast.makeText(getApplicationContext(), "RESULTADO = " + response, Toast.LENGTH_LONG).show();
                     Boolean success = json.getBoolean("success");
+                    String msg = "";
+
                     if (!success){
-                        JSONArray contentArray = json.getJSONArray("content");
-                        JSONObject contentObject = contentArray.getJSONObject(0); // Obtenemos el primer objeto del arreglo "content"
-                        String mensaje = contentObject.getString("msg");
+                        if (json.has("content")) {
+                            JSONArray contentArray = json.getJSONArray("content");
+
+                            for (int i = 0; i < contentArray.length(); i++) {
+                                JSONObject contentObject = contentArray.getJSONObject(i); // Obtenemos el primer objeto del arreglo "content"
+                                String mensaje = contentObject.getString("msg");
+                                msg = mensaje + "\n\n" + msg;
+                            }
+                        } else {
+                            msg = json.getString("message");
+                        }
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
                         builder.setTitle("Error");
-                        builder.setMessage(mensaje);
+                        builder.setMessage(msg);
                         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Puedes hacer algo aquí si el usuario hace clic en "Aceptar"
                             }
                         });
-                        builder.setCancelable(false); // No permite cerrar el AlertDialog haciendo clic fuera de él
+                        builder.setCancelable(false);
+                        builder.show();
+                    } else {
+
+                        msg = json.getString("message");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
+                        builder.setMessage(msg);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(RegistrarseActivity.this, InicioActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        builder.setCancelable(false);
                         builder.show();
                     }
+
 
                 } catch (JSONException e) {
                     //Modificar el mensaje para personalizarlo (mensaje para logcat)
