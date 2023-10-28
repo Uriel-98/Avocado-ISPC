@@ -49,5 +49,14 @@ public class Paso {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public String toString() {
+        return "Receta{" +
+                "idPaso =" + idPaso +
+                ", idReceta='" + idReceta + '\'' +
+                ", titulo ='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
 }
 

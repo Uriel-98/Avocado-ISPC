@@ -149,4 +149,5 @@ public class FeedActivity extends AppCompatActivity {
     private void mostrarMensaje(String mensaje) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
+
 }
