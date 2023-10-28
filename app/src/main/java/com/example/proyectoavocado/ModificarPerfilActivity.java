@@ -2,7 +2,9 @@ package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -30,17 +32,21 @@ import java.util.Map;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
 
-    EditText perfilPassword1;
-    EditText perfilPassword2;
-    TextView perfilEmail;
-    EditText perfilNombreCompleto;
-
-    EditText perfilNombreUsuario;
-
-    String nombrePlaceholder;
-
-    String usuarioPlaceholder;
+    private EditText perfilPassword1;
+    private EditText perfilPassword2;
+    private TextView perfilEmail;
+    private EditText perfilNombreCompleto;
+    private EditText perfilNombreUsuario;
+    private String nombrePlaceholder;
+   private String usuarioPlaceholder;
     private AlertDialog dialog;
+    private boolean cambioContraseña = false;
+    private ImageButton btnEditNombre;
+    private ImageButton btnAceptarEditNombre;
+    private ImageButton btnCancelEditNombre;
+    private ImageButton btnCambiarContraseña;
+    private ImageButton btnCancelCambiarContraseña;
+    private ImageButton btnAceptarCambiarContraseña;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,21 +62,20 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         ImageButton btnBackPerfil = findViewById(R.id.btn_backPerfil);
         Button btnEliminarCuenta = findViewById(R.id.btn_eliminarCuenta);
 
-        ImageButton btnEditNombre = findViewById(R.id.btnEditNombre);
-        ImageButton btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
-        ImageButton btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
-        ImageButton btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
-        ImageButton btnCancelCambiarContraseña = findViewById(R.id.btnCancelCambiarContraseña);
-        ImageButton btnAceptarCambiarContraseña = findViewById(R.id.btnAceptarCambiarContraseña);
+        btnEditNombre = findViewById(R.id.btnEditNombre);
+        btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
+        btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
+        btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
+        btnCancelCambiarContraseña = findViewById(R.id.btnCancelCambiarContraseña);
+        btnAceptarCambiarContraseña = findViewById(R.id.btnAceptarCambiarContraseña);
 
 
         //EditTexts
         perfilPassword1 = findViewById(R.id.perfilPassword1);
+        perfilPassword2 = findViewById(R.id.perfilPassword2);
         perfilEmail = findViewById(R.id.perfilEmail);
         perfilNombreCompleto = findViewById(R.id.perfilNombreCompleto);
         perfilNombreUsuario = findViewById(R.id.perfilNombreUsuario);
-
-        perfilPassword1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         //Deshabilitar los EditText
         perfilNombreCompleto.setEnabled(false);
@@ -79,12 +84,35 @@ public class ModificarPerfilActivity extends AppCompatActivity {
 
         traerDatosPerfil("lalari@example.com");
 
+        btnCancelCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perfilPassword1.setHint("*********");
+                perfilPassword1.setEnabled(false);
+
+                perfilPassword2.setEnabled(false);
+                perfilPassword2.setVisibility(View.GONE);
+
+                btnAceptarCambiarContraseña.setVisibility(View.GONE);
+                btnCancelCambiarContraseña.setVisibility(View.GONE);
+                btnCambiarContraseña.setVisibility(View.VISIBLE);
+            }
+        });
+
         btnCambiarContraseña.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnCambiarContraseña.setVisibility(View.GONE);
                 btnAceptarCambiarContraseña.setVisibility(View.VISIBLE);
-                btnCancelCambiarContraseña
+                btnCancelCambiarContraseña.setVisibility(View.VISIBLE);
+                perfilPassword2.setVisibility(View.VISIBLE);
+
+                perfilPassword1.setEnabled(true);
+                perfilPassword2.setEnabled(true);
+
+                perfilPassword1.setText("");
+                perfilPassword2.setText("");
+
             }
         });
 
@@ -118,6 +146,14 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        btnAceptarCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //llamar actualizar pass
+                cambiarContraseña();
+
+            }
+        });
         btnAceptarEditNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -343,5 +379,79 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
+    private void cambiarContraseña(){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/modificarPassword?_method=PUT";
+
+        JSONObject datos = new JSONObject();
+        try {
+            datos.put("password", perfilPassword1.getText().toString());
+            datos.put("nuevoPassword", perfilPassword2.getText().toString());
+            datos.put("email", perfilEmail.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Drawable original;
+                try {
+                    JSONObject json = new JSONObject(response);
+                    Boolean success = json.getBoolean("success");
+                    String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_LONG).show();
+                    if(success){
+                        perfilPassword1.setText("");
+                        perfilPassword2.setText("");
+                        perfilPassword1.setEnabled(false);
+                        perfilPassword2.setEnabled(false);
+                        perfilPassword2.setVisibility(View.GONE);
+                        btnAceptarCambiarContraseña.setVisibility(View.GONE);
+                        btnCancelCambiarContraseña.setVisibility(View.GONE);
+                        btnCambiarContraseña.setVisibility(View.VISIBLE);
+                    } else {
+                        original = perfilPassword1.getBackground();
+                        perfilPassword1.setBackgroundResource(R.drawable.borde_rojo);
+                        perfilPassword2.setBackgroundResource(R.drawable.borde_rojo);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                perfilPassword1.setBackground(original);
+                                perfilPassword2.setBackground(original);
+                            }
+                        }, 2000);
+                    }
+
+                } catch (JSONException e) {
+                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
+                    Log.e("Error en la request", "Error al actualizar los datos: " + e.getMessage());
+                    throw new RuntimeException("Error al actualizar los datos");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMessage = error.getMessage();
+                if (errorMessage != null) {
+                    Log.e("Error", errorMessage);
+                } else {
+                    Log.e("Error", "Mensaje de error nulo");
+                }
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return datos.toString().getBytes();
+            }
+        };
+
+        Volley.newRequestQueue(this).add(post);
+    }
 
 }

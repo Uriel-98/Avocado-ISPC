@@ -207,7 +207,7 @@
         android:id="@+id/btn_eliminarCuenta"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="88dp"
         android:backgroundTint="#3C5B27"
         android:fontFamily="@font/roboto"
         android:text="@string/btn_eliminarCuenta"
@@ -216,7 +216,7 @@
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
