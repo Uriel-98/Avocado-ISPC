@@ -94,7 +94,7 @@ public class IniciarSesionActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
 
                             // Verificar si la autenticación fue exitosa según la respuesta del servidor
-                            boolean autenticacionExitosa = response.getBoolean("succes");
+                            boolean autenticacionExitosa = response.getBoolean("success");
 
                             if (autenticacionExitosa) {
                                 // Guardar datos de inicio de sesión en SharedPreferences

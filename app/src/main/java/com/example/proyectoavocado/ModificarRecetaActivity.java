@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,20 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.proyectoavocado.controllers.Categoria;
 import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
@@ -40,9 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ModificarRecetaActivity extends AppCompatActivity {
 
@@ -59,7 +50,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     private ImageButton btnEditarTitulo;
     private ImageButton btnEditarDescripcionTiempoDificultad;
     private String userEmail;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +82,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewIngredientes.setAdapter(ingredienteAdapter);
 
-
         // Configura el adaptador de pasos
         pasosAdapter = new PasosRecetaRecipeAdapter(pasosList, new PasosRecetaRecipeAdapter.OnItemClickListener() {
             @Override
@@ -103,7 +92,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
         recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPasos.setAdapter(pasosAdapter);
-
 
         btnEditarTitulo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +120,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 mostrarDialogoIngredientes();
             }
         });
+
 
         // Capturar id del botón para agregar paso y llamar al cuadro de diálogo
         Button btnAgregarPaso = findViewById(R.id.btn_agregarPasoDialog);
@@ -202,6 +191,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
 
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,7 +294,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
     private Receta parsearRespuestaReceta(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
-
         // Obtén los valores del JSON
         Integer idReceta = jsonObject.getInt("idReceta");
         String titulo = jsonObject.getString("titulo");
