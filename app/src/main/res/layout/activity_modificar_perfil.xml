@@ -287,7 +287,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/btnSubirImagen"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="200dp"
@@ -356,6 +356,7 @@
         android:fontFamily="@font/roboto"
         android:hint="***********"
         android:inputType="textPassword"
+        android:visibility="gone"
         android:minHeight="48dp"
         android:textColor="#3C5B27"
         app:layout_constraintEnd_toEndOf="parent"
