@@ -31,6 +31,7 @@ import java.util.Map;
 public class ModificarPerfilActivity extends AppCompatActivity {
 
     EditText perfilPassword1;
+    EditText perfilPassword2;
     TextView perfilEmail;
     EditText perfilNombreCompleto;
 
@@ -58,6 +59,10 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         ImageButton btnEditNombre = findViewById(R.id.btnEditNombre);
         ImageButton btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
         ImageButton btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
+        ImageButton btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
+        ImageButton btnCancelCambiarContraseña = findViewById(R.id.btnCancelCambiarContraseña);
+        ImageButton btnAceptarCambiarContraseña = findViewById(R.id.btnAceptarCambiarContraseña);
+
 
         //EditTexts
         perfilPassword1 = findViewById(R.id.perfilPassword1);
@@ -73,6 +78,15 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         perfilPassword1.setEnabled(false);
 
         traerDatosPerfil("lalari@example.com");
+
+        btnCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnCambiarContraseña.setVisibility(View.GONE);
+                btnAceptarCambiarContraseña.setVisibility(View.VISIBLE);
+                btnCancelCambiarContraseña
+            }
+        });
 
         btnEditNombre.setOnClickListener(new View.OnClickListener() {
             @Override
