@@ -1,9 +1,12 @@
 package com.example.proyectoavocado;
 
-import static com.example.proyectoavocado.R.drawable.icono_perfil;
-
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,8 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.text.InputType;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 
 import com.android.volley.AuthFailureError;
@@ -38,8 +38,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +62,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private ImageButton btnSubirImagen;
 
     private ImageView perfilImagen;
+
+    Bitmap bitmap;
 
 
 
@@ -181,6 +183,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
               //llamar actualizar
                 actualizarNombres(String.valueOf(perfilEmail));
+                convertirImagen();
               // cambiar visibilidad
                 btnAceptarEditNombre.setVisibility(View.GONE);
                 btnCancelEditNombre.setVisibility(View.GONE);
@@ -191,12 +194,30 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        ActivityResultLauncher<Intent> activityResultLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            try {
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                perfilImagen.setImageBitmap(bitmap);
+                                convertirImagen();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                });
         btnSubirImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galeria = new Intent(Intent.ACTION_PICK);
-                galeria.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galeria,PICK_IMAGE_REQUEST);
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            activityResultLauncher.launch(intent);
+
             }
         });
 
@@ -253,33 +274,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode==RESULT_OK){
-            if(requestCode==PICK_IMAGE_REQUEST){
-                //para la galería
-                perfilImagen.setImageURI(data.getData());
-                Uri imagenElegida = data.getData();
-                try {
-                    InputStream inputStream = getContentResolver().openInputStream(imagenElegida);
-                    byte[] bytes = new byte[inputStream.available()];
-                    inputStream.read(bytes);
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-                    cambiarImagen(base64Image);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
     private void eliminarCuenta() {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
@@ -355,14 +350,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     JSONObject json = new JSONObject(response);
                     String jsonString = json.toString();
                     JSONObject content = json.getJSONObject("content");
-                    Log.d("JSON",jsonString);
                     String nombreCompleto = content.getString("nombreCompleto");
                     String usuario =  content.getString("usuario");
                     String email =  content.getString("email");
                     JSONObject imagen = content.getJSONObject("imagen");
                     JSONArray data = imagen.getJSONArray("data");
 
-                    if (data.length() == 0) {
+                    if (data.length() == 0 || imagen == null) {
                         perfilImagen.setImageResource(R.drawable.icono_perfil);
                     } else {
                         byte[] imageBytes = Base64.decode(String.valueOf(data), Base64.DEFAULT);
@@ -521,26 +515,32 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
-    private void cambiarImagen(String imagen){
-        String pc_ip = getResources().getString(R.string.pc_ip);
-        // String url = "http://" + pc_ip + ":3000/usuario/actualizarImagen?_method=PUT";
-        String url = "http://" + pc_ip + ":3000/usuario/mostrar";
-        JSONObject datos = new JSONObject();
-        try {
-            datos.put("email", perfilEmail.getText().toString());
-            datos.put("imagen", imagen);
-            Log.d("JSON", String.valueOf(imagen));
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private void convertirImagen(){
+        //convertir imagen
+        ByteArrayOutputStream byteArrayOutputStream;
+        byteArrayOutputStream = new ByteArrayOutputStream();
+        if(bitmap != null){
+            //convertir bitmap a string
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] bytes = byteArrayOutputStream.toByteArray();
+            final String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+            subirImagen(base64);
         }
+        else {
+            Toast.makeText(getApplicationContext(), "Ninguna imagen seleccionada", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void subirImagen(String imagen){
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/usuario/actualizarImagen?_method=PUT";
+        // String url = "http://" + pc_ip + ":3000/usuario/mostrar";
         StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject json = new JSONObject(response);
-                    String ok = String.valueOf(json);
-                  //  String message = json.getString("message");
-                    Toast.makeText(getApplicationContext(), ok , Toast.LENGTH_LONG).show();
+                    String message = json.getString("message");
+                    Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
 
                 } catch (JSONException e) {
                     //Modificar el mensaje para personalizarlo (mensaje para logcat)
@@ -558,15 +558,29 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     Log.e("Error", "Mensaje de error nulo");
                 }
             }
-        }){
+        }) {
             @Override
-            public String getBodyContentType() {
-                return "application/json";
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
             }
 
             @Override
-            public byte[] getBody() throws AuthFailureError {
-                return datos.toString().getBytes();
+            public byte[] getBody() {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("email", String.valueOf(perfilEmail.getText()));
+                    jsonObject.put("imagen", imagen);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return jsonObject.toString().getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
             }
         };
 
