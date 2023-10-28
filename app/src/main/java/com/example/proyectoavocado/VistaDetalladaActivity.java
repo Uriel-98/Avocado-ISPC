@@ -19,20 +19,34 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.proyectoavocado.controllers.Ingrediente;
+import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
+import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdaptader;
+import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VistaDetalladaActivity extends AppCompatActivity {
 
     private String recetaIdEspecifica;
     private String emailUsuario;
+    private TextView tituloReceta;
+    private TextView creadoPor;
+    private TextView descripcionView;
+    private TextView tiempoCoccionView;
+    private TextView dificultadView;
+    private RecyclerView recyclerIngrediente;
+    private RecyclerView recyclerPaso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,23 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         ImageButton btnMenuReceta = findViewById(R.id.btn_menu_receta);
+
+        // Instanciar las variables de la interfaz de usuario
+        tituloReceta = findViewById(R.id.tituloReceta);
+        creadoPor = findViewById(R.id.creadoPor);
+        descripcionView = findViewById(R.id.descripcionView);
+        tiempoCoccionView = findViewById(R.id.coccionView);
+        dificultadView = findViewById(R.id.dificultadView);
+
+        // Instanciar los RecyclerView
+        recyclerIngrediente = findViewById(R.id.recyclerIngrediente);
+        recyclerPaso = findViewById(R.id.recyclerPaso);
+
+        // Configurar el LayoutManager para los RecyclerView
+        LinearLayoutManager layoutManagerIngrediente = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManagerPaso = new LinearLayoutManager(this);
+        recyclerIngrediente.setLayoutManager(layoutManagerIngrediente);
+        recyclerPaso.setLayoutManager(layoutManagerPaso);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -109,13 +140,13 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("receta_id")) {
             recetaIdEspecifica = intent.getStringExtra("receta_id");
+            obtenerDetallesReceta(recetaIdEspecifica);
         } else {
             // Manejar el caso cuando no se proporciona el ID de la receta
             handleError("ID de receta no proporcionado");
             // Finalizar la actividad actual si no hay un ID de receta para validar
             finish();
         }
-
     }
     @SuppressLint("ResourceType")
     private void showPopupMenu(View view) {
@@ -228,6 +259,83 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         }
     }
 
+    private void obtenerDetallesReceta(String recetaId) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/getRecetaById/" + recetaId;
+
+        // Realizar la solicitud GET al servidor para obtener los detalles de la receta por su ID
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Procesar la respuesta del servidor y actualizar la interfaz de usuario
+                        try {
+                            // Parsear la respuesta JSON para obtener los detalles de la receta
+                            String titulo = response.getString("titulo");
+                            String nombreUsuario = response.getString("nombreUsuario");
+                            String descripcion = response.getString("descripcion");
+                            String tiempoCoccion = response.getString("tiempoCoccion");
+                            String dificultad = response.getString("dificultad");
+
+                            // Obtener la lista de ingredientes y pasos de preparación
+                            JSONArray ingredientesArray = response.getJSONArray("ingredientes");
+                            JSONArray pasosArray = response.getJSONArray("pasos");
+
+                            // Actualizar la interfaz de usuario con los datos de la receta
+                            tituloReceta.setText(titulo);
+                            creadoPor.setText("@" + nombreUsuario);
+                            descripcionView.setText(descripcion);
+                            tiempoCoccionView.setText(tiempoCoccion );
+                            dificultadView.setText(dificultad);
+
+                            // Parsear y mostrar la lista de ingredientes
+                            List<Ingrediente> ingredientesList = new ArrayList<>();
+                            for (int i = 0; i < ingredientesArray.length(); i++) {
+                                JSONObject ingredienteJson = ingredientesArray.getJSONObject(i);
+                                String nombre = ingredienteJson.getString("nombre"); // Reemplaza "nombre" con la clave correcta en tu JSON
+
+                                // Crea un objeto Ingrediente y agrégalo a la lista
+                                Ingrediente ingrediente = new Ingrediente(nombre);
+                                ingredientesList.add(ingrediente);
+                            }
+
+                            // Parsear y mostrar la lista de pasos de preparación
+                            List<Paso> pasosList = new ArrayList<>();
+                            for (int i = 0; i < pasosArray.length(); i++) {
+                                JSONObject pasoJson = pasosArray.getJSONObject(i);
+                                String tituloPaso = pasoJson.getString("titulo");
+                                String descripcionPaso = pasoJson.getString("descripcion");
+
+                                // Crea un objeto Paso y agrégalo a la lista
+                                Paso paso = new Paso(tituloPaso, descripcionPaso);
+                                pasosList.add(paso);
+                            }
+
+                            // Usar un adapter personalizado para el RecyclerView de pasos
+                            PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
+                            recyclerPaso.setAdapter(pasoAdapter);
+
+                            // ... Actualiza otros elementos de la interfaz de usuario con los datos de la receta
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            handleError("Error al procesar la respuesta del servidor");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud
+                        handleError("Error en la solicitud: " + error.getMessage());
+                    }
+                });
+
+        // Agregar la solicitud a la cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
     private void handleError(String errorMessage) {
         // Lógica para manejar el error, por ejemplo, mostrar un mensaje al usuario
         Log.e("Error", errorMessage);
@@ -289,5 +397,4 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-
 }

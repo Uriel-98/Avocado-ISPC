@@ -26,11 +26,11 @@ public class Paso {
         this.idPaso = idPaso;
     }
 
-    public int getIdReceta() {
+    public Integer getIdReceta() {
         return idReceta;
     }
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(Integer idReceta) {
         this.idReceta = idReceta;
     }
 
