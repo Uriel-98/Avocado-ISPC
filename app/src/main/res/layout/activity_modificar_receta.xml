@@ -75,6 +75,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="616dp"
@@ -116,19 +117,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/titulo_receta"
                         android:layout_width="328dp"
                         android:layout_height="wrap_content"
-                        android:text="Título de la Receta"
+                        android:hint="Título de la Receta"
                         android:textColor="#3C5B27"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="10dp"
-                        tools:ignore="DuplicateIds,HardcodedText" />
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/roboto" />
 
                     <ImageButton
                         android:id="@+id/btn_edit_tituloReceta"
@@ -140,20 +142,29 @@
                         tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
-                <TextView
+                <EditText
                     android:id="@+id/creadoPor"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="\@nombreDeUsuario"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:layout_marginBottom="5dp"
                     tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/contenido"
+                <EditText
+                    android:id="@+id/editDescripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="12dp"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim. Suspendisse sed justo in ipsum rhoncus ornare. Nam est tellus, sodales vitae consectetur et, aliquet sed mauris."
-                    tools:ignore="DuplicateIds,HardcodedText" />
+                    android:hint="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim. Suspendisse sed justo in ipsum rhoncus ornare. Nam est tellus, sodales vitae consectetur et, aliquet sed mauris."
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:lines="8"
+                    android:inputType="textMultiLine"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="20sp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -168,17 +179,19 @@
                         android:contentDescription="Icono reloj"
                         android:paddingEnd="8dp"
                         android:src="@drawable/clock_icon"
+                        android:layout_gravity="center"
                         android:tint="#B8E092"
                         tools:ignore="UseAppTint" />
 
-                    <TextView
-                        android:id="@+id/tiempo_coccion"
-                        android:layout_width="0dp"
+                    <EditText
+                        android:id="@+id/editTiempo_coccion"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tiempo de cocción"
+                        android:hint="Tiempo de cocción"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="20sp"
                         tools:ignore="HardcodedText" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -191,30 +204,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="8dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/batidor_icon"
                         android:tint="#B8E092"
                         android:tintMode="src_in"
                         tools:ignore="UseAppTint" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/dificultad_receta"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Nivel de dificultad" />
+                        android:fontFamily="@font/roboto"
+                        android:textSize="20sp"
+                        android:hint="Nivel de dificultad" />
 
                 </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/btn_editar_descripcion_coccion_dificultad"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="end"
                     android:backgroundTint="#00FFFFFF"
                     android:contentDescription="boton para editar descripcion, nivel de coccion, nivel de dificultad"
                     app:srcCompat="@drawable/pen_icon"
                     tools:ignore="TouchTargetSizeCheck" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -229,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:text="Ingredientes"
                     android:textColor="#3C5B27"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"
                     tools:ignore="DuplicateIds" />
@@ -252,15 +267,15 @@
                         android:padding="10dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
+                        tools:listitem="@layout/ingrediente_receta"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tituloIngredientes" />
-
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btn_agregarIngredientes"
                     android:layout_width="250dp"
-                    android:layout_height="48dp"
+                    android:layout_height="50dp"
                     android:backgroundTint="#B8E092"
                     android:fontFamily="@font/roboto"
                     android:text="Agregar Ingredientes"
@@ -271,7 +286,6 @@
                     android:layout_gravity="center"
                     app:icon="@drawable/mas_icono"
                     app:iconPadding="2dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -286,7 +300,7 @@
                     android:layout_height="wrap_content"
                     android:text="Pasos de preparación"
                     android:textColor="#3C5B27"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     tools:ignore="DuplicateIds" />
 
@@ -307,6 +321,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="vertical"
                         android:padding="10dp"
+                        tools:listitem="@layout/pasos_receta"
                         app:layout_constraintTop_toBottomOf="@id/tituloPasos"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
@@ -326,7 +341,6 @@
                     android:layout_gravity="center"
                     app:icon="@drawable/mas_icono"
                     app:iconPadding="2dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -357,7 +371,6 @@
                         android:layout_width="307dp"
                         android:layout_height="46dp"
                         android:orientation="vertical">
-
                     </LinearLayout>
 
                     <TextView
@@ -403,7 +416,9 @@
                     app:iconPadding="2dp" />
             </LinearLayout>
 
+
         </LinearLayout>
+
 
     </ScrollView>
 
