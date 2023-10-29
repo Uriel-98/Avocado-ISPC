@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AcercaActivity"
+            android:exported="false" />
+        <activity
             android:name=".InicioActivity"
             android:exported="true">
             <intent-filter>
