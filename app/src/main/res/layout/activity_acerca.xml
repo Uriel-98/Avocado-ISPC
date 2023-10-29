@@ -30,25 +30,7 @@
             android:layout_width="115dp"
             android:layout_height="40dp"
             app:srcCompat="@drawable/logo_nombre" />
-
     </androidx.appcompat.widget.Toolbar>
-
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar7"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="avocado_lotti.json"
-        app:lottie_imageAssetsFolder="assets"
-        app:lottie_loop="true">
-
-    </com.airbnb.lottie.LottieAnimationView>
 
     <TextView
         android:id="@+id/textView12"
@@ -63,8 +45,43 @@
         app:layout_constraintVertical_bias="0.491"
         android:fontFamily="@font/roboto"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#3C5B27"
         android:textSize="34sp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar7"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="avocado_lotti.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true">
+    </com.airbnb.lottie.LottieAnimationView>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <GridLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:columnCount="2">
+
+               <ImageView></ImageView>
+           </GridLayout>
+       </ScrollView>
+
+   </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
