@@ -1,6 +1,7 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,8 +33,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
+    SearchView searchView = findViewById(R.id.searchView);
+    ImageButton btnBuscar = findViewById(R.id.btn_buscar);
+    RecipeCardAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +49,21 @@ public class FeedActivity extends AppCompatActivity {
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+        //ID SearchView
+        searchView = findViewById(R.id.searchView);
 
+        //Cambiar la visibilidad del SeachView
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchView.getVisibility() == View.VISIBLE) {
+                    searchView.setVisibility(View.INVISIBLE); // Ocultar el SearchView
+                } else {
+                    searchView.setVisibility(View.VISIBLE);   // Mostrar el SearchView
+                }
+            }
+        });
+        searchView.setOnQueryTextListener(this);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +154,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private void setupRecyclerView(List<Receta> listaRecetas) {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecipeCardAdapter adapter = new RecipeCardAdapter(listaRecetas, FeedActivity.this);
+        adapter = new RecipeCardAdapter(listaRecetas, FeedActivity.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
     }
@@ -150,4 +168,14 @@ public class FeedActivity extends AppCompatActivity {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filtrado(newText);
+        return false;
+    }
 }

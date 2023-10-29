@@ -59,6 +59,7 @@
                     app:srcCompat="@android:drawable/ic_menu_sort_by_size"
                     tools:ignore="UseAppTint" />
 
+
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -180,5 +181,14 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuPrincipal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
