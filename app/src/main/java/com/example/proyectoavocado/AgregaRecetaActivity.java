@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +49,8 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     private List<Ingrediente> ingredientesList;
     private List<Paso> pasosList;
 
+    private String emailUsuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,8 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         ingredientesList = new ArrayList<>();
         pasosList = new ArrayList<>();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        emailUsuario = sharedPreferences.getString("email", "");
 
         // Configura el adaptador de ingredientes
         ingredienteAdapter = new IngredienteRecipeAdapter(ingredientesList, new IngredienteRecipeAdapter.OnItemClickListener() {
@@ -259,7 +265,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         // Crear el objeto JSON para la solicitud
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("email", "juan@example.com");
+            requestObject.put("email", emailUsuario);
             requestObject.put("titulo", titulo);
             requestObject.put("descripcion", descripcion);
             requestObject.put("tiempoCoccion", tiempoCoccion);
@@ -316,5 +322,3 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                  Volley.newRequestQueue(this).add(request);
         }
 }
-
-
