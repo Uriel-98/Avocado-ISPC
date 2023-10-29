@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,22 +13,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.proyectoavocado.controllers.Categoria;
 import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
+import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteRecipeAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasosRecetaRecipeAdapter;
 
@@ -38,45 +33,82 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ModificarRecetaActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerViewPasos;
-    private RecyclerView recyclerViewIngredientes;
-
+    private RecyclerView recyclerViewIngredientes, recyclerViewPasos;
     private IngredienteRecipeAdapter ingredienteAdapter;
-    private PasosRecetaRecipeAdapter pasoAdapter;
+    private PasosRecetaRecipeAdapter pasosAdapter;
+    private List<Ingrediente> ingredientesList;
+    private List<Paso> pasosList;
 
-    Button btnAgregarCategorias;
-    LinearLayout containerCategoriasView;
-
-    private List<Categoria> categoriasSeleccionadas = new ArrayList<>();
-    private List<Ingrediente> listaIngredientes = new ArrayList<>();
+    private EditText tituloReceta;
+    private EditText editDescripcion;
+    private EditText editTiempoCoccion;
+    private EditText dificultadReceta;
+    private ImageButton btnEditarTitulo;
+    private ImageButton btnEditarDescripcionTiempoDificultad;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_receta);
 
+        // Inicializar vistas y obtener correo electrónico del usuario
+        // Inicializar vistas
+        tituloReceta = findViewById(R.id.titulo_receta);
+        editDescripcion = findViewById(R.id.editDescripcion);
+        editTiempoCoccion = findViewById(R.id.editTiempo_coccion);
+        dificultadReceta = findViewById(R.id.dificultad_receta);
+        btnEditarTitulo = findViewById(R.id.btn_edit_tituloReceta);
+        btnEditarDescripcionTiempoDificultad = findViewById(R.id.btn_editar_descripcion_coccion_dificultad);
 
-        //capturar id del boton para modificar el titulo de la receta y llamada a la funcion en el boton
-        ImageButton btnModificarTitulo = findViewById(R.id.btn_edit_tituloReceta);
-        btnModificarTitulo.setOnClickListener(new View.OnClickListener() {
+        // Inicializa las listas
+        ingredientesList = new ArrayList<>();
+        pasosList = new ArrayList<>();
+
+        obtenerDetallesReceta();
+
+        // Configura el adaptador de ingredientes
+        ingredienteAdapter = new IngredienteRecipeAdapter(ingredientesList, new IngredienteRecipeAdapter.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                ingredientesList.remove(position);
+                ingredienteAdapter.notifyDataSetChanged();
+            }
+        });
+        recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewIngredientes.setAdapter(ingredienteAdapter);
+
+        // Configura el adaptador de pasos
+        pasosAdapter = new PasosRecetaRecipeAdapter(pasosList, new PasosRecetaRecipeAdapter.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                pasosList.remove(position);
+                pasosAdapter.notifyDataSetChanged();
+            }
+        });
+        recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewPasos.setAdapter(pasosAdapter);
+
+        btnEditarTitulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarDialogoModificarTitulo();
+                // Habilitar la edición del títuloReceta y mostrar un botón de guardar
+                habilitarEdicion(tituloReceta, "titulo");
             }
         });
 
-        //capturar id del boton para modificar la descripcion, dificultad y tiempo de coccion de la receta y llamada a la funcion en el boton
-        ImageButton btnEditarDescripcion = findViewById(R.id.btn_editar_descripcion_coccion_dificultad);
-        btnEditarDescripcion.setOnClickListener(new View.OnClickListener() {
+        btnEditarDescripcionTiempoDificultad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarDialogoEditar();
+                // Habilitar la edición de editDescripcion, editTiempoCoccion y dificultadReceta
+                // Mostrar un botón de guardar para guardar los cambios en la API cuando se haga clic en él
+                habilitarEdicion(editDescripcion, "descripcion");
+                habilitarEdicion(editTiempoCoccion, "tiempoCoccion");
+                habilitarEdicion(dificultadReceta, "dificultad");
             }
         });
 
@@ -85,519 +117,364 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         btnAgregarIngrediente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarDialogoAgregarIngrediente();
+                mostrarDialogoIngredientes();
             }
         });
+
 
         // Capturar id del botón para agregar paso y llamar al cuadro de diálogo
         Button btnAgregarPaso = findViewById(R.id.btn_agregarPasoDialog);
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarDialogoAgregarPaso();
+                mostrarDialogoPasos();
             }
         });
+    }
 
-        //capturar el id del boton de agregar categorias para mostrar el dialog
-        Button btnAgregarIngredientes = findViewById(R.id.btn_agregarIngredientes);
-        btnAgregarIngredientes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Mostrar el diálogo de categorías aquí
-                mostrarDialogoCategorias();
-            }
-        });
+    private void habilitarEdicion(EditText editText, String campo) {
+        // Habilitar la edición del EditText y mostrar un botón de guardar
+        editText.setEnabled(true);
+        editText.setFocusable(true);
+        editText.requestFocus();
+        // Mostrar un botón de guardar para guardar los cambios en la API cuando se haga clic en él
+        // Puedes implementar esta lógica según tus necesidades
+    }
 
-        @SuppressLint("WrongViewCast") Button btnEliminarCategoria = findViewById(R.id.btn_eliminarCategoria);
-        btnEliminarCategoria.setOnClickListener(new View.OnClickListener() {
+    private void mostrarDialogoIngredientes() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_agregar_ingrediente, null);
+        builder.setView(dialogView);
+
+        EditText editTextIngrediente = dialogView.findViewById(R.id.text_ingrediente);
+        Button btnAgregarIngrediente = dialogView.findViewById(R.id.btn_agregarIngredienteLista);
+        ImageButton btnCerrarDialog = dialogView.findViewById(R.id.btn_close_dialog);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        btnAgregarIngrediente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Verificar si hay categorías seleccionadas para eliminar
-                if (!categoriasSeleccionadas.isEmpty()) {
-                    // Crear una lista de IDs de categorías seleccionadas
-                    List<Integer> idsCategoriasSeleccionadas = new ArrayList<>();
-                    for (Categoria categoria : categoriasSeleccionadas) {
-                        idsCategoriasSeleccionadas.add(categoria.getIdCategoria());
-                    }
-
-                    // Enviar solicitud al servidor para eliminar las categorías seleccionadas de la receta
-                    enviarSolicitudEliminarCategorias(idsCategoriasSeleccionadas);
-                } else {
-                    // Si no hay categorías seleccionadas, mostrar un mensaje al usuario
-                    mostrarMensaje("No hay categorías seleccionadas para eliminar.");
-                }
-            }
-        });
-
-        //Inicializa los RecyclerView
-        recyclerViewPasos = findViewById(R.id.recycler_pasos);
-        recyclerViewIngredientes = findViewById(R.id.recycler_ingredientes);
-        // Inicializa el RecyclerView y el adaptador
-        ingredienteAdapter = new IngredienteRecipeAdapter(listaIngredientes, (IngredienteRecipeAdapter.OnItemClickListener) this);
-        recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewIngredientes.setAdapter(ingredienteAdapter);
-
-
-        // Crea listas de ejemplo para pasos y ingredientes
-        List<Paso> listaPasos = new ArrayList<>();
-        listaPasos.add(new Paso("Paso 1", "Descripción del paso 1"));
-        listaPasos.add(new Paso("Paso 2", "Descripción del paso 2"));
-
-
-        // Configura el RecyclerView para los pasos
-        recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
-        pasoAdapter = new PasosRecetaRecipeAdapter(listaPasos, new PasosRecetaRecipeAdapter.OnItemClickListener() {
-            @Override
-            public void onDeleteClick(int position) {
-                // Lógica para eliminar el paso
-                // ...
-            }
-        });
-        recyclerViewPasos.setAdapter(pasoAdapter);
-
-        // Configura el RecyclerView para los ingredientes
-        recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
-        ingredienteAdapter = new IngredienteRecipeAdapter(listaIngredientes, new IngredienteRecipeAdapter.OnItemClickListener() {
-            @Override
-            public void onDeleteClick(int position) {
-                // Lógica para eliminar el ingrediente
-                // ...
-            }
-        });
-        recyclerViewIngredientes.setAdapter(ingredienteAdapter);
-    }
-
-    //Dialog para moificar el titulo y conecxion a la base de dato
-    private void mostrarDialogoModificarTitulo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_modificar_titulo_receta, null);
-        builder.setView(view);
-
-        final EditText editTextNuevoTitulo = view.findViewById(R.id.editTextNuevoTitulo);
-
-        builder.setPositiveButton("Modificar Nombre", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String nuevoTitulo = editTextNuevoTitulo.getText().toString().trim();
-                if (!nuevoTitulo.isEmpty()) {
-                    enviarSolicitudActualizarTitulo(nuevoTitulo);
-                } else {
-                    // Manejar el caso en el que el nuevo título esté vacío
-                }
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.show();
-    }
-
-
-    private void enviarSolicitudActualizarTitulo(final String nuevoTitulo) {
-        String url = "http://tudominio.com/api/actualizar_titulo_receta";
-
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                        mostrarMensaje("Título actualizado correctamente");
-                        // Puedes realizar acciones adicionales si es necesario
-                    } else {
-                        mostrarMensaje("Error al actualizar el título. Inténtalo de nuevo más tarde.");
-                        // Muestra un mensaje de error o maneja la situación según tus necesidades
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    // Manejar el error de análisis JSON si es necesario
-                    mostrarMensaje("Error de respuesta del servidor. Inténtalo de nuevo más tarde.");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                // Manejar errores de Volley, como falta de conexión o tiempo de espera agotado
-                mostrarMensaje("Error de conexión. Por favor, verifica tu conexión a Internet.");
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("nuevo_titulo", nuevoTitulo);
-                // Puedes agregar más parámetros según las necesidades de tu API
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
-    }
-
-    //dialog para modificar descripcion, nivel de dificultad y tiempo de coccion y conexion a la bd
-    private void mostrarDialogoEditar() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_editar_descripcion_coccion_dificultad, null);
-        builder.setView(view);
-
-        final EditText editTextNuevaDescripcion = view.findViewById(R.id.editTextDescripcion);
-        final EditText editTextNuevoTiempoCoccion = view.findViewById(R.id.editTextTiempoCoccion);
-        final Spinner spinnerNuevaDificultad = view.findViewById(R.id.spinnerDificultad);
-
-        builder.setPositiveButton("Modificar Receta", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String nuevaDescripcion = editTextNuevaDescripcion.getText().toString().trim();
-                String nuevoTiempoCoccion = editTextNuevoTiempoCoccion.getText().toString().trim();
-                String nuevaDificultad = spinnerNuevaDificultad.getSelectedItem().toString();
-
-                if (!nuevaDescripcion.isEmpty() && !nuevoTiempoCoccion.isEmpty()) {
-                    enviarSolicitudActualizarReceta(nuevaDescripcion, nuevoTiempoCoccion, nuevaDificultad);
-                } else {
-                    // Manejar el caso en el que alguno de los campos esté vacío
-                }
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.show();
-    }
-
-    private void enviarSolicitudActualizarReceta(final String nuevaDescripcion, final String nuevoTiempoCoccion, final String nuevaDificultad) {
-        String url = "http://tudominio.com/api/actualizar_receta";
-
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                        mostrarMensaje("Receta actualizada correctamente");
-                        // Puedes realizar acciones adicionales si es necesario
-                    } else {
-                        mostrarMensaje("Error al actualizar la receta. Inténtalo de nuevo más tarde.");
-                        // Muestra un mensaje de error o maneja la situación según tus necesidades
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    // Manejar el error de análisis JSON si es necesario
-                    mostrarMensaje("Error de respuesta del servidor. Inténtalo de nuevo más tarde.");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                // Manejar errores de Volley, como falta de conexión o tiempo de espera agotado
-                mostrarMensaje("Error de conexión. Por favor, verifica tu conexión a Internet.");
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("nueva_descripcion", nuevaDescripcion);
-                params.put("nuevo_tiempo_coccion", nuevoTiempoCoccion);
-                params.put("nueva_dificultad", nuevaDificultad);
-                // Puedes agregar más parámetros según las necesidades de tu API
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
-    }
-
-    // Método para mostrar el cuadro de diálogo para agregar ingredientes
-        private void mostrarDialogoAgregarIngrediente() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View view = getLayoutInflater().inflate(R.layout.dialog_agregar_ingrediente, null);
-            builder.setView(view);
-
-            final EditText editTextNombreIngrediente = view.findViewById(R.id.text_ingrediente);
-            Button btnAgregarIngredienteLista = view.findViewById(R.id.btn_agregarIngredienteLista);
-            Button btnCloseDialog = view.findViewById(R.id.btn_close_dialog);
-
-            final AlertDialog dialog = builder.create();
-
-            btnAgregarIngredienteLista.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String nombreIngrediente = editTextNombreIngrediente.getText().toString().trim();
-                    if (!nombreIngrediente.isEmpty()) {
-                        // Enviar solicitud POST para agregar el ingrediente
-                        agregarIngrediente(nombreIngrediente, dialog);
-                    } else {
-                        mostrarMensaje("Por favor, ingresa un nombre para el ingrediente.");
-                    }
-                }
-            });
-
-            btnCloseDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                String ingrediente = editTextIngrediente.getText().toString().trim();
+                if (!ingrediente.isEmpty()) {
+                    // Agrega el ingrediente a la lista y actualiza el adaptador
+                    Ingrediente nuevoIngrediente = new Ingrediente(ingrediente);
+                    ingredientesList.add(nuevoIngrediente);
+                    ingredienteAdapter.notifyDataSetChanged();
                     dialog.dismiss();
+                } else {
+                    // Muestra un mensaje de error si el campo está vacío
+                    Toast.makeText(ModificarRecetaActivity.this, "Por favor, ingresa un ingrediente", Toast.LENGTH_SHORT).show();
                 }
-            });
-
-            dialog.show();
-        }
-
-    // Método para enviar una solicitud POST y agregar un ingrediente a través de la API REST
-    private void agregarIngrediente(final String nombreIngrediente, final AlertDialog dialog) {
-        String url = "http://tudominio.com/api/agregarIngrediente";
-
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Manejar la respuesta del servidor si es necesario
-                        mostrarMensaje("Ingrediente agregado correctamente");
-                        // Cerrar el diálogo después de agregar el ingrediente
-                        dialog.dismiss();
-                        // Puedes realizar acciones adicionales si es necesario
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Manejar errores de la solicitud si es necesario
-                        mostrarMensaje("Error al agregar el ingrediente. Inténtalo de nuevo más tarde.");
-                        Log.e("Error", "Error en la solicitud: " + error.getMessage());
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("nombre", nombreIngrediente); // Pasar el nombre del ingrediente al servidor
-                return params;
             }
-        };
-
-        Volley.newRequestQueue(this).add(postRequest);
-    }
-    public void onDeleteClick(int position) {
-        // Obtener el ingrediente en la posición especificada
-        Ingrediente ingrediente = listaIngredientes.get(position);
-
-        // Eliminar el ingrediente de la lista
-        listaIngredientes.remove(position);
-
-        // Notificar al adaptador que se eliminó un elemento en la posición especificada
-        ingredienteAdapter.notifyItemRemoved(position);
-
-        // Aquí puedes realizar acciones adicionales, como eliminar el ingrediente de la base de datos
-        // o mostrar un mensaje de eliminación exitosa
+        });
+        btnCerrarDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
-    //Dialog para agregar el Paso de la Receta y llamada a la bd
-    private void mostrarDialogoAgregarPaso() {
+    private void mostrarDialogoPasos() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_agregar_paso, null);
-        builder.setView(view);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
+        builder.setView(dialogView);
 
-        final EditText editTextTituloPaso = view.findViewById(R.id.text_tituloPaso);
-        final EditText editTextDescripcionPaso = view.findViewById(R.id.text_descripcionPaso);
-        Button btnAgregarPaso = view.findViewById(R.id.btn_agregarPasoDialog);
-        Button btnCloseDialogPaso = view.findViewById(R.id.btn_close_dialogPaso);
+        EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
+        EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
+        Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
+        ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
 
-        final AlertDialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
 
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String tituloPaso = editTextTituloPaso.getText().toString().trim();
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-
                 if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
-                    agregarPaso(tituloPaso, descripcionPaso, dialog);
+                    // Agrega el paso a la lista y actualiza el adaptador
+                    Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                    pasosList.add(nuevoPaso);
+                    pasosAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
                 } else {
-                    mostrarMensaje("Por favor, completa todos los campos.");
+                    // Muestra un mensaje de error si alguno de los campos está vacío
+                    Toast.makeText(ModificarRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        btnCloseDialogPaso.setOnClickListener(new View.OnClickListener() {
+        btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-
-        dialog.show();
     }
 
-    private void agregarPaso(final String tituloPaso, final String descripcionPaso, final AlertDialog dialog) {
-        String url = "http://tudominio.com/api/agregarPaso";
-
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Manejar la respuesta del servidor si es necesario
-                        mostrarMensaje("Paso agregado correctamente");
-                        // Cerrar el diálogo después de agregar el paso
-                        dialog.dismiss();
-                        // Puedes realizar acciones adicionales si es necesario
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Manejar errores de la solicitud si es necesario
-                        mostrarMensaje("Error al agregar el paso. Inténtalo de nuevo más tarde.");
-                        Log.e("Error", "Error en la solicitud: " + error.getMessage());
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("titulo", tituloPaso);
-                params.put("descripcion", descripcionPaso);
-                // Puedes agregar más parámetros según las necesidades de tu API
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(this).add(postRequest);
+    private String getEmailUsuarioLogueado() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        return sharedPreferences.getString("email", null);
     }
 
-    //Dialog para categorias
-    private void mostrarDialogoCategorias() {
-        // URL de la API para obtener la lista de categorías
+    private void obtenerDetallesReceta() {
         String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://"+ pc_ip +":3000/receta/getCategorias";
+        String email = getEmailUsuarioLogueado(); // Obtén el email del usuario logueado desde SharedPreferences
 
-        // Hacer una solicitud GET a la API usando Volley
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        String url = "http://" + pc_ip + ":3000/usuario/getUsuario/" + email;
+
+        StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(String response) {
                 try {
-                    // Lista para almacenar las categorías obtenidas
-                    List<Categoria> categoriasList = new ArrayList<>();
+                    // Parsea la respuesta para obtener los detalles de la receta del usuario
+                    Receta receta = parsearRespuestaReceta(response);
 
-                    // Iterar por la respuesta JSON y convertirla en objetos Categoria
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject categoriaJson = response.getJSONObject(i);
-                        Categoria categoria = new Categoria();
-                        categoria.setIdCategoria(categoriaJson.getInt("id"));
-                        categoria.setNombre(categoriaJson.getString("nombre"));
-
-                        // Agregar la categoría a la lista
-                        categoriasList.add(categoria);
-                    }
-
-                    // Iterar por las categorías y agregar vistas al LinearLayout
-                    for (Categoria categoria : categoriasList) {
-                        View categoriaView = LayoutInflater.from(ModificarRecetaActivity.this).inflate(R.layout.categoria_layout, null);
-                        TextView categoriaTextView = categoriaView.findViewById(R.id.categoria_view);
-                        categoriaTextView.setText(categoria.getNombre());
-
-                        // Configurar el clic en la vista para manejar la selección de categorías
-                        categoriaView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Verificar si la categoría ya está seleccionada
-                                if (categoriasSeleccionadas.contains(categoria)) {
-                                    // Si está seleccionada, quitarla de la lista de seleccionadas
-                                    categoriasSeleccionadas.remove(categoria);
-                                } else {
-                                    // Si no está seleccionada, agregarla a la lista de seleccionadas
-                                    categoriasSeleccionadas.add(categoria);
-                                }
-
-                                // Actualizar la vista de categorías seleccionadas
-                                mostrarCategoriasSeleccionadas();
-                            }
-                        });
-
-                        // Agregar la vista al LinearLayout
-                        containerCategoriasView.addView(categoriaView);
-                    }
+                    // Carga los datos de la receta en los EditText correspondientes
+                    cargarDatosReceta(receta);
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                    // Manejar errores al procesar la respuesta JSON
+                    handleError("Error al parsear los datos de la receta: " + e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Manejar errores de la solicitud
-                error.printStackTrace();
+                handleError("Error en la solicitud: " + error.getMessage());
             }
         });
 
-        // Agregar la solicitud a la cola de solicitudes de Volley
-        Volley.newRequestQueue(ModificarRecetaActivity.this).add(request);
+        // Asegúrate de añadir la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(get);
     }
 
-    private void mostrarCategoriasSeleccionadas() {
-        // Limpiar el contenedor antes de agregar las vistas
-        containerCategoriasView.removeAllViews();
+    private void cargarDatosReceta(Receta receta) {
+        // Carga los datos de la receta en los EditText correspondientes
+        tituloReceta.setText(receta.getTitulo());
+        editDescripcion.setText(receta.getDescripcion());
+        editTiempoCoccion.setText(receta.getTiempoCoccion());
+        dificultadReceta.setText(receta.getDificultad());
 
-        // Iterar por las categorías seleccionadas y agregar vistas al LinearLayout
-        for (Categoria categoria : categoriasSeleccionadas) {
-            View categoriaView = LayoutInflater.from(ModificarRecetaActivity.this).inflate(R.layout.categoria_layout, null);
-            TextView categoriaTextView = categoriaView.findViewById(R.id.categoria_view);
-            categoriaTextView.setText(categoria.getNombre());
+        // Carga los ingredientes en el RecyclerView de ingredientes
+        ingredientesList.addAll(receta.getIngredientes());
+        ingredienteAdapter.notifyDataSetChanged();
 
-            // Agregar la vista al LinearLayout
-            containerCategoriasView.addView(categoriaView);
+        // Carga los pasos en el RecyclerView de pasos
+        pasosList.addAll(receta.getPasos());
+        pasosAdapter.notifyDataSetChanged();
+    }
+
+    private List<Ingrediente> obtenerListaDeIngredientes(JSONArray jsonArray) throws JSONException {
+        List<Ingrediente> ingredientes = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            String nombreIngrediente = jsonArray.getString(i);
+            Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
+            ingredientes.add(ingrediente);
         }
+        return ingredientes;
     }
 
-    // Método para enviar solicitud al servidor para eliminar categorías de la receta
-    private void enviarSolicitudEliminarCategorias(List<Integer> idsCategoriasSeleccionadas) {
-        // URL de la API para eliminar categorías de la receta
-        String urlEliminarCategorias = "http://tu_api_para_eliminar_categorias";
+    private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
+        List<Paso> pasos = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject pasoJson = jsonArray.getJSONObject(i);
+            String titulo = pasoJson.getString("titulo");
+            String descripcion = pasoJson.getString("descripcion");
+            Paso paso = new Paso(titulo, descripcion);
+            pasos.add(paso);
+        }
+        return pasos;
+    }
 
-        // Crear un objeto JSON con los IDs de las categorías seleccionadas
-        JSONObject jsonObject = new JSONObject();
+    private Receta parsearRespuestaReceta(String response) throws JSONException {
+        JSONObject jsonObject = new JSONObject(response);
+        // Obtén los valores del JSON
+        Integer idReceta = jsonObject.getInt("idReceta");
+        String titulo = jsonObject.getString("titulo");
+        String descripcion = jsonObject.getString("descripcion");
+        String tiempoCoccion = jsonObject.getString("tiempoCoccion");
+        String dificultad = jsonObject.getString("dificultad");
+
+        // Obtén la lista de ingredientes como lista de objetos Ingrediente
+        List<Ingrediente> ingredientes = obtenerListaDeIngredientes(jsonObject.getJSONArray("ingredientes"));
+
+        // Obtén la lista de pasos como lista de objetos Paso
+        List<Paso> pasos = obtenerListaDePasos(jsonObject.getJSONArray("pasos"));
+
+        // Crea y devuelve el objeto Receta
+        return new Receta(idReceta, titulo, descripcion, tiempoCoccion, dificultad, ingredientes, pasos);
+    }
+
+    private List<String> obtenerListaDeCadenas(JSONArray jsonArray) throws JSONException {
+        List<String> lista = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            lista.add(jsonArray.getString(i));
+        }
+        return lista;
+    }
+
+    private void handleError(String errorMessage) {
+        // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario o realizando alguna otra acción
+        Log.e("Error", errorMessage);
+        // También puedes mostrar un mensaje de error en un Toast
+        Toast.makeText(this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    // Método para modificar el título de la receta
+    private void modificarTituloReceta(int idReceta, String nuevoTitulo) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/modificarTituloReceta";
+
+        // Crea el cuerpo de la solicitud en formato JSON
+        JSONObject requestBody = new JSONObject();
         try {
-            JSONArray jsonArrayIdsCategorias = new JSONArray(idsCategoriasSeleccionadas);
-            jsonObject.put("ids_categorias", jsonArrayIdsCategorias);
+            requestBody.put("idReceta", idReceta);
+            requestBody.put("titulo", nuevoTitulo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // Enviar una solicitud POST al servidor con el objeto JSON
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlEliminarCategorias, jsonObject,
+        // Crea la solicitud POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Manejar la respuesta del servidor si es necesario
-                        mostrarMensaje("Categorías eliminadas correctamente.");
-                        // Puedes realizar acciones adicionales si es necesario
-                        // Por ejemplo, actualizar la vista de categorías
-                        // ...
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Manejar errores de la solicitud si es necesario
-                        mostrarMensaje("Error al eliminar categorías. Inténtalo de nuevo más tarde.");
-                        Log.e("Error", "Error en la solicitud: " + error.getMessage());
                     }
                 });
 
-        // Agregar la solicitud a la cola de solicitudes de Volley
+        // Añade la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(this).add(request);
     }
 
+    // Método para modificar la descripción, dificultad y tiempo de cocción de la receta
+    private void modificarDescripcionDificultadTiempo(int idReceta, String nuevaDescripcion, String nuevoTiempo, String nuevaDificultad) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/modificarDescripcionReceta";
 
-    private void mostrarMensaje(String mensaje) {
-        Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
+        // Crea el cuerpo de la solicitud en formato JSON
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("idReceta", idReceta);
+            requestBody.put("descripcion", nuevaDescripcion);
+            requestBody.put("tiempoCoccion", nuevoTiempo);
+            requestBody.put("dificultad", nuevaDificultad);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Crea la solicitud POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Manejar la respuesta del servidor si es necesario
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud si es necesario
+                    }
+                });
+
+        // Añade la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(request);
+    }
+
+    // Método para modificar los ingredientes de la receta
+    private void modificarIngredientes(int idReceta, List<Ingrediente> nuevosIngredientes) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/modificarIngredientes";
+
+        // Crea el cuerpo de la solicitud en formato JSON
+        JSONArray ingredientesArray = new JSONArray();
+        for (Ingrediente ingrediente : nuevosIngredientes) {
+            ingredientesArray.put(ingrediente.getNombre());
+        }
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("idReceta", idReceta);
+            requestBody.put("ingredientes", ingredientesArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Crea la solicitud POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Manejar la respuesta del servidor si es necesario
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud si es necesario
+                    }
+                });
+
+        // Añade la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(request);
+    }
+
+    // Método para modificar los pasos de la receta
+    private void modificarPasos(int idReceta, List<Paso> nuevosPasos) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/modificarPasos";
+
+        // Crea el cuerpo de la solicitud en formato JSON
+        JSONArray pasosArray = new JSONArray();
+        for (Paso paso : nuevosPasos) {
+            JSONObject pasoObject = new JSONObject();
+            try {
+                pasoObject.put("titulo", paso.getTitulo());
+                pasoObject.put("descripcion", paso.getDescripcion());
+                pasosArray.put(pasoObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("idReceta", idReceta);
+            requestBody.put("pasos", pasosArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Crea la solicitud POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Manejar la respuesta del servidor si es necesario
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud si es necesario
+                    }
+                });
+
+        // Añade la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(request);
     }
 }
+

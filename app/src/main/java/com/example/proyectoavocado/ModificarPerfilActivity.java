@@ -1,13 +1,19 @@
 package com.example.proyectoavocado;
 
+
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -31,20 +37,23 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ModificarPerfilActivity extends AppCompatActivity {
 
+
+    private Dialog dialog; // Usar Dialog en lugar de AlertDialog
     private EditText perfilPassword1;
     private EditText perfilPassword2;
     private TextView perfilEmail;
@@ -52,7 +61,6 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private EditText perfilNombreUsuario;
     private String nombrePlaceholder;
    private String usuarioPlaceholder;
-    private AlertDialog dialog;
     private ImageButton btnEditNombre;
     private ImageButton btnAceptarEditNombre;
     private ImageButton btnCancelEditNombre;
@@ -65,9 +73,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
 
     Bitmap bitmap;
 
-
-
     private static final int PICK_IMAGE_REQUEST = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,10 +153,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 btnEditNombre.setVisibility(View.GONE);
                 btnAceptarEditNombre.setVisibility(View.VISIBLE);
                 btnCancelEditNombre.setVisibility(View.VISIBLE);
-
                 usuarioPlaceholder = perfilNombreUsuario.getText().toString();
                 nombrePlaceholder = perfilNombreCompleto.getText().toString();
-
                 perfilNombreCompleto.setEnabled(true);
                 perfilNombreUsuario.setEnabled(true);
             }
@@ -183,7 +188,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
               //llamar actualizar
                 actualizarNombres(String.valueOf(perfilEmail));
-                convertirImagen();
+                convertirImagen(bitmap);
               // cambiar visibilidad
                 btnAceptarEditNombre.setVisibility(View.GONE);
                 btnCancelEditNombre.setVisibility(View.GONE);
@@ -204,7 +209,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                             try {
                                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                                 perfilImagen.setImageBitmap(bitmap);
-                                convertirImagen();
+                                convertirImagen(bitmap);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -258,6 +263,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        btnEliminarCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mostrarDialogEliminarCuenta();
+            }
+        });
+
         btnBackPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -266,42 +278,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btnEliminarCuenta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mostrarDialogEliminarCuenta();
-            }
-        });
     }
 
-    private void eliminarCuenta() {
-        String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/eliminar_cuenta"; // Asegúrate de tener el endpoint correcto para eliminar cuentas
-
-        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // Cuenta eliminada con éxito
-                Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
-
-                // Redirigir a la actividad de inicio
-                Intent intent = new Intent(ModificarPerfilActivity.this, InicioActivity.class);
-                startActivity(intent);
-                finish(); // Cierra la actividad actual para evitar volver atrás
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Error al eliminar la cuenta
-                Toast.makeText(getApplicationContext(), "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
-                // Log de errores
-                Log.e("Error", "Error al eliminar la cuenta: " + error.getMessage());
-            }
-        });
-
-        Volley.newRequestQueue(this).add(deleteRequest);
-    }
     private void mostrarDialogEliminarCuenta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflar el diseño personalizado
@@ -319,23 +297,74 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Implementa aquí la lógica para eliminar la cuenta
                 eliminarCuenta();
-
                 // Cierra el diálogo
-                dialog.dismiss();
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
             }
         });
 
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Cierra el diálogo
-                dialog.dismiss();
-            }
-        });
+        // Asegúrate de que dialog no sea nulo antes de mostrarlo
+        if (dialog != null) {
+            dialog.show();
+        }
+    }
 
-        // Crear y mostrar el diálogo
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private void eliminarCuenta() {
+        // Obtener el correo electrónico del usuario desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        String userEmail = sharedPreferences.getString("email", null);
+        //String userEmail = "pedro@example.com";
+
+        if (userEmail != null) {
+            // El correo electrónico del usuario está disponible, puedes enviar la solicitud para eliminar la cuenta
+
+            String pc_ip = getResources().getString(R.string.pc_ip);
+            String url = "http://" + pc_ip + ":3000/usuario/eliminar?_method=DELETE";
+
+            // Crea un objeto JSON con el correo electrónico del usuario
+            JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody.put("email", userEmail);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Crea una solicitud POST con el cuerpo JSON
+            JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            // Cuenta eliminada con éxito
+                            Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+
+                            // Limpiar datos de sesión (cerrar sesión)
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.remove("email"); // Elimina el correo electrónico u otros datos de sesión que estés almacenando
+                            editor.apply();
+
+                            // Redirigir a la actividad de inicio
+                            Intent intent = new Intent(ModificarPerfilActivity.this, InicioActivity.class);
+                            startActivity(intent);
+                            finish(); // Cierra la actividad actual para evitar volver atrás
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // Error al eliminar la cuenta
+                            Toast.makeText(getApplicationContext(), "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
+                            // Log de errores
+                            Log.e("Error", "Error al eliminar la cuenta: " + error.getMessage());
+                        }
+                    });
+
+            // Agregar la solicitud a la cola de solicitudes
+            Volley.newRequestQueue(this).add(postRequest);
+        } else {
+            // El correo electrónico del usuario no está disponible en SharedPreferences, muestra un mensaje de error o maneja la situación como desees
+            Toast.makeText(getApplicationContext(), "Error mail no existe", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void traerDatosPerfil(String userEmail){
@@ -353,15 +382,17 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     String nombreCompleto = content.getString("nombreCompleto");
                     String usuario =  content.getString("usuario");
                     String email =  content.getString("email");
-                    JSONObject imagen = content.getJSONObject("imagen");
-                    JSONArray data = imagen.getJSONArray("data");
+                    String imagen = content.getString("imagen");
 
-                    if (data.length() == 0 || imagen == null) {
-                        perfilImagen.setImageResource(R.drawable.icono_perfil);
-                    } else {
-                        byte[] imageBytes = Base64.decode(String.valueOf(data), Base64.DEFAULT);
-                        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+                    byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
+                    Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+                    if (decodedImage != null) {
+                        // Si no hay errores al decodificar, muestra la imagen
                         perfilImagen.setImageBitmap(decodedImage);
+                    } else {
+                        // Si no se pudo crear el Bitmap, muestra una imagen de perfil por defecto
+                        perfilImagen.setImageResource(R.drawable.icono_perfil);
                     }
 
                     perfilNombreCompleto.setText(nombreCompleto);
@@ -515,15 +546,15 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
-    private void convertirImagen(){
+    private void convertirImagen(Bitmap bmp){
         //convertir imagen
-        ByteArrayOutputStream byteArrayOutputStream;
-        byteArrayOutputStream = new ByteArrayOutputStream();
-        if(bitmap != null){
+        ByteArrayOutputStream baos;
+        baos = new ByteArrayOutputStream();
+        if(bmp != null){
             //convertir bitmap a string
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-            final String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] bytes = baos.toByteArray();
+            String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
             subirImagen(base64);
         }
         else {

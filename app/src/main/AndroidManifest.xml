@@ -24,7 +24,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,10 +53,10 @@
             android:exported="true" />
         <activity
             android:name=".ModificarRecetaActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ModificarPerfilActivity"
-            android:exported="false" />
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

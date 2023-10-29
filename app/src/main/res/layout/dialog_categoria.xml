@@ -8,12 +8,13 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <ImageButton
             android:id="@+id/btn_close_dialogCategoria"
@@ -25,7 +26,7 @@
             app:srcCompat="@drawable/x_icon" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
@@ -35,31 +36,49 @@
             android:textColor="#3C5B27"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/container_categorias"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/container_categorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
+                <!--<androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_categoriaButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textTitle"
+                    android:layout_gravity="center"
+                    android:buttonTint="@color/radio_button_selector"
+                    android:foregroundGravity="center"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/radio_btn_categoria" />-->
 
-        <Button
-            android:id="@+id/btn_agregarCategoriaDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:backgroundTint="#FDFFEB"
-            android:fontFamily="@font/roboto"
-            android:text="Agregar Categoría"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="#000"
-            android:textSize="15sp"
-            app:cornerRadius="100dp"
-            app:icon="@drawable/mas_icono"
-            app:iconTint="#000000" />
+                <Button
+                    android:id="@+id/btn_agregarCategoriaDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:backgroundTint="#FDFFEB"
+                    android:fontFamily="@font/roboto"
+                    android:text="Agregar Categoría"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    app:cornerRadius="100dp"
+                    app:icon="@drawable/mas_icono"
+                    app:iconTint="#000000" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
