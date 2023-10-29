@@ -123,11 +123,12 @@ public class FeedActivity extends AppCompatActivity {
             Integer idReceta = jsonObject.getInt("idReceta");
             String titulo = jsonObject.getString("titulo");
             String creadoPor = jsonObject.getString("creadoPor");
+            String descripcion = jsonObject.getString("descripcion");
             // Puedes obtener otros campos de la receta de manera similar
             // ...
 
             // Crear objeto Receta y agregarlo a la lista
-            Receta receta = new Receta(idReceta, titulo, creadoPor);
+            Receta receta = new Receta(idReceta, titulo, creadoPor, descripcion);
             listaRecetas.add(receta);
         }
         return listaRecetas;
@@ -148,4 +149,5 @@ public class FeedActivity extends AppCompatActivity {
     private void mostrarMensaje(String mensaje) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
+
 }

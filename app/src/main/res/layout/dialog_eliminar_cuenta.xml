@@ -37,28 +37,10 @@
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
     <Button
-        android:id="@+id/btn_aceptar"
-        android:layout_width="126dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#FDFFEB"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Aceptar"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#3C5B27"
-        android:textSize="18sp"
-        app:cornerRadius="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_message" />
-
-    <Button
         android:id="@+id/btn_cancelar"
         android:layout_width="127dp"
         android:layout_height="58dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#FDFFEB"
         android:fontFamily="@font/roboto_bold"
         android:text="Cancelar"
@@ -68,7 +50,25 @@
         android:textSize="18sp"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_message" />
+
+    <Button
+        android:id="@+id/btn_aceptar"
+        android:layout_width="126dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FDFFEB"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Aceptar"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#3C5B27"
+        android:textSize="18sp"
+        app:cornerRadius="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_message" />
 

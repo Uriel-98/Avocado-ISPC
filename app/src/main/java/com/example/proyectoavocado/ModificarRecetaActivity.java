@@ -65,14 +65,11 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         btnEditarTitulo = findViewById(R.id.btn_edit_tituloReceta);
         btnEditarDescripcionTiempoDificultad = findViewById(R.id.btn_editar_descripcion_coccion_dificultad);
 
-
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
         pasosList = new ArrayList<>();
 
-
         obtenerDetallesReceta();
-
 
         // Configura el adaptador de ingredientes
         ingredienteAdapter = new IngredienteRecipeAdapter(ingredientesList, new IngredienteRecipeAdapter.OnItemClickListener() {
@@ -85,9 +82,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewIngredientes.setAdapter(ingredienteAdapter);
 
-
-
-
         // Configura el adaptador de pasos
         pasosAdapter = new PasosRecetaRecipeAdapter(pasosList, new PasosRecetaRecipeAdapter.OnItemClickListener() {
             @Override
@@ -99,9 +93,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPasos.setAdapter(pasosAdapter);
 
-
-
-
         btnEditarTitulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +100,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 habilitarEdicion(tituloReceta, "titulo");
             }
         });
-
 
         btnEditarDescripcionTiempoDificultad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +111,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 habilitarEdicion(dificultadReceta, "dificultad");
             }
         });
-
 
         // Capturar id del botón para agregar ingredientes y llamar al cuadro de diálogo
         Button btnAgregarIngrediente = findViewById(R.id.btn_agregarIngredientes);
@@ -143,7 +132,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
     }
 
-
     private void habilitarEdicion(EditText editText, String campo) {
         // Habilitar la edición del EditText y mostrar un botón de guardar
         editText.setEnabled(true);
@@ -153,22 +141,18 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         // Puedes implementar esta lógica según tus necesidades
     }
 
-
     private void mostrarDialogoIngredientes() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_agregar_ingrediente, null);
         builder.setView(dialogView);
 
-
         EditText editTextIngrediente = dialogView.findViewById(R.id.text_ingrediente);
         Button btnAgregarIngrediente = dialogView.findViewById(R.id.btn_agregarIngredienteLista);
         ImageButton btnCerrarDialog = dialogView.findViewById(R.id.btn_close_dialog);
 
-
         AlertDialog dialog = builder.create();
         dialog.show();
-
 
         btnAgregarIngrediente.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,19 +178,16 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
     }
 
-
     private void mostrarDialogoPasos() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
         builder.setView(dialogView);
 
-
         EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
-
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -230,7 +211,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             }
         });
 
-
         btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,20 +219,16 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
     }
 
-
     private String getEmailUsuarioLogueado() {
         SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         return sharedPreferences.getString("email", null);
     }
 
-
     private void obtenerDetallesReceta() {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String email = getEmailUsuarioLogueado(); // Obtén el email del usuario logueado desde SharedPreferences
 
-
         String url = "http://" + pc_ip + ":3000/usuario/getUsuario/" + email;
-
 
         StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -260,7 +236,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 try {
                     // Parsea la respuesta para obtener los detalles de la receta del usuario
                     Receta receta = parsearRespuestaReceta(response);
-
 
                     // Carga los datos de la receta en los EditText correspondientes
                     cargarDatosReceta(receta);
@@ -275,11 +250,9 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             }
         });
 
-
         // Asegúrate de añadir la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(this).add(get);
     }
-
 
     private void cargarDatosReceta(Receta receta) {
         // Carga los datos de la receta en los EditText correspondientes
@@ -288,17 +261,14 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         editTiempoCoccion.setText(receta.getTiempoCoccion());
         dificultadReceta.setText(receta.getDificultad());
 
-
         // Carga los ingredientes en el RecyclerView de ingredientes
         ingredientesList.addAll(receta.getIngredientes());
         ingredienteAdapter.notifyDataSetChanged();
-
 
         // Carga los pasos en el RecyclerView de pasos
         pasosList.addAll(receta.getPasos());
         pasosAdapter.notifyDataSetChanged();
     }
-
 
     private List<Ingrediente> obtenerListaDeIngredientes(JSONArray jsonArray) throws JSONException {
         List<Ingrediente> ingredientes = new ArrayList<>();
@@ -309,7 +279,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         }
         return ingredientes;
     }
-
 
     private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
         List<Paso> pasos = new ArrayList<>();
@@ -323,11 +292,8 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         return pasos;
     }
 
-
     private Receta parsearRespuestaReceta(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
-
-
         // Obtén los valores del JSON
         Integer idReceta = jsonObject.getInt("idReceta");
         String titulo = jsonObject.getString("titulo");
@@ -335,19 +301,15 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         String tiempoCoccion = jsonObject.getString("tiempoCoccion");
         String dificultad = jsonObject.getString("dificultad");
 
-
         // Obtén la lista de ingredientes como lista de objetos Ingrediente
         List<Ingrediente> ingredientes = obtenerListaDeIngredientes(jsonObject.getJSONArray("ingredientes"));
-
 
         // Obtén la lista de pasos como lista de objetos Paso
         List<Paso> pasos = obtenerListaDePasos(jsonObject.getJSONArray("pasos"));
 
-
         // Crea y devuelve el objeto Receta
         return new Receta(idReceta, titulo, descripcion, tiempoCoccion, dificultad, ingredientes, pasos);
     }
-
 
     private List<String> obtenerListaDeCadenas(JSONArray jsonArray) throws JSONException {
         List<String> lista = new ArrayList<>();
@@ -357,7 +319,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         return lista;
     }
 
-
     private void handleError(String errorMessage) {
         // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario o realizando alguna otra acción
         Log.e("Error", errorMessage);
@@ -365,12 +326,10 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         Toast.makeText(this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
     }
 
-
     // Método para modificar el título de la receta
     private void modificarTituloReceta(int idReceta, String nuevoTitulo) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/modificarTituloReceta";
-
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONObject requestBody = new JSONObject();
@@ -380,7 +339,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         // Crea la solicitud POST
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
@@ -397,17 +355,14 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                     }
                 });
 
-
         // Añade la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(this).add(request);
     }
-
 
     // Método para modificar la descripción, dificultad y tiempo de cocción de la receta
     private void modificarDescripcionDificultadTiempo(int idReceta, String nuevaDescripcion, String nuevoTiempo, String nuevaDificultad) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/modificarDescripcionReceta";
-
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONObject requestBody = new JSONObject();
@@ -420,7 +375,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         // Crea la solicitud POST
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
                 new Response.Listener<JSONObject>() {
@@ -436,24 +390,20 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                     }
                 });
 
-
         // Añade la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(this).add(request);
     }
-
 
     // Método para modificar los ingredientes de la receta
     private void modificarIngredientes(int idReceta, List<Ingrediente> nuevosIngredientes) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/modificarIngredientes";
 
-
         // Crea el cuerpo de la solicitud en formato JSON
         JSONArray ingredientesArray = new JSONArray();
         for (Ingrediente ingrediente : nuevosIngredientes) {
             ingredientesArray.put(ingrediente.getNombre());
         }
-
 
         JSONObject requestBody = new JSONObject();
         try {
@@ -463,7 +413,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         // Crea la solicitud POST
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
                 new Response.Listener<JSONObject>() {
@@ -479,17 +428,14 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                     }
                 });
 
-
         // Añade la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(this).add(request);
     }
-
 
     // Método para modificar los pasos de la receta
     private void modificarPasos(int idReceta, List<Paso> nuevosPasos) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/modificarPasos";
-
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONArray pasosArray = new JSONArray();
@@ -504,7 +450,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             }
         }
 
-
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("idReceta", idReceta);
@@ -512,7 +457,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         // Crea la solicitud POST
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
@@ -529,9 +473,8 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                     }
                 });
 
-
         // Añade la solicitud a la cola de solicitudes de Volley
         Volley.newRequestQueue(this).add(request);
     }
-
 }
+

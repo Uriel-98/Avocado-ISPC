@@ -4,7 +4,6 @@ package com.example.proyectoavocado.reciclesAdaptadores;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,35 +14,31 @@ import com.example.proyectoavocado.controllers.Paso;
 
 import java.util.List;
 
-public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRecipeAdapter.PasoViewHolder> {
+public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoViewHolder> {
     private List<Paso> pasos;
-    private OnItemClickListener listener;
 
-    public interface OnItemClickListener {
-        void onDeleteClick(int position);
-    }
 
-    public PasosRecetaRecipeAdapter(List<Paso> pasos, OnItemClickListener listener) {
+    public PasoViewAdapter(List<Paso> pasos) {
         this.pasos = pasos;
-        this.listener = listener;
     }
 
     @NonNull
     @Override
     public PasoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.pasos_receta, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.paso_view, parent, false);
         return new PasoViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
         Paso paso = pasos.get(position);
-        holder.tituloPaso.setText("Paso " + (position + 1));
+        holder.tituloPaso.setText("Paso " + paso.getIdPaso());
         holder.descripcionPaso.setText(paso.getDescripcion());
 
-        holder.eliminarButton.setOnClickListener(view -> {
-            if (listener != null) {
-                listener.onDeleteClick(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle item click events here if needed
             }
         });
     }
@@ -56,13 +51,11 @@ public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRe
     static class PasoViewHolder extends RecyclerView.ViewHolder {
         TextView tituloPaso;
         TextView descripcionPaso;
-        ImageButton eliminarButton;
 
         PasoViewHolder(View itemView) {
             super(itemView);
-            tituloPaso = itemView.findViewById(R.id.titulo_pasoReceta);
-            descripcionPaso = itemView.findViewById(R.id.descripcion_pasoReceta);
-            eliminarButton = itemView.findViewById(R.id.btn_eliminarPaso);
+            tituloPaso = itemView.findViewById(R.id.titulo_paso);
+            descripcionPaso = itemView.findViewById(R.id.descripcion_paso);
         }
     }
 }
