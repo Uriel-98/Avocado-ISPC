@@ -79,7 +79,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         recyclerIngrediente.setLayoutManager(layoutManagerIngrediente);
         recyclerPaso.setLayoutManager(layoutManagerPaso);
 
-
+        int recetaId = getIntent().getIntExtra("receta_id", -1);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
