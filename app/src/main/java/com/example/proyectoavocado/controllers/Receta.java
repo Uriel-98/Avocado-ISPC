@@ -71,7 +71,7 @@ public class Receta implements Serializable {
         return idReceta;
     }
 
-    public void setIdReceta(String titulo) {
+    public void setIdReceta(Integer idReceta) {
         this.idReceta = idReceta;
     }
 

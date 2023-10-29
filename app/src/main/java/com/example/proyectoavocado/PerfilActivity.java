@@ -273,17 +273,24 @@ public class PerfilActivity extends AppCompatActivity {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/getRecetasUsuario/" + userEmail ;
 
+        RecyclerView recyclerPerfil = findViewById(R.id.recyclerPerfil);
+        TextView noTienesRecetas = findViewById(R.id.noTienesRecetas);
 
         StringRequest post = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
+
+
                     JSONObject json = new JSONObject(response);
                     String message = json.getString("message");
                     JSONArray content = json.getJSONArray("content");
 
                     if(content.length() == 0) {
                     // Imprimir "No tienes recetas en algún mensajito
+                        recyclerPerfil.setVisibility(View.GONE);
+                        noTienesRecetas.setVisibility(View.VISIBLE);
+
                     }
                     else {
                         listaRecetasPerfil = new ArrayList<>();
@@ -296,6 +303,8 @@ public class PerfilActivity extends AppCompatActivity {
                             listaRecetasPerfil.add(new Receta(idReceta, titulo, imagen));
                             // Agrega más recetas del perfil si es necesario
 
+                            recyclerPerfil.setVisibility(View.VISIBLE);
+                            noTienesRecetas.setVisibility(View.GONE);
 
 
                             // Crear un adaptador con la lista de recetas del perfil del usuario
