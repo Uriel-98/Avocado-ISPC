@@ -147,9 +147,6 @@ db.query(`UPDATE usuarios SET imagen = '${req.body.imagen}' WHERE email = '${req
 })
 })
 
-router.post('/mostrar',(req, res)=> {
-  res.send('ok')
-})
 
 router.delete('/eliminar', (req, res) => {
   const email = req.body.email
