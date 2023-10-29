@@ -288,8 +288,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
         builder.setView(dialogView);
-        builder.create();
-        builder.show();
+
         // capturo los id de los elementos
         Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
         Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
@@ -318,10 +317,11 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
-        // Asegúrate de que dialog no sea nulo antes de mostrarlo
-        if (dialog != null) {
-            dialog.show();
-        }
+        // Crear el diálogo y asignarlo a la variable dialog
+        dialog = builder.create();
+
+        // Mostrar el diálogo
+        dialog.show();
     }
 
     private void eliminarCuenta() {
