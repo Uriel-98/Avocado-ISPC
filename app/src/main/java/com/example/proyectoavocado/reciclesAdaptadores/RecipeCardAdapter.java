@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectoavocado.R;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.VistaDetalladaActivity;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 

@@ -73,7 +73,6 @@
             tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
     </LinearLayout>
 
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="417dp"
@@ -84,13 +83,11 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.306">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,13 +97,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <ImageView
                     android:id="@+id/img_comida"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     app:srcCompat="@drawable/pancakes_comida" />
-
 
                 <ImageButton
                     android:id="@+id/btn_camera"
@@ -119,10 +114,7 @@
                     android:tint="#000000"
                     app:srcCompat="@android:drawable/ic_menu_camera"
                     tools:ignore="MissingConstraints,UseAppTint,TouchTargetSizeCheck" />
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="406dp"
@@ -134,18 +126,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <EditText
                     android:id="@+id/text_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Titulo de la Receta"
+                    android:hint="Titulo de la Receta"
                     android:textColor="#3C5B27"
                     android:textSize="18sp"
                     tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
-
-
 
 
                 <EditText
@@ -157,11 +146,10 @@
                     android:fontFamily="@font/roboto"
                     android:inputType="textMultiLine"
                     android:lines="8"
-                    android:text="Descripción de la Receta"
+                    android:hint="Descripción de la Receta"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     tools:ignore="MissingConstraints" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,7 +157,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="15px"
                     android:orientation="horizontal">
-
 
                     <ImageView
                         android:id="@+id/img_clock"
@@ -182,24 +169,21 @@
                         app:srcCompat="@drawable/clock_icon"
                         tools:ignore="MissingConstraints,UseAppTint" />
 
-
                     <EditText
                         android:id="@+id/text_tiempoCoccion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
-                        android:text="Tiempo de cocción"
+                        android:hint="Tiempo de cocción"
                         android:textColor="#000000"
                         android:textSize="15sp"
                         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
 
                     <ImageView
                         android:id="@+id/imageView7"
@@ -212,25 +196,20 @@
                         app:srcCompat="@drawable/batidor_icon"
                         tools:ignore="MissingConstraints,UseAppTint" />
 
-
                     <EditText
                         android:id="@+id/text_dificultad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/roboto"
-                        android:text="Nivel de dificultad"
+                        android:hint="Nivel de dificultad"
                         android:textColor="#000000"
                         android:textSize="15dp"
                         tools:ignore="MissingConstraints,TextSizeCheck,TouchTargetSizeCheck" />
 
-
                 </LinearLayout>
 
-
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,7 +219,6 @@
                 android:padding='10dp'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
-
 
                 <TextView
                     android:id="@+id/title_ingredientes"
@@ -254,7 +232,6 @@
                     android:textSize="16sp"
                     tools:ignore="MissingConstraints" />
 
-
                 <LinearLayout
                     android:id="@+id/contenedor_ingredientes"
                     android:layout_width="match_parent"
@@ -262,7 +239,6 @@
                     android:background="#FDFFEB"
                     android:orientation="vertical"
                     android:padding="10dp">
-
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewIngredientes"
@@ -275,9 +251,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/ingrediente_receta" />
 
-
                 </LinearLayout>
-
 
                 <Button
                     android:id="@+id/btn_ingredientes"
@@ -299,7 +273,6 @@
                     app:iconSize="14dp"
                     tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
-
                 <TextView
                     android:id="@+id/title_pasos"
                     android:layout_width="wrap_content"
@@ -313,7 +286,6 @@
                     android:textSize="16sp"
                     tools:ignore="MissingConstraints" />
 
-
                 <LinearLayout
                     android:id="@+id/contenedor_pasos"
                     android:layout_width="match_parent"
@@ -321,7 +293,6 @@
                     android:background="#FDFFEB"
                     android:orientation="vertical"
                     android:padding="10dp">
-
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewPasos"
@@ -333,9 +304,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/pasos_receta" />
 
-
                 </LinearLayout>
-
 
                 <Button
                     android:id="@+id/btn_pasos"
@@ -357,7 +326,6 @@
                     app:iconSize="14dp"
                     tools:ignore="MissingConstraints" />
 
-
                 <TextView
                     android:id="@+id/title_categorias"
                     android:layout_width="wrap_content"
@@ -370,14 +338,12 @@
                     android:textSize="16sp"
                     tools:ignore="MissingConstraints" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FDFFEB"
                     android:orientation="horizontal">
-
 
                     <LinearLayout
                         android:id="@+id/contenedor_categorias"
@@ -386,7 +352,6 @@
                         android:background="#FDFFEB"
                         android:orientation="vertical"
                         android:padding="20dp">
-
 
                         <!--<androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerCategorias"
@@ -399,7 +364,6 @@
                             />-->
                     </LinearLayout>
 
-
                     <ImageButton
                         android:layout_width="55dp"
                         android:layout_height="55dp"
@@ -409,7 +373,6 @@
                         android:src="@android:drawable/ic_menu_delete"
                         app:tint="#292727" />
                 </LinearLayout>
-
 
                 <Button
                     android:id="@+id/btn_categorias"
@@ -434,8 +397,4 @@
         </LinearLayout>
     </ScrollView>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

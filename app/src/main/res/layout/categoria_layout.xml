@@ -7,7 +7,6 @@
     android:background="#B8E092"
     android:layout_margin="10dp">
 
-
     <TextView
         android:id="@+id/categoria_view"
         android:layout_width="match_parent"
