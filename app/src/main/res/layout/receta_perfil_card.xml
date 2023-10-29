@@ -10,6 +10,7 @@
         android:id="@+id/cardView1"
         android:layout_width="270dp"
         android:layout_height="225dp"
+        android:layout_gravity="center"
         android:backgroundTint="#B8E092"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
