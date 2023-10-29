@@ -2,6 +2,7 @@ package com.example.proyectoavocado.reciclesAdaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,15 +50,16 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         holder.descripcion_receta.setText(receta.getDescripcion());
         holder.usuario_id_nombre.setText(receta.getCreadoPor());
 
-        // Cargar la imagen utilizando Picasso desde la URL
-        //Picasso.get().load(receta.getImagen()).into(holder.imagen_comida);
-
         // Configurar el clic de la tarjeta
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir VistaDetalladaActivity y pasar datos de la receta
+                // Obtener el ID de la receta seleccionada como String
+                Integer idDeLaReceta = receta.getIdReceta();
+                Log.d("Receta ID", String.valueOf(idDeLaReceta)); // Verifica el valor del ID antes de pasar al Intent
+
                 Intent intent = new Intent(context, VistaDetalladaActivity.class);
+                intent.putExtra("receta_id", idDeLaReceta);
                 intent.putExtra("idReceta", receta.getIdReceta());
                 context.startActivity(intent);
             }
