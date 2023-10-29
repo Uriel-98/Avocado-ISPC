@@ -198,8 +198,7 @@ BEGIN
 	SET id = (SELECT idUsuario FROM usuarios WHERE email = emailUsuario);
 	IF (SELECT COUNT(*) FROM recetas WHERE creadoPor = id) > 0
 		THEN
-			SELECT idReceta, titulo, imagen FROM recetas WHERE creadoPor = id;
-		ELSE SELECT "No tienes recetas" AS result;
+			SELECT idReceta, titulo, CAST(imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen FROM recetas WHERE creadoPor = id;
 	END IF;
 END
 //

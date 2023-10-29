@@ -58,7 +58,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
             public void onClick(View view) {
                 // Crear un Intent para abrir VistaDetalladaActivity y pasar datos de la receta
                 Intent intent = new Intent(context, VistaDetalladaActivity.class);
-                intent.putExtra("receta", receta);
+                intent.putExtra("idReceta", receta.getIdReceta());
                 context.startActivity(intent);
             }
         });
