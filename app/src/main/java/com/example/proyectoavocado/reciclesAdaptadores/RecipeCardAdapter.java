@@ -2,6 +2,7 @@ package com.example.proyectoavocado.reciclesAdaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectoavocado.FeedActivity;
 import com.example.proyectoavocado.R;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.VistaDetalladaActivity;
@@ -54,8 +54,9 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Obtener el ID de la receta seleccionada
-                int idDeLaReceta = receta.getIdReceta();
+                // Obtener el ID de la receta seleccionada como String
+                Integer idDeLaReceta = receta.getIdReceta();
+                Log.d("Receta ID", String.valueOf(idDeLaReceta)); // Verifica el valor del ID antes de pasar al Intent
 
                 Intent intent = new Intent(context, VistaDetalladaActivity.class);
                 intent.putExtra("receta_id", idDeLaReceta);

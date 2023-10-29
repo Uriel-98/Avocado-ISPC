@@ -314,7 +314,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         // Obtener el correo electrónico del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         String userEmail = sharedPreferences.getString("email", null);
-        //String userEmail = "pedro@example.com";
+
 
         if (userEmail != null) {
             // El correo electrónico del usuario está disponible, puedes enviar la solicitud para eliminar la cuenta

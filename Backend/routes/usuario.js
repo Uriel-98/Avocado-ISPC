@@ -5,11 +5,10 @@ const bcrypt = require('bcrypt')
 const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesPerfil')
 const validacionesPass = require('../utils/validacionesPassword')
-const b64 = require('byte-base64')
 
 router.get('/getUsuario/:email', (req, res) => {
-  db.query(`SELECT email, nombreCompleto, usuario, CAST(imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen FROM usuarios WHERE email = '${req.params.email}'`, function(error, results){
-
+  console.log(req.params.email)
+  db.query(`SELECT email, nombreCompleto, usuario, imagen FROM usuarios WHERE email = '${req.params.email}'`, function(error, results){
     if(error){
       res.send({
         success: true,
@@ -17,16 +16,10 @@ router.get('/getUsuario/:email', (req, res) => {
       })
       return
     } else {
-      const user = results[0]
       res.send({
         success: true,
         message: "",
-        content: {
-          email: user.email,
-          nombreCompleto: user.nombreCompleto,
-          usuario: user.usuario,
-          imagen: user.imagen
-        }
+        content: results[0]
       })
 
     }
@@ -130,7 +123,6 @@ router.put('/actualizarImagen', (req, res)=>{
     res.status(400).json('Error. Imagen y mail obligatorios.')
     return
   }
-  console.log(req.body.imagen)
 db.query(`UPDATE usuarios SET imagen = '${req.body.imagen}' WHERE email = '${req.body.email}'`, function(error, results){
   if(error){
     res.send({
@@ -180,7 +172,5 @@ router.delete('/eliminar', (req, res) => {
   })
 
 })
-
-
 
 module.exports = router
