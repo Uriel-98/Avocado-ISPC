@@ -1,5 +1,6 @@
 package com.example.proyectoavocado;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -177,6 +181,42 @@ public class PerfilActivity extends AppCompatActivity {
 
         return listaRecetas;
     }*/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_usuario, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.menuContacto) {
+            Intent intent = new Intent(this, ContactoActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id == R.id.menuAcercaDe){
+            Intent intent = new Intent(this, AcercaActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if(id == R.id.menuCerrarSesion){
+            SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+
+            Intent intent = new Intent(this, InicioActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void traerDatosPerfil(String userEmail){
         String pc_ip = getResources().getString(R.string.pc_ip);
