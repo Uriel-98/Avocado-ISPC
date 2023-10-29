@@ -34,7 +34,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -183,7 +182,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
               //llamar actualizar
                 actualizarNombres(String.valueOf(perfilEmail));
-                convertirImagen();
+                convertirImagen(bitmap);
               // cambiar visibilidad
                 btnAceptarEditNombre.setVisibility(View.GONE);
                 btnCancelEditNombre.setVisibility(View.GONE);
@@ -204,7 +203,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                             try {
                                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                                 perfilImagen.setImageBitmap(bitmap);
-                                convertirImagen();
+                                convertirImagen(bitmap);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -353,15 +352,17 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     String nombreCompleto = content.getString("nombreCompleto");
                     String usuario =  content.getString("usuario");
                     String email =  content.getString("email");
-                    JSONObject imagen = content.getJSONObject("imagen");
-                    JSONArray data = imagen.getJSONArray("data");
+                    String imagen = content.getString("imagen");
 
-                    if (data.length() == 0 || imagen == null) {
-                        perfilImagen.setImageResource(R.drawable.icono_perfil);
-                    } else {
-                        byte[] imageBytes = Base64.decode(String.valueOf(data), Base64.DEFAULT);
-                        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+                    byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
+                    Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+                    if (decodedImage != null) {
+                        // Si no hay errores al decodificar, muestra la imagen
                         perfilImagen.setImageBitmap(decodedImage);
+                    } else {
+                        // Si no se pudo crear el Bitmap, muestra una imagen de perfil por defecto
+                        perfilImagen.setImageResource(R.drawable.icono_perfil);
                     }
 
                     perfilNombreCompleto.setText(nombreCompleto);
@@ -515,15 +516,15 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
-    private void convertirImagen(){
+    private void convertirImagen(Bitmap bmp){
         //convertir imagen
-        ByteArrayOutputStream byteArrayOutputStream;
-        byteArrayOutputStream = new ByteArrayOutputStream();
-        if(bitmap != null){
+        ByteArrayOutputStream baos;
+        baos = new ByteArrayOutputStream();
+        if(bmp != null){
             //convertir bitmap a string
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-            final String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] bytes = baos.toByteArray();
+            String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
             subirImagen(base64);
         }
         else {
