@@ -13,6 +13,12 @@ public class Paso {
         this.descripcion = descripcion;
     }
 
+    public Paso(int idPaso, String titulo, String descripcion){
+        this.idPaso = idPaso;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+    }
+
     public Paso(String titulo, String descripcion ) {
         this.titulo = titulo;
         this.descripcion = descripcion;
