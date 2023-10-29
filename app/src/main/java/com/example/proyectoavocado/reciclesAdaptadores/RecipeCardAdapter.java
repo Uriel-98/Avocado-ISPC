@@ -60,6 +60,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
 
                 Intent intent = new Intent(context, VistaDetalladaActivity.class);
                 intent.putExtra("receta_id", idDeLaReceta);
+                intent.putExtra("idReceta", receta.getIdReceta());
                 context.startActivity(intent);
             }
         });

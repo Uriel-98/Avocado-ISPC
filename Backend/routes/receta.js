@@ -264,8 +264,8 @@ router.get('/getRecetaById/:id', (req, res)=>{
   
 })
 
-router.post('/getRecetasUsuario', (req, res) => {
-const email = req.body.email
+router.get('/getRecetasUsuario/:email', (req, res) => {
+const email = req.params.email
 if(!email){
   res.status(400).json('Error. Email obligatorio.')
   return
@@ -280,11 +280,22 @@ db.query(`CALL sp_getRecetasUsuario('${email}')`, function(error, results){
     return
   }
   else {
-    res.send({
-      success: true,
-      message: '',
-      content: results[0]
-    })
+    console.log(results)
+    if(results[0]){
+      res.send({
+        success: true,
+        message: '',
+        content: results[0]
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: 'No tienes recetas',
+        content: []
+      })
+    }
+    
   }
 })
 })

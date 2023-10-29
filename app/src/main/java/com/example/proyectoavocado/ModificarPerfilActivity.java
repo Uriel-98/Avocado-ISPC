@@ -5,6 +5,7 @@ package com.example.proyectoavocado;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.activity.result.ActivityResult;
@@ -75,7 +76,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +114,9 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         perfilNombreUsuario.setEnabled(false);
         perfilPassword1.setEnabled(false);
 
-        traerDatosPerfil("lalari@example.com");
+        sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String emailSp = sharedPreferences.getString("email", "");
+        traerDatosPerfil(emailSp);
 
         btnCancelCambiarContraseña.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +191,6 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
               //llamar actualizar
                 actualizarNombres(String.valueOf(perfilEmail));
-                convertirImagen(bitmap);
               // cambiar visibilidad
                 btnAceptarEditNombre.setVisibility(View.GONE);
                 btnCancelEditNombre.setVisibility(View.GONE);
@@ -493,6 +495,9 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     String message = json.getString("message");
                     Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_LONG).show();
                     if(success){
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("contrasena", perfilPassword2.getText().toString());
+                        editor.apply();
                         perfilPassword1.setText("");
                         perfilPassword2.setText("");
                         perfilPassword1.setEnabled(false);
@@ -501,6 +506,9 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                         btnAceptarCambiarContraseña.setVisibility(View.GONE);
                         btnCancelCambiarContraseña.setVisibility(View.GONE);
                         btnCambiarContraseña.setVisibility(View.VISIBLE);
+
+
+
                     } else {
                         original = perfilPassword1.getBackground();
                         perfilPassword1.setBackgroundResource(R.drawable.borde_rojo);
