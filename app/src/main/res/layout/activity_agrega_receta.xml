@@ -128,40 +128,46 @@
 
                 <EditText
                     android:id="@+id/text_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="370dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_bold"
                     android:hint="Titulo de la Receta"
                     android:textColor="#3C5B27"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:textSize="18sp"
+                    android:backgroundTint="@color/red"
                     tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
 
                 <EditText
                     android:id="@+id/text_descripcion"
-                    android:layout_width="match_parent"
+                    android:layout_width="384dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15px"
-                    android:layout_marginBottom="10px"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="10dp"
                     android:fontFamily="@font/roboto"
+                    android:hint="Descripción de la Receta"
                     android:inputType="textMultiLine"
                     android:lines="8"
-                    android:hint="Descripción de la Receta"
                     android:textColor="#000000"
+                    android:backgroundTint="@color/red"
                     android:textSize="12sp"
                     tools:ignore="MissingConstraints" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="15px"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/img_clock"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="18dp"
                         android:layout_marginRight="18dp"
@@ -176,19 +182,22 @@
                         android:fontFamily="@font/roboto"
                         android:hint="Tiempo de cocción"
                         android:textColor="#000000"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
+                        android:backgroundTint="@color/red"
                         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
 
                     <ImageView
                         android:id="@+id/imageView7"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="18dp"
                         android:layout_marginRight="18dp"
@@ -204,7 +213,8 @@
                         android:fontFamily="@font/roboto"
                         android:hint="Nivel de dificultad"
                         android:textColor="#000000"
-                        android:textSize="15dp"
+                        android:textSize="20dp"
+                        android:backgroundTint="@color/red"
                         tools:ignore="MissingConstraints,TextSizeCheck,TouchTargetSizeCheck" />
 
                 </LinearLayout>
@@ -229,7 +239,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="Ingredientes"
                     android:textColor="#3C5B27"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     tools:ignore="MissingConstraints" />
 
                 <LinearLayout
@@ -256,7 +266,7 @@
                 <Button
                     android:id="@+id/btn_ingredientes"
                     android:layout_width="160dp"
-                    android:layout_height="48dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="30px"
                     android:layout_marginBottom="30px"
@@ -283,7 +293,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="Pasos de preparación"
                     android:textColor="#3C5B27"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     tools:ignore="MissingConstraints" />
 
                 <LinearLayout
@@ -309,7 +319,7 @@
                 <Button
                     android:id="@+id/btn_pasos"
                     android:layout_width="160dp"
-                    android:layout_height="48dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="30px"
                     android:layout_marginBottom="30px"
