@@ -210,7 +210,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:paddingLeft="50dp">
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
+
+            <TextView
+                android:id="@+id/noTienesRecetas"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="No tienes recetas."
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:visibility="gone"
+                />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerPerfil"
@@ -219,9 +231,12 @@
                 android:layout_row="0"
                 android:layout_column="0"
                 android:clipToPadding="false"
+                android:paddingLeft="35dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/receta_perfil_card" />
         </GridLayout>
+
+
     </ScrollView>
 
 

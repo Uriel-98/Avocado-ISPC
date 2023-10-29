@@ -6,7 +6,7 @@ USE Avocado;
 CREATE TABLE usuarios(
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 nombreCompleto VARCHAR(150) NOT NULL,
-imagen BLOB,
+imagen LONGBLOB,
 usuario VARCHAR(15) UNIQUE,
 email VARCHAR(200) UNIQUE NOT NULL,
 contraseña CHAR(60) NOT NULL
@@ -18,7 +18,7 @@ titulo VARCHAR(250) NOT NULL,
 creadoPor INT NOT NULL,
 tiempoCoccion VARCHAR(20),
 dificultad VARCHAR(12),
-imagen BLOB,
+imagen LONGBLOB,
 fechaCreacion DATETIME NOT NULL,
 fechaActualizacion DATETIME NOT NULL,
 descripcion TEXT NOT NULL,
@@ -178,7 +178,8 @@ BEGIN
 			WHERE r.idReceta = idRequest
 			),
 			recetas AS (
-			SELECT * 
+			SELECT idReceta, titulo, creadoPor, tiempoCoccion, dificultad, CAST(imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen, 
+            fechaCreacion, fechaActualizacion, descripcion 
             FROM recetas 
             WHERE idReceta = idRequest
 			)
@@ -189,6 +190,7 @@ BEGIN
 	END IF;
 END
 //
+
 
 -- Traer recetas del usuario
 DELIMITER //
@@ -203,13 +205,14 @@ BEGIN
 END
 //
 
+
 -- Buscar receta
 DELIMITER //
 CREATE PROCEDURE `sp_buscarReceta` (IN tituloReceta VARCHAR(250))
 BEGIN
 	DECLARE buscar VARCHAR(300);
     SET buscar = CONCAT("%", tituloReceta, "%");
-	CREATE TEMPORARY TABLE IF NOT EXISTS temp AS (SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, r.imagen, r.fechaCreacion, r.fechaActualizacion 
+	CREATE TEMPORARY TABLE IF NOT EXISTS temp AS (SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, CAST(r.imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen, r.fechaCreacion, r.fechaActualizacion 
 	FROM recetas r 
 	INNER JOIN usuarios u 
 	ON u.idUsuario = r.creadoPor 
@@ -221,6 +224,7 @@ BEGIN
     DROP TABLE temp;
 END
 //
+
 
 -- Insertar un ingrediente
 DELIMITER //
@@ -379,4 +383,9 @@ FOR EACH ROW
 DELETE FROM pasos WHERE idReceta = OLD.idReceta;
 //
 
+DELIMITER //
+CREATE TRIGGER onRecipeDeleteIngredientes BEFORE DELETE ON recetas
+FOR EACH ROW
+DELETE FROM ingredientes WHERE idReceta = OLD.idReceta;
+//
 

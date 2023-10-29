@@ -8,7 +8,7 @@ const validacionesPass = require('../utils/validacionesPassword')
 
 router.get('/getUsuario/:email', (req, res) => {
   console.log(req.params.email)
-  db.query(`SELECT email, nombreCompleto, usuario, imagen FROM usuarios WHERE email = '${req.params.email}'`, function(error, results){
+  db.query(`SELECT email, nombreCompleto, usuario, CONVERT(imagen USING utf8) AS imagen FROM usuarios WHERE email = '${req.params.email}'`, function(error, results){
     if(error){
       res.send({
         success: true,

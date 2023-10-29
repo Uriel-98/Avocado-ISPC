@@ -141,6 +141,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         // Luego, en tu método onCreate o donde sea apropiado, asigna el valor a recetaIdEspecifica
         recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
         if (recetaIdEspecifica != -1) {
+            Log.d("IDRECETA", String.valueOf(recetaIdEspecifica));
             obtenerDetallesReceta(recetaIdEspecifica);
         } else {
             // Manejar el caso cuando no se proporciona el ID de la receta
@@ -265,7 +266,9 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         String url = "http://" + pc_ip + ":3000/receta/getRecetaById/" + recetaId;
 
         // Realizar la solicitud GET al servidor para obtener los detalles de la receta por su ID
+
         StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
                         try {
