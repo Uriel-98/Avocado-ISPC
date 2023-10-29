@@ -306,6 +306,15 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
         // Asegúrate de que dialog no sea nulo antes de mostrarlo
         if (dialog != null) {
             dialog.show();
