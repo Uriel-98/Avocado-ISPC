@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
@@ -265,20 +266,24 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         String url = "http://" + pc_ip + ":3000/receta/getRecetaById/" + recetaId;
 
         // Realizar la solicitud GET al servidor para obtener los detalles de la receta por su ID
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+        StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
                         try {
+                            Log.d("responsive del get receta", String.valueOf(response));
+                            JSONObject json = new JSONObject(response);
                             // Parsear la respuesta JSON para obtener los detalles de la receta
-                            String titulo = response.getString("titulo");
-                            String nombreUsuario = response.getString("creadoPor");
-                            String descripcion = response.getString("descripcion");
-                            String tiempoCoccion = response.getString("tiempoCoccion");
-                            String dificultad = response.getString("dificultad");
+                            String titulo =json.getString("titulo");
+                            String nombreUsuario = json.getString("creadoPor");
+                            String descripcion = json.getString("descripcion");
+                            String tiempoCoccion = json.getString("tiempoCoccion");
+                            String dificultad = json.getString("dificultad");
 
                             // Obtener el array de ingredientes y pasos
-                            JSONArray ingredientesArray = response.getJSONArray("ingredientes");
-                            JSONArray pasosArray = response.getJSONArray("pasos");
+                            JSONArray ingredientesArray = json.getJSONArray("ingredientes");
+                            JSONArray pasosArray = json.getJSONArray("pasos");
 
 
                             if (ingredientesArray != null) {
@@ -339,7 +344,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
 
         // Agregar la solicitud a la cola de solicitudes
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(get);
     }
 
     private void handleError(String errorMessage) {
