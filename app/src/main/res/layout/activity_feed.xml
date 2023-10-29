@@ -58,8 +58,6 @@
                     android:tint="#3C5B27"
                     app:srcCompat="@android:drawable/ic_menu_sort_by_size"
                     tools:ignore="UseAppTint" />
-
-
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -69,7 +67,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="57dp"
         android:layout_marginBottom="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +179,7 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+    <!--Boton de Busqueda -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"

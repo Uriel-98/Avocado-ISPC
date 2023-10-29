@@ -43,7 +43,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.receta_feed_card, parent, false);
         return new ViewHolder(view);
     }
-//Funcion de Filtrado
+    //Funcion de Filtrado
     public void filtrado(String searchView) {
         int longitud = searchView.length();
         if (longitud == 0) {
@@ -106,7 +106,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             // Inicializar las vistas
-           //imagen_comida = itemView.findViewById(R.id.imagen_comida);
+            //imagen_comida = itemView.findViewById(R.id.imagen_comida);
             usuario_id_nombre = itemView.findViewById(R.id.usuario_id_nombre);
             titulo_receta = itemView.findViewById(R.id.titulo_receta);
             descripcion_receta = itemView.findViewById(R.id.descripcion_receta);

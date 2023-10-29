@@ -12,4 +12,5 @@
         <item>Intermedio</item>
         <item>Avanzado</item>
     </string-array>
+    <color name="red">#FF0000</color>
 </resources>
