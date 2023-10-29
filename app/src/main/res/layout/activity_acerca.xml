@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btn_volverFeed"
+            android:id="@+id/btn_volverPerfil"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
@@ -32,56 +32,213 @@
             app:srcCompat="@drawable/logo_nombre" />
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Conoce el Equipo"
-        app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="607dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar7"
-        app:layout_constraintVertical_bias="0.491"
-        android:fontFamily="@font/roboto"
-        android:textAlignment="center"
-        android:textColor="#3C5B27"
-        android:textSize="34sp"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar7">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar7"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="avocado_lotti.json"
-        app:lottie_imageAssetsFolder="assets"
-        app:lottie_loop="true">
-    </com.airbnb.lottie.LottieAnimationView>
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Conoce el Equipo"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:textColor="#3C5B27"
+            android:textSize="30sp"/>
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            app:lottie_autoPlay="true"
+            android:layout_marginBottom="30dp"
+            app:lottie_fileName="avocado_lotti.json"
+            app:lottie_imageAssetsFolder="assets"
+            app:lottie_loop="true"></com.airbnb.lottie.LottieAnimationView>
 
-       <ScrollView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-           <GridLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:columnCount="2">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
 
-               <ImageView></ImageView>
-           </GridLayout>
-       </ScrollView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
 
-   </LinearLayout>
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/aylen_perfil" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Aylen Gil"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/flor_perfil" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Florencia Ríos"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/uriel_perfil" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Jeremias Uriel Dias"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/hernan_perfil" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Hernán Torres"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/tay_perfil1" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Tayhana Villarreal Jotayan"
+                        android:textAlignment="center"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/gaston_perfil" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Gastón Scattarella"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:srcCompat="@drawable/yani_perfil" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Yanina Unrein"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#3C5B27"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+            </GridLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
