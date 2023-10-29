@@ -54,7 +54,7 @@ import java.util.Map;
 public class ModificarPerfilActivity extends AppCompatActivity {
 
 
-    private Dialog dialog; // Usar Dialog en lugar de AlertDialog
+    private AlertDialog dialog; // Usar Dialog en lugar de AlertDialog
     private EditText perfilPassword1;
     private EditText perfilPassword2;
     private TextView perfilEmail;
@@ -283,12 +283,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogEliminarCuenta() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ModificarPerfilActivity.this);
         // Inflar el diseño personalizado
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_eliminar_cuenta, null);
         builder.setView(dialogView);
-
+        builder.create();
+        builder.show();
         // capturo los id de los elementos
         Button positiveButton = dialogView.findViewById(R.id.btn_aceptar);
         Button negativeButton = dialogView.findViewById(R.id.btn_cancelar);
@@ -311,6 +312,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se puede cancelar", Toast.LENGTH_SHORT ).show();
                 }
             }
         });
