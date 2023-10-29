@@ -38,7 +38,7 @@ import java.util.List;
 
 public class VistaDetalladaActivity extends AppCompatActivity {
 
-    private String recetaIdEspecifica;
+    private Integer recetaIdEspecifica;
     private String emailUsuario;
     private TextView tituloReceta;
     private TextView creadoPor;
@@ -47,6 +47,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private TextView dificultadView;
     private RecyclerView recyclerIngrediente;
     private RecyclerView recyclerPaso;
+
+    private List<Paso> pasosList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,6 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         recyclerIngrediente.setLayoutManager(layoutManagerIngrediente);
         recyclerPaso.setLayoutManager(layoutManagerPaso);
 
-        int recetaId = getIntent().getIntExtra("receta_id", -1);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,9 +138,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         emailUsuario = sharedPreferences.getString("email", "");
 
         // Luego, en tu método onCreate o donde sea apropiado, asigna el valor a recetaIdEspecifica
-        Intent intent = getIntent();
-        if (intent.hasExtra("receta_id")) {
-            recetaIdEspecifica = intent.getStringExtra("receta_id");
+        recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
+        if (recetaIdEspecifica != -1) {
             obtenerDetallesReceta(recetaIdEspecifica);
         } else {
             // Manejar el caso cuando no se proporciona el ID de la receta
@@ -259,7 +259,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         }
     }
 
-    private void obtenerDetallesReceta(String recetaId) {
+    private void obtenerDetallesReceta(Integer recetaId) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/getRecetaById/" + recetaId;
 
@@ -268,55 +268,61 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Procesar la respuesta del servidor y actualizar la interfaz de usuario
                         try {
                             // Parsear la respuesta JSON para obtener los detalles de la receta
                             String titulo = response.getString("titulo");
-                            String nombreUsuario = response.getString("nombreUsuario");
+                            String nombreUsuario = response.getString("creadoPor");
                             String descripcion = response.getString("descripcion");
                             String tiempoCoccion = response.getString("tiempoCoccion");
                             String dificultad = response.getString("dificultad");
 
-                            // Obtener la lista de ingredientes y pasos de preparación
+                            // Obtener el array de ingredientes y pasos
                             JSONArray ingredientesArray = response.getJSONArray("ingredientes");
                             JSONArray pasosArray = response.getJSONArray("pasos");
 
-                            // Actualizar la interfaz de usuario con los datos de la receta
-                            tituloReceta.setText(titulo);
-                            creadoPor.setText("@" + nombreUsuario);
-                            descripcionView.setText(descripcion);
-                            tiempoCoccionView.setText(tiempoCoccion );
-                            dificultadView.setText(dificultad);
 
-                            // Parsear y mostrar la lista de ingredientes
-                            List<Ingrediente> ingredientesList = new ArrayList<>();
-                            for (int i = 0; i < ingredientesArray.length(); i++) {
-                                JSONObject ingredienteJson = ingredientesArray.getJSONObject(i);
-                                String nombre = ingredienteJson.getString("nombre"); // Reemplaza "nombre" con la clave correcta en tu JSON
-
-                                // Crea un objeto Ingrediente y agrégalo a la lista
-                                Ingrediente ingrediente = new Ingrediente(nombre);
-                                ingredientesList.add(ingrediente);
+                            if (ingredientesArray != null) {
+                                // Procesar ingredientes
+                                List<Ingrediente> ingredientesList = new ArrayList<>();
+                                for (int i = 0; i < ingredientesArray.length(); i++) {
+                                    String nombreIngrediente = ingredientesArray.getString(i);
+                                    Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
+                                    ingredientesList.add(ingrediente);
+                                }
+                                // Configurar adaptadores y asignar a RecyclerViews
+                                IngredienteViewAdaptader ingredienteAdapter = new IngredienteViewAdaptader(ingredientesList);
+                                recyclerIngrediente.setAdapter(ingredienteAdapter);
+                            } else {
+                                // Manejar el caso donde "ingredientes" es nulo o no es un JSONArray válido
+                                handleError("El campo 'ingredientes' en la respuesta es nulo o no es un JSONArray válido.");
                             }
 
-                            // Parsear y mostrar la lista de pasos de preparación
-                            List<Paso> pasosList = new ArrayList<>();
-                            for (int i = 0; i < pasosArray.length(); i++) {
-                                JSONObject pasoJson = pasosArray.getJSONObject(i);
-                                String tituloPaso = pasoJson.getString("titulo");
-                                String descripcionPaso = pasoJson.getString("descripcion");
-
-                                // Crea un objeto Paso y agrégalo a la lista
-                                Paso paso = new Paso(tituloPaso, descripcionPaso);
-                                pasosList.add(paso);
+                            if (pasosArray != null) {
+                                // Procesar pasos
+                                for (int i = 0; i < pasosArray.length(); i++) {
+                                    JSONObject pasoJson = pasosArray.getJSONObject(i);
+                                    if (pasoJson.has("titulo") && pasoJson.has("descripcion")) {
+                                        String tituloPaso = pasoJson.getString("titulo");
+                                        String descripcionPaso = pasoJson.getString("descripcion");
+                                        Paso paso = new Paso(tituloPaso, descripcionPaso);
+                                        pasosList.add(paso);
+                                    }
+                                }
+                            } else {
+                                // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
+                                handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
                             }
 
-                            // Usar un adapter personalizado para el RecyclerView de pasos
+                            // Configurar adaptador y asignar al RecyclerView
                             PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
                             recyclerPaso.setAdapter(pasoAdapter);
 
-                            // ... Actualiza otros elementos de la interfaz de usuario con los datos de la receta
-
+                            // Mostrar los detalles en los TextViews del layout
+                            tituloReceta.setText(titulo);
+                            creadoPor.setText(nombreUsuario);
+                            descripcionView.setText(descripcion);
+                            tiempoCoccionView.setText(tiempoCoccion);
+                            dificultadView.setText(dificultad);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             handleError("Error al procesar la respuesta del servidor");
@@ -342,7 +348,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         // También puedes mostrar un Toast o un AlertDialog con el mensaje de error
     }
 
-    private void eliminarReceta(String emailUsuario, String recetaId) {
+    private void eliminarReceta(String emailUsuario, Integer recetaId) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/eliminarReceta/" + recetaId + "?_method=DELETE";
 
