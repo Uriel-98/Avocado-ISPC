@@ -19,7 +19,7 @@
 
 
     <ImageButton
-        android:id="@+id/boton_menu"
+        android:id="@+id/boton_menuDesplegable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -44,7 +44,7 @@
         app:srcCompat="@drawable/logo_nombre" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageViewPerfil"
         android:layout_width="80dp"
         android:layout_height="75dp"
         android:layout_marginStart="29dp"
