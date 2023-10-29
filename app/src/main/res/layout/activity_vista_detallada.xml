@@ -122,7 +122,7 @@
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/contenido"
+            android:id="@+id/descripcionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="12dp"
@@ -146,6 +146,7 @@
               tools:ignore="UseAppTint" />
 
           <TextView
+              android:id="@+id/coccionView"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
@@ -171,12 +172,11 @@
               tools:ignore="UseAppTint" />
 
           <TextView
+              android:id="@+id/dificultadView"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Nivel de dificultad" />
-
-
         </LinearLayout>
 
       </LinearLayout>
@@ -188,7 +188,7 @@
           android:padding="16dp">
 
         <TextView
-            android:id="@+id/tituloReceta"
+            android:id="@+id/tituloIngrediente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ingredientes"
@@ -197,12 +197,24 @@
             android:textStyle="bold"
             tools:ignore="DuplicateIds" />
 
-        <ListView
-            android:id="@+id/listView"
+        <LinearLayout
+            android:id="@+id/listIngrediente"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FDFFEB" />
+            android:background="#FDFFEB"
+            android:orientation="vertical">
 
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recyclerIngrediente"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/title_ingredientes"
+              android:layout_gravity="center"
+              android:foregroundGravity="center"
+              android:orientation="vertical"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:listitem="@layout/ingrediente_view" />
+        </LinearLayout>
       </LinearLayout>
 
       <LinearLayout
@@ -212,7 +224,7 @@
           android:padding="16dp">
 
         <TextView
-            android:id="@+id/tituloReceta"
+            android:id="@+id/tituloPasos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pasos de preparación"
@@ -224,83 +236,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
+            android:padding="5dp"
+            android:background="#FDFFEB"
+            android:foregroundGravity="center">
 
-          <TextView
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recyclerPaso"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Paso 1 - Masa"
-              android:textSize="18sp" />
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
-              android:textSize="14sp" />
+              android:layout_below="@id/title_ingredientes"
+              android:foregroundGravity="center"
+              android:orientation="vertical"
+              android:layout_gravity="center"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:listitem="@layout/paso_view" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Paso 2 - Relleno"
-              android:textSize="18sp" />
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
-              android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Paso 3 - Salsa"
-              android:textSize="18sp" />
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
-              android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Paso 4 - Armado"
-              android:textSize="18sp" />
-
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
-              android:textSize="14sp" />
-        </LinearLayout>
-
       </LinearLayout>
 
       <LinearLayout
@@ -310,7 +260,7 @@
           android:padding="16dp">
 
         <TextView
-            android:id="@+id/tituloReceta"
+            android:id="@+id/tituloCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Categorías"
@@ -319,58 +269,6 @@
             android:textStyle="bold"
             tools:ignore="DuplicateIds" />
 
-        <GridLayout
-            android:id="@+id/gridLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:padding="16dp">
-
-          <TextView
-              android:id="@+id/tituloReceta"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_columnWeight="1"
-              android:layout_margin="6dp"
-              android:background="#B8E092"
-              android:fontFamily="@font/roboto"
-              android:gravity="center"
-              android:padding="8dp"
-              android:text="Cena"
-              android:textColor="#000"
-              android:textSize="14sp"
-              tools:ignore="DuplicateIds" />
-
-          <TextView
-              android:id="@+id/tituloReceta"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_columnWeight="1"
-              android:layout_margin="6dp"
-              android:background="#B8E092"
-              android:fontFamily="@font/roboto_bold"
-              android:gravity="center"
-              android:padding="8dp"
-              android:text="Plato principal"
-              android:textColor="#000"
-              android:textSize="14sp"
-              tools:ignore="DuplicateIds" />
-
-          <TextView
-              android:id="@+id/tituloReceta"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_columnWeight="1"
-              android:layout_margin="6dp"
-              android:background="#B8E092"
-              android:fontFamily="@font/roboto_bold"
-              android:gravity="center"
-              android:padding="8dp"
-              android:text="Tradicional"
-              android:textColor="#000"
-              android:textSize="14sp"
-              tools:ignore="DuplicateIds,HardcodedText" />
-        </GridLayout>
       </LinearLayout>
 
       <LinearLayout
@@ -469,10 +367,6 @@
           tools:ignore="UseAppTint"
           tools:layout_editor_absoluteX="330dp"
           tools:layout_editor_absoluteY="678dp" />
-
     </LinearLayout>
-
   </androidx.appcompat.widget.Toolbar>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
