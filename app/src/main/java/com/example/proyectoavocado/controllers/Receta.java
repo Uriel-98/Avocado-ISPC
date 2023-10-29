@@ -1,21 +1,23 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.controllers;
 
 import java.util.Date;
 import java.io.Serializable;
 import java.util.List;
 
 public class Receta implements Serializable {
-    private Integer id;
-    private String nombre;
+    private Integer idReceta;
+    private String titulo;
     private String imagen;
     private String descripcion;
-    private Integer creadoPor;
+    private String creadoPor;
     private String tiempoCoccion;
     private String dificultad;
     private Date fechaCreacion;
     private Date fechaActualizacion;
     private List<String> categorias;
-    private List<String> pasos;
+    private List<Ingrediente> ingredientes;
+    private List<Paso> pasos;
+
 
 
 
@@ -25,9 +27,9 @@ public class Receta implements Serializable {
 
 
     // Constructor
-    public Receta(Integer id, String nombre, String imagen,String descripcion, Integer creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion ) {
-        this.id = id;
-        this.nombre = nombre;
+    public Receta(Integer idReceta, String titulo, String imagen,String descripcion, String creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion, List<Paso> pasos, List<String> categorias, List<Ingrediente> ingredientes) {
+        this.idReceta = idReceta;
+        this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.creadoPor = creadoPor;
@@ -37,26 +39,50 @@ public class Receta implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
         this.pasos = pasos;
         this.categorias = categorias;
+        this.ingredientes = ingredientes;
     }
 
-    public Receta(String nombre, String imagen,String descripcion) {
-        this.nombre = nombre;
+    public Receta(Integer idReceta, String nombre, String imagen) {
+        this.titulo = nombre;
         this.imagen = imagen;
+        this.idReceta = idReceta;
+
+    }
+
+    public Receta(Integer idReceta, String titulo, String creadoPor, String descripcion) {
+        this.idReceta = idReceta;
+        this.titulo = titulo;
+        this.creadoPor = creadoPor;
         this.descripcion = descripcion;
     }
 
-    public Receta(String imagen, String nombre) {
-        this.imagen = imagen;
-        this.nombre = nombre;
+    public Receta(Integer idReceta, String titulo, String descripcion, String tiempoCoccion, String dificultad, List<Ingrediente> ingredientes, List<Paso> pasos) {
+        this.idReceta = idReceta;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.tiempoCoccion = tiempoCoccion;
+        this.dificultad = dificultad;
+        this.pasos = pasos;
+        this.ingredientes = ingredientes;
     }
+
+    // Getter y Setter para el id
+    public Integer getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(String titulo) {
+        this.idReceta = idReceta;
+    }
+
 
     // Getter y Setter para el nombre
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     // Getter y Setter para la imagen
@@ -79,11 +105,11 @@ public class Receta implements Serializable {
     }
 
     // Getter y Setter para creadoPor
-    public Integer getCreadoPor() {
+    public String getCreadoPor() {
         return creadoPor;
     }
 
-    public void setCreadoPor(Integer creadoPor) {
+    public void setCreadoPor(String creadoPor) {
         this.creadoPor = creadoPor;
     }
 
@@ -124,11 +150,11 @@ public class Receta implements Serializable {
     }
 
     // Getter y Setter para pasos
-    public List<String> getPasos() {
+    public List<Paso> getPasos() {
         return pasos;
     }
 
-    public void setPasos(List<String> pasos) {
+    public void setPasos(List<Paso> pasos) {
         this.pasos = pasos;
     }
 
@@ -141,10 +167,20 @@ public class Receta implements Serializable {
         this.categorias = categorias;
     }
 
+
+    // Getter y Setter para ingredientes
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
     public String toString() {
         return "Receta{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
+                "id=" + idReceta +
+                ", titulo='" + titulo + '\'' +
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", creadoPor='" + creadoPor + '\'' +
@@ -152,8 +188,10 @@ public class Receta implements Serializable {
                 ", dificultad='" + dificultad + '\'' +
                 ", fechaCreacion='" + fechaCreacion + '\'' +
                 ", fechaActualizacion='" + fechaActualizacion + '\'' +
+                ", ingredientes=" + ingredientes +  '\'' +
                 ", pasos=" + pasos +  '\'' +
                 ", categorias=" + categorias +  '\'' +
+                ", ingredientes=" + ingredientes +  '\'' +
                 '}';
     }
 }

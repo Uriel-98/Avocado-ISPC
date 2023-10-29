@@ -94,8 +94,8 @@ app.use(session({
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '100mb'}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '100mb', parameterLimit: 100000000 }));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -114,6 +114,14 @@ app.use('/registro', registroRouter)
 
 
 //Error
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    res.status(400).json({ error: 'El cuerpo de la solicitud es demasiado grande' });
+  } else {
+    next();
+  }
+});
+
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FDFFEB"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_pasoReceta"
+                android:layout_width="270dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="5dp"
+                android:text="Paso "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/descripcion_pasoReceta"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_eliminarPaso"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#00FFFFFF"
+            android:tint="#000000"
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            tools:ignore="UseAppTint" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

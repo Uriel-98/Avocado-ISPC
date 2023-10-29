@@ -1,17 +1,20 @@
-package com.example.proyectoavocado;
+package com.example.proyectoavocado.reciclesAdaptadores;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.example.proyectoavocado.R;
+import com.example.proyectoavocado.controllers.Receta;
+import com.example.proyectoavocado.VistaDetalladaActivity;
+
 
 import java.util.List;
 
@@ -37,15 +40,16 @@ public class PerfilRecipeCardAdapter extends RecyclerView.Adapter<PerfilRecipeCa
         return recetas.size();
     }
 
+    //cuando toque tengo que mandar el id de la receta en el intent
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Receta receta = recetas.get(position);
 
         // Configurar las vistas de la tarjeta con datos de la receta
-        holder.titulo_receta_perfil.setText(receta.getNombre());
+        holder.titulo_receta_perfil.setText(receta.getTitulo());
 
         // Cargar la imagen usando Picasso (o la biblioteca que prefieras)
-        Picasso.get().load(receta.getImagen()).into(holder.img_receta);
+        //Picasso.get().load(receta.getImagen()).into(holder.img_receta);
 
         // Configurar el clic de la tarjeta
         holder.itemView.setOnClickListener(new View.OnClickListener() {
