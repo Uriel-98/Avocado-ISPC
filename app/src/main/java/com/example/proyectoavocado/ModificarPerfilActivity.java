@@ -54,7 +54,7 @@ import java.util.Map;
 public class ModificarPerfilActivity extends AppCompatActivity {
 
 
-    private Dialog dialog; // Usar Dialog en lugar de AlertDialog
+    private AlertDialog dialog; // Usar Dialog en lugar de AlertDialog
     private EditText perfilPassword1;
     private EditText perfilPassword2;
     private TextView perfilEmail;
