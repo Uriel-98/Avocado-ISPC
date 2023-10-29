@@ -68,7 +68,7 @@ public class FeedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(FeedActivity.this, favoritesActivity.class);
+                Intent intent = new Intent(FeedActivity.this, AcercaActivity.class);
                 startActivity(intent);
             }
         });
