@@ -35,9 +35,8 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-    SearchView searchView = findViewById(R.id.searchView);
-    ImageButton btnBuscar = findViewById(R.id.btn_buscar);
-    RecipeCardAdapter adapter;
+    private SearchView searchView;
+    private RecipeCardAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +44,10 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
 
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
-        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+        ImageButton btnBuscar = findViewById(R.id.btn_buscar);
         //ID SearchView
         searchView = findViewById(R.id.searchView);
 
