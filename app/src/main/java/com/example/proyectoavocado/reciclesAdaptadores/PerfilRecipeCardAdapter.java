@@ -40,6 +40,7 @@ public class PerfilRecipeCardAdapter extends RecyclerView.Adapter<PerfilRecipeCa
         return recetas.size();
     }
 
+    //cuando toque tengo que mandar el id de la receta en el intent
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Receta receta = recetas.get(position);
