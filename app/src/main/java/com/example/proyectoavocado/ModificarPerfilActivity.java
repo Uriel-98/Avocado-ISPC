@@ -154,10 +154,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 btnEditNombre.setVisibility(View.GONE);
                 btnAceptarEditNombre.setVisibility(View.VISIBLE);
                 btnCancelEditNombre.setVisibility(View.VISIBLE);
-
                 usuarioPlaceholder = perfilNombreUsuario.getText().toString();
                 nombrePlaceholder = perfilNombreCompleto.getText().toString();
-
                 perfilNombreCompleto.setEnabled(true);
                 perfilNombreUsuario.setEnabled(true);
             }

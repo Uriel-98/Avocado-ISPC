@@ -58,7 +58,7 @@
     <EditText
         android:id="@+id/perfilNombreCompleto"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="140dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Nombre y Apellido"
@@ -71,7 +71,7 @@
     <EditText
         android:id="@+id/perfilNombreUsuario"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="176dp"
         android:fontFamily="@font/roboto_bold"
         android:text="nombreUsuario"
@@ -372,10 +372,11 @@
         android:backgroundTint="#00FFFFFF"
         android:contentDescription="boton para cancelar"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/x_icon"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteY="496dp" />
+        tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
         android:id="@+id/btnAceptarCambiarContraseña"

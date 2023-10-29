@@ -75,7 +75,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="616dp"
@@ -123,7 +122,7 @@
                     <EditText
                         android:id="@+id/titulo_receta"
                         android:layout_width="328dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:hint="Título de la Receta"
                         android:textColor="#3C5B27"
                         android:textSize="24sp"
@@ -145,7 +144,7 @@
                 <EditText
                     android:id="@+id/creadoPor"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:text="\@nombreDeUsuario"
                     android:fontFamily="@font/roboto"
                     android:textSize="18sp"
@@ -153,10 +152,6 @@
                     android:layout_marginBottom="5dp"
                     tools:ignore="HardcodedText" />
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0da604f96d3ed35514d7b1fe973275745374f08a
                 <EditText
                     android:id="@+id/editDescripcion"
                     android:layout_width="match_parent"
@@ -419,11 +414,7 @@
                     app:icon="@drawable/mas_icono"
                     app:iconPadding="2dp" />
             </LinearLayout>
-
-
         </LinearLayout>
-
-
     </ScrollView>
 
     <androidx.appcompat.widget.Toolbar
@@ -516,7 +507,5 @@
                 tools:layout_editor_absoluteY="678dp" />
 
         </LinearLayout>
-
     </androidx.appcompat.widget.Toolbar>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

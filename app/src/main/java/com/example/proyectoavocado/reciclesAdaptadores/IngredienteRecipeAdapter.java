@@ -1,13 +1,13 @@
 package com.example.proyectoavocado.reciclesAdaptadores;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectoavocado.R;
@@ -27,7 +27,6 @@ public class IngredienteRecipeAdapter extends RecyclerView.Adapter<IngredienteRe
         this.ingredientes = ingredientes;
         this.listener = listener;
     }
-
     @NonNull
     @Override
     public IngredienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

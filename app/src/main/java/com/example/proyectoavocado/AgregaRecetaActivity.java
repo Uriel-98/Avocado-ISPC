@@ -286,13 +286,13 @@ public class AgregaRecetaActivity extends AppCompatActivity {
 
                             if (success) {
                                 // La receta se agregó correctamente
-                                String mensaje = response.getString("mensaje");
+                                String mensaje = response.getString("message");
                                 Toast.makeText(AgregaRecetaActivity.this, mensaje, Toast.LENGTH_SHORT).show();
                                 // Puedes finalizar la actividad si la receta se agregó con éxito
                                 finish();
                             } else {
                                 // La receta no se agregó correctamente
-                                String errorMensaje = response.getString("mensaje");
+                                String errorMensaje = response.getString("message");
                                 Toast.makeText(AgregaRecetaActivity.this, "Error: " + errorMensaje, Toast.LENGTH_SHORT).show();
                                 // Puedes hacer más cosas aquí según la respuesta de la API
                             }
