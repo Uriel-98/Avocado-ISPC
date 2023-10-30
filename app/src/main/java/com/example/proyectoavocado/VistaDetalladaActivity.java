@@ -165,8 +165,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Lógica para editar la receta
-                // Abre la actividad de edición (ModificarrecetaActivity)
+                // Abre la actividad de edición (ModificarRecetaActivity)
                 Intent intentEditar = new Intent(VistaDetalladaActivity.this, ModificarRecetaActivity.class);
+                // Pasa el ID de la receta a la actividad de edición si es necesario
+                intentEditar.putExtra("receta_id", recetaIdEspecifica);
                 startActivity(intentEditar);
             }
         });
@@ -270,6 +272,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
 
         // Realizar la solicitud GET al servidor para obtener los detalles de la receta por su ID
         StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -355,8 +358,27 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                             e.printStackTrace();
                             handleError("Error al procesar la respuesta del servidor");
                         }
+                    } else {
+                        // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
+                        handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
                     }
-                },
+
+                    // Configurar adaptador y asignar al RecyclerView
+                    PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
+                    recyclerPaso.setAdapter(pasoAdapter);
+
+                    // Mostrar los detalles en los TextViews del layout
+                    tituloReceta.setText(titulo);
+                    creadoPor.setText(nombreUsuario);
+                    descripcionView.setText(descripcion);
+                    tiempoCoccionView.setText(tiempoCoccion);
+                    dificultadView.setText(dificultad);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handleError("Error al procesar la respuesta del servidor");
+                }
+            }
+        },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

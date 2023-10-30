@@ -42,6 +42,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     private PasosRecetaRecipeAdapter pasosAdapter;
     private List<Ingrediente> ingredientesList;
     private List<Paso> pasosList;
+    private Integer recetaIdEspecifica;
 
     private EditText tituloReceta;
     private EditText editDescripcion;
@@ -68,6 +69,19 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
         pasosList = new ArrayList<>();
+
+        // Obtiene el ID de la receta que se va a modificar desde el intent
+        recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
+
+        if (recetaIdEspecifica != -1) {
+            // Carga los detalles de la receta desde la base de datos o desde donde estén almacenados
+            //cargarDetallesReceta(recetaIdEspecifica);
+        } else {
+            // Maneja el caso donde no se proporciona el ID de la receta
+            handleError("ID de receta no proporcionado");
+            // Finaliza la actividad actual si no hay un ID de receta para validar
+            finish();
+        }
 
         obtenerDetallesReceta();
 
@@ -128,6 +142,31 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mostrarDialogoPasos();
+            }
+        });
+
+        // Botón para guardar los cambios en la receta
+        Button btnGuardarCambios = findViewById(R.id.btn_aceptar);
+        btnGuardarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nuevoTitulo = tituloReceta.getText().toString();
+                String nuevaDescripcion = editDescripcion.getText().toString();
+                String nuevoTiempo = editTiempoCoccion.getText().toString();
+                String nuevaDificultad = dificultadReceta.getText().toString();
+
+                List<Ingrediente> nuevosIngredientes = ingredienteAdapter.getIngredientes();
+                //List<Paso> nuevosPasos = pasosAdapter.getPasos();
+
+                modificarTituloReceta(recetaIdEspecifica, nuevoTitulo);
+                modificarDescripcionDificultadTiempo(recetaIdEspecifica, nuevaDescripcion, nuevoTiempo, nuevaDificultad);
+                modificarIngredientes(recetaIdEspecifica, nuevosIngredientes);
+                //modificarPasos(recetaIdEspecifica, nuevosPasos);
+
+                // Realizar acciones adicionales después de guardar los cambios
+
+                // Finalizar la actividad después de guardar los cambios si es necesario
+                finish();
             }
         });
     }
@@ -329,7 +368,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     // Método para modificar el título de la receta
     private void modificarTituloReceta(int idReceta, String nuevoTitulo) {
         String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/receta/modificarTituloReceta";
+        String url = "http://" + pc_ip + ":3000/receta/modificarTituloReceta?_method=PUT";
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONObject requestBody = new JSONObject();
@@ -362,7 +401,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     // Método para modificar la descripción, dificultad y tiempo de cocción de la receta
     private void modificarDescripcionDificultadTiempo(int idReceta, String nuevaDescripcion, String nuevoTiempo, String nuevaDificultad) {
         String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/receta/modificarDescripcionReceta";
+        String url = "http://" + pc_ip + ":3000/receta/modificarDescripcionReceta?_method=PUT";
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONObject requestBody = new JSONObject();
@@ -397,7 +436,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     // Método para modificar los ingredientes de la receta
     private void modificarIngredientes(int idReceta, List<Ingrediente> nuevosIngredientes) {
         String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/receta/modificarIngredientes";
+        String url = "http://" + pc_ip + ":3000/receta/modificarIngredientes?_method=PUT";
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONArray ingredientesArray = new JSONArray();
@@ -435,7 +474,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     // Método para modificar los pasos de la receta
     private void modificarPasos(int idReceta, List<Paso> nuevosPasos) {
         String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/receta/modificarPasos";
+        String url = "http://" + pc_ip + ":3000/receta/modificarPasos?_method=PUT";
 
         // Crea el cuerpo de la solicitud en formato JSON
         JSONArray pasosArray = new JSONArray();

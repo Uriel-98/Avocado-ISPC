@@ -1,6 +1,7 @@
 package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,10 +12,6 @@ import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
@@ -32,8 +29,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
+    private SearchView searchView;
+    private RecipeCardAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +40,25 @@ public class FeedActivity extends AppCompatActivity {
 
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
-        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+        ImageButton btnBuscar = findViewById(R.id.btn_buscar);
+        //ID SearchView
+        searchView = findViewById(R.id.searchView);
 
+        //Cambiar la visibilidad del SeachView
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchView.getVisibility() == View.VISIBLE) {
+                    searchView.setVisibility(View.INVISIBLE); // Ocultar el SearchView
+                } else {
+                    searchView.setVisibility(View.VISIBLE);   // Mostrar el SearchView
+                }
+            }
+        });
+        searchView.setOnQueryTextListener(this);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +149,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private void setupRecyclerView(List<Receta> listaRecetas) {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecipeCardAdapter adapter = new RecipeCardAdapter(listaRecetas, FeedActivity.this);
+        adapter = new RecipeCardAdapter(listaRecetas, FeedActivity.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
     }
@@ -150,4 +163,14 @@ public class FeedActivity extends AppCompatActivity {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filtrado(newText);
+        return false;
+    }
 }

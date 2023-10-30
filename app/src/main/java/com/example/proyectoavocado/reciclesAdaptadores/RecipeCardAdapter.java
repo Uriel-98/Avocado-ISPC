@@ -17,15 +17,23 @@ import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.VistaDetalladaActivity;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.ViewHolder> {
     private List<Receta> recetas;
     private Context context;
 
+    //La lista que se va modificar
+    List<Receta> listaOriginal;
+
     public RecipeCardAdapter(List<Receta> recetas, Context context) {
         this.recetas = recetas;
         this.context = context;
+        //Le cargo recetas
+        listaOriginal = new ArrayList<>();
+        listaOriginal.addAll(recetas);
     }
 
     @NonNull
@@ -34,6 +42,29 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         // Inflar el diseño de la tarjeta receta_feed_card.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.receta_feed_card, parent, false);
         return new ViewHolder(view);
+    }
+    //Funcion de Filtrado
+    public void filtrado(String searchView) {
+        int longitud = searchView.length();
+        if (longitud == 0) {
+            recetas.clear();
+            recetas.addAll(listaOriginal);
+        } else {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<Receta> collecion = recetas.stream()
+                        .filter(i -> i.getTitulo().toLowerCase().contains(searchView.toLowerCase()))
+                        .collect(Collectors.toList());
+                recetas.clear();
+                recetas.addAll(collecion);
+            } else {
+                for (Receta c : listaOriginal) {
+                    if (c.getTitulo().toLowerCase().contains(searchView.toLowerCase())) {
+                        recetas.add(c);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -75,7 +106,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             // Inicializar las vistas
-           //imagen_comida = itemView.findViewById(R.id.imagen_comida);
+            //imagen_comida = itemView.findViewById(R.id.imagen_comida);
             usuario_id_nombre = itemView.findViewById(R.id.usuario_id_nombre);
             titulo_receta = itemView.findViewById(R.id.titulo_receta);
             descripcion_receta = itemView.findViewById(R.id.descripcion_receta);

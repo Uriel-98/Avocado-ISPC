@@ -29,6 +29,10 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
         return new PasoViewHolder(itemView);
     }
 
+    public List<Paso> getPaso() {
+        return pasos; // Suponiendo que pasosList sea la lista de pasos en tu adaptador
+    }
+
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
         Paso paso = pasos.get(position);
