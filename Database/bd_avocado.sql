@@ -150,7 +150,7 @@ BEGIN
 END
 //
 
-
+DROP PROCEDURE sp_getReceta;
 -- Traer toda la info de una receta (vista detallada)
 DELIMITER //
 CREATE PROCEDURE `sp_getReceta`(IN idRequest INT)
@@ -165,7 +165,7 @@ BEGIN
 			  WHERE rc.idReceta = idRequest
 			),
 			pasos AS (
-			  SELECT JSON_ARRAYAGG(JSON_OBJECT('titulo', p.titulo, 'descripcion', p.descripcion)) AS pasos
+			  SELECT JSON_ARRAYAGG(JSON_OBJECT('idPaso',p.idPaso ,'titulo', p.titulo, 'descripcion', p.descripcion)) AS pasos
 			  FROM pasos p
 			  INNER JOIN recetas r
 			  ON r.idReceta = p.idReceta
@@ -178,7 +178,7 @@ BEGIN
 			WHERE r.idReceta = idRequest
 			),
 			recetas AS (
-			SELECT r.idReceta, r.titulo, u.usuario AS creadoPor, r.tiempoCoccion, r.dificultad, CONVERT(r.imagen USING utf8) AS imagen, 
+			SELECT r.idReceta, r.titulo, u.usuario AS creadoPor, u.email AS emailCreadoPor, r.tiempoCoccion, r.dificultad, CONVERT(r.imagen USING utf8) AS imagen, 
             r.fechaCreacion, r.fechaActualizacion, r.descripcion 
             FROM recetas r
             INNER JOIN usuarios u

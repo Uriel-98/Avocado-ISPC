@@ -55,6 +55,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private ImageView recipeImage;
     private List<Paso> pasosList;
 
+    private ImageButton btnMenuReceta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
-        ImageButton btnMenuReceta = findViewById(R.id.btn_menu_receta);
+        btnMenuReceta = findViewById(R.id.btn_menu_receta);
 
         // Instanciar las variables de la interfaz de usuario
         tituloReceta = findViewById(R.id.tituloReceta);
@@ -85,6 +87,16 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         LinearLayoutManager layoutManagerPaso = new LinearLayoutManager(this);
         recyclerIngrediente.setLayoutManager(layoutManagerIngrediente);
         recyclerPaso.setLayoutManager(layoutManagerPaso);
+
+        recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
+        if (recetaIdEspecifica != -1) {
+            obtenerDetallesReceta(recetaIdEspecifica);
+        } else {
+            // Manejar el caso cuando no se proporciona el ID de la receta
+            handleError("ID de receta no proporcionado");
+            // Finalizar la actividad actual si no hay un ID de receta para validar
+            finish();
+        }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,20 +150,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             }
         });
 
-        // Obtén el correo electrónico del usuario logueado de SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("nombre_de_tu_shared_preference", Context.MODE_PRIVATE);
-        emailUsuario = sharedPreferences.getString("email", "");
-
         // Luego, en tu método onCreate o donde sea apropiado, asigna el valor a recetaIdEspecifica
-        recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
-        if (recetaIdEspecifica != -1) {
-            obtenerDetallesReceta(recetaIdEspecifica);
-        } else {
-            // Manejar el caso cuando no se proporciona el ID de la receta
-            handleError("ID de receta no proporcionado");
-            // Finalizar la actividad actual si no hay un ID de receta para validar
-            finish();
-        }
+
     }
     @SuppressLint("ResourceType")
     private void showPopupMenu(View view) {
@@ -205,7 +205,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         }
     }
 
-    private void obtenerRecetasUsuario(String emailUsuario) {
+   /* private void obtenerRecetasUsuario(String emailUsuario) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/getRecetasUsuario";
 
@@ -262,7 +262,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             e.printStackTrace();
             handleError("Error al crear la solicitud: " + e.getMessage());
         }
-    }
+    }*/
 
     private void obtenerDetallesReceta(Integer recetaId) {
         String pc_ip = getResources().getString(R.string.pc_ip);
@@ -281,6 +281,14 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                             String tiempoCoccion = json.getString("tiempoCoccion");
                             String dificultad = json.getString("dificultad");
                             String imagen = json.getString("imagen");
+                            String emailCreadoPor = json.getString("emailCreadoPor");
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                            String emailSp = sharedPreferences.getString("email", "");
+
+                            if(emailSp.equals(emailCreadoPor)){
+                                btnMenuReceta.setVisibility(View.VISIBLE);
+                            }
 
                             // Obtener el array de ingredientes y pasos
                             if(!json.isNull("ingredientes")){
@@ -337,7 +345,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                             tiempoCoccionView.setText(tiempoCoccion);
                             dificultadView.setText(dificultad);
                             //si la imagen no es null, entonces convertir
-                            if(imagen != null && imagen != "null"){
+                            if(!json.isNull("imagen") && imagen != "null"){
+                                recipeImage = findViewById(R.id.recipeImage);
                                 byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
                                 Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
                                 recipeImage.setImageBitmap(decodedImage);
@@ -395,6 +404,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                             if (success) {
                                 // La receta se eliminó correctamente
                                 showToast("Receta eliminada: " + message);
+                                Intent intent = new Intent(VistaDetalladaActivity.this, FeedActivity.class);
+                                startActivity(intent);
                             } else {
                                 // No se pudo eliminar la receta
                                 showToast("Error al eliminar la receta: " + message);

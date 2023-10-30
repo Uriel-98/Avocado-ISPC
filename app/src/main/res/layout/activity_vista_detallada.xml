@@ -64,6 +64,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:background="#00FFFFFF"
+            android:visibility="gone"
             android:contentDescription="Agregar a favoritos"
             android:padding="8dp"
             android:tint="#3C5B27"

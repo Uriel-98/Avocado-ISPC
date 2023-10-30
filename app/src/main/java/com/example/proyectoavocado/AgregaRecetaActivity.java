@@ -1,14 +1,23 @@
 package com.example.proyectoavocado;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +27,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
@@ -35,9 +46,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class AgregaRecetaActivity extends AppCompatActivity {
@@ -51,6 +65,11 @@ public class AgregaRecetaActivity extends AppCompatActivity {
 
     private String emailUsuario;
 
+    private Bitmap bitmap;
+
+    private ImageButton btnCamera;
+
+    private ImageView imgComida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +88,8 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         Button btnPasos = findViewById(R.id.btn_pasos);
         ImageButton btnConfirm = findViewById(R.id.btn_confirm);
         ImageButton btnClose = findViewById(R.id.btn_close);
+        btnCamera = findViewById(R.id.btn_camera);
+        imgComida = findViewById(R.id.img_comida);
 
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
@@ -154,6 +175,34 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("TAG", "Botón presionado");
                 mostrarDialogoPasos();
+            }
+        });
+
+        ActivityResultLauncher<Intent> activityResultLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            try {
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                imgComida.setImageBitmap(bitmap);
+
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                });
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                activityResultLauncher.launch(intent);
+
             }
         });
     }
@@ -257,10 +306,15 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             ingredientes.add(ingrediente.getNombre());
         }
 
-        List<String> pasos = new ArrayList<>();
+        List<HashMap<String, String>> pasos = new ArrayList<>();
+
         for (Paso paso : pasosList) {
-            pasos.add(paso.getDescripcion());
+            HashMap<String, String> obj = new HashMap<>();
+            obj.put("titulo", paso.getTitulo());
+            obj.put("descripcion", paso.getDescripcion());
+            pasos.add(obj);
         }
+        String base64 = convertirImagen(bitmap);
 
         // Crear el objeto JSON para la solicitud
         JSONObject requestObject = new JSONObject();
@@ -270,9 +324,14 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             requestObject.put("descripcion", descripcion);
             requestObject.put("tiempoCoccion", tiempoCoccion);
             requestObject.put("dificultad", dificultad);
-            requestObject.put("imagen", "SG9sYSwgdGVzdCBkZSBjb25jYXJhIGVuIEJhc2U2NC4=");
             requestObject.put("ingredientes", new JSONArray(ingredientes));
             requestObject.put("pasos", new JSONArray(pasos));
+            if(base64.equals("Sin imagen")){
+                requestObject.put("imagen", null);
+            } else {
+                requestObject.put("imagen", "asgnvesdnveojnvsdfkjxvmnfdkc");
+            }
+
             Log.d("TAG", String.valueOf(requestObject));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -321,4 +380,24 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                 // Agregar la solicitud a la cola de solicitudes de Volley
                  Volley.newRequestQueue(this).add(request);
         }
+
+    private String convertirImagen(Bitmap bmp){
+        //convertir imagen
+        ByteArrayOutputStream baos;
+        baos = new ByteArrayOutputStream();
+        if(bmp != null){
+            //convertir bitmap a string
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] bytes = baos.toByteArray();
+            String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+            return base64;
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Ninguna imagen seleccionada", Toast.LENGTH_SHORT).show();
+            return "Sin imagen";
+        }
+
+    }
+
+
 }
