@@ -13,9 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
-<<<<<<< HEAD
+
 /configuraciones
 /configuraciones/dev_yaninaconfig.properties
-=======
+
 /app/src/main/res/values/env.xml
->>>>>>> 111b5e7e4855a2659774ec791b8cd467afa5815f
+
