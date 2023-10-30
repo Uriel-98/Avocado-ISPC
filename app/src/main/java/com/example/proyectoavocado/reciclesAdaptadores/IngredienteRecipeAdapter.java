@@ -23,6 +23,10 @@ public class IngredienteRecipeAdapter extends RecyclerView.Adapter<IngredienteRe
         void onDeleteClick(int position);
     }
 
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes; //
+    }
+
     public IngredienteRecipeAdapter(List<Ingrediente> ingredientes, OnItemClickListener listener) {
         this.ingredientes = ingredientes;
         this.listener = listener;
