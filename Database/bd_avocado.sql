@@ -150,7 +150,7 @@ BEGIN
 END
 //
 
-
+DROP PROCEDURE sp_getReceta;
 -- Traer toda la info de una receta (vista detallada)
 DELIMITER //
 CREATE PROCEDURE `sp_getReceta`(IN idRequest INT)
@@ -165,7 +165,7 @@ BEGIN
 			  WHERE rc.idReceta = idRequest
 			),
 			pasos AS (
-			  SELECT JSON_ARRAYAGG(JSON_OBJECT('titulo', p.titulo, 'descripcion', p.descripcion)) AS pasos
+			  SELECT JSON_ARRAYAGG(JSON_OBJECT('idPaso',p.idPaso ,'titulo', p.titulo, 'descripcion', p.descripcion)) AS pasos
 			  FROM pasos p
 			  INNER JOIN recetas r
 			  ON r.idReceta = p.idReceta
@@ -178,9 +178,11 @@ BEGIN
 			WHERE r.idReceta = idRequest
 			),
 			recetas AS (
-			SELECT idReceta, titulo, creadoPor, tiempoCoccion, dificultad, CAST(imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen, 
-            fechaCreacion, fechaActualizacion, descripcion 
-            FROM recetas 
+			SELECT r.idReceta, r.titulo, u.usuario AS creadoPor, u.email AS emailCreadoPor, r.tiempoCoccion, r.dificultad, CONVERT(r.imagen USING utf8) AS imagen, 
+            r.fechaCreacion, r.fechaActualizacion, r.descripcion 
+            FROM recetas r
+            INNER JOIN usuarios u
+            ON r.creadoPor = u.idUsuario
             WHERE idReceta = idRequest
 			)
 			SELECT * 
@@ -192,6 +194,7 @@ END
 //
 
 
+
 -- Traer recetas del usuario
 DELIMITER //
 CREATE PROCEDURE `sp_getRecetasUsuario` (IN emailUsuario VARCHAR(200))
@@ -200,10 +203,11 @@ BEGIN
 	SET id = (SELECT idUsuario FROM usuarios WHERE email = emailUsuario);
 	IF (SELECT COUNT(*) FROM recetas WHERE creadoPor = id) > 0
 		THEN
-			SELECT idReceta, titulo, CAST(imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen FROM recetas WHERE creadoPor = id;
+			SELECT idReceta, titulo, CONVERT(imagen USING utf8) AS imagen FROM recetas WHERE creadoPor = id;
 	END IF;
 END
 //
+
 
 
 -- Buscar receta
@@ -212,7 +216,7 @@ CREATE PROCEDURE `sp_buscarReceta` (IN tituloReceta VARCHAR(250))
 BEGIN
 	DECLARE buscar VARCHAR(300);
     SET buscar = CONCAT("%", tituloReceta, "%");
-	CREATE TEMPORARY TABLE IF NOT EXISTS temp AS (SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, CAST(r.imagen AS CHAR(100000) CHARACTER SET utf8) AS imagen, r.fechaCreacion, r.fechaActualizacion 
+	CREATE TEMPORARY TABLE IF NOT EXISTS temp AS (SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, CONVERT(r.imagen USING utf8) AS imagen, r.fechaCreacion, r.fechaActualizacion 
 	FROM recetas r 
 	INNER JOIN usuarios u 
 	ON u.idUsuario = r.creadoPor 

@@ -64,6 +64,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:background="#00FFFFFF"
+            android:visibility="gone"
             android:contentDescription="Agregar a favoritos"
             android:padding="8dp"
             android:tint="#3C5B27"
@@ -204,6 +205,16 @@
             android:background="#FDFFEB"
             android:orientation="vertical">
 
+          <TextView
+              android:id="@+id/sinIngredientes"
+              android:layout_width="wrap_content"
+              android:layout_height="50dp"
+              android:text="No hay ingredientes"
+              android:layout_gravity="center"
+              android:textSize="20sp"
+              android:visibility="gone"
+              />
+
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/recyclerIngrediente"
               android:layout_width="wrap_content"
@@ -239,6 +250,16 @@
             android:padding="5dp"
             android:background="#FDFFEB"
             android:foregroundGravity="center">
+
+          <TextView
+              android:id="@+id/sinPasos"
+              android:layout_width="wrap_content"
+              android:layout_height="50dp"
+              android:text="No hay ingredientes"
+              android:layout_gravity="center"
+              android:textSize="20sp"
+              android:visibility="gone"
+              />
 
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/recyclerPaso"

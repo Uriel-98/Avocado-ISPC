@@ -32,12 +32,7 @@ const validaciones = {
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
-    },
-    matches: {
-      options: /^[A-Za-z0-9+/]*={0,2}$/,
-      errorMessage: 'Formato inválido. Debe ser base64',
-      bail: true
-    } 
+    }
   },
   pasos: {
     notEmpty: {

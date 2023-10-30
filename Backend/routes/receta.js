@@ -10,9 +10,9 @@ typeof req.body.imagen == 'undefined' || typeof req.body.ingredientes == 'undefi
   res.status(400).json('Error: Campos incompletos')
   return
 }
-
 const resValidaciones = validationResult(req).array()
 if(resValidaciones.length > 0){
+  console.log(resValidaciones)
   res.send({
     success: false,
     message: 'Campos inválidos',
@@ -46,6 +46,7 @@ db.query(`CALL sp_crearReceta('${req.body.titulo}', '${req.body.email}', ${tiemp
         message: resultados.message
       })
     }
+
     return
   }
 })
@@ -280,7 +281,6 @@ db.query(`CALL sp_getRecetasUsuario('${email}')`, function(error, results){
     return
   }
   else {
-    console.log(results)
     if(results[0]){
       res.send({
         success: true,

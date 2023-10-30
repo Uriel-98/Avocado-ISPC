@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +52,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private TextView dificultadView;
     private RecyclerView recyclerIngrediente;
     private RecyclerView recyclerPaso;
-
+    private ImageView recipeImage;
     private List<Paso> pasosList;
+
+    private ImageButton btnMenuReceta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +69,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
-        ImageButton btnMenuReceta = findViewById(R.id.btn_menu_receta);
+        btnMenuReceta = findViewById(R.id.btn_menu_receta);
 
         // Instanciar las variables de la interfaz de usuario
         tituloReceta = findViewById(R.id.tituloReceta);
@@ -81,6 +87,16 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         LinearLayoutManager layoutManagerPaso = new LinearLayoutManager(this);
         recyclerIngrediente.setLayoutManager(layoutManagerIngrediente);
         recyclerPaso.setLayoutManager(layoutManagerPaso);
+
+        recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
+        if (recetaIdEspecifica != -1) {
+            obtenerDetallesReceta(recetaIdEspecifica);
+        } else {
+            // Manejar el caso cuando no se proporciona el ID de la receta
+            handleError("ID de receta no proporcionado");
+            // Finalizar la actividad actual si no hay un ID de receta para validar
+            finish();
+        }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,21 +150,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             }
         });
 
-        // Obtén el correo electrónico del usuario logueado de SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("nombre_de_tu_shared_preference", Context.MODE_PRIVATE);
-        emailUsuario = sharedPreferences.getString("email", "");
-
         // Luego, en tu método onCreate o donde sea apropiado, asigna el valor a recetaIdEspecifica
-        recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
-        if (recetaIdEspecifica != -1) {
-            Log.d("IDRECETA", String.valueOf(recetaIdEspecifica));
-            obtenerDetallesReceta(recetaIdEspecifica);
-        } else {
-            // Manejar el caso cuando no se proporciona el ID de la receta
-            handleError("ID de receta no proporcionado");
-            // Finalizar la actividad actual si no hay un ID de receta para validar
-            finish();
-        }
+
     }
     @SuppressLint("ResourceType")
     private void showPopupMenu(View view) {
@@ -204,7 +207,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         }
     }
 
-    private void obtenerRecetasUsuario(String emailUsuario) {
+   /* private void obtenerRecetasUsuario(String emailUsuario) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/getRecetasUsuario";
 
@@ -261,59 +264,99 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             e.printStackTrace();
             handleError("Error al crear la solicitud: " + e.getMessage());
         }
-    }
+    }*/
 
     private void obtenerDetallesReceta(Integer recetaId) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/getRecetaById/" + recetaId;
 
         // Realizar la solicitud GET al servidor para obtener los detalles de la receta por su ID
-
         StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                try {
-                    Log.d("responsive del get receta", String.valueOf(response));
-                    JSONObject json = new JSONObject(response);
-                    // Parsear la respuesta JSON para obtener los detalles de la receta
-                    String titulo =json.getString("titulo");
-                    String nombreUsuario = json.getString("creadoPor");
-                    String descripcion = json.getString("descripcion");
-                    String tiempoCoccion = json.getString("tiempoCoccion");
-                    String dificultad = json.getString("dificultad");
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            // Parsear la respuesta JSON para obtener los detalles de la receta
+                            String titulo = json.getString("titulo");
+                            String nombreUsuario = json.getString("creadoPor");
+                            String descripcion = json.getString("descripcion");
+                            String tiempoCoccion = json.getString("tiempoCoccion");
+                            String dificultad = json.getString("dificultad");
+                            String imagen = json.getString("imagen");
+                            String emailCreadoPor = json.getString("emailCreadoPor");
 
-                    // Obtener el array de ingredientes y pasos
-                    JSONArray ingredientesArray = json.getJSONArray("ingredientes");
-                    JSONArray pasosArray = json.getJSONArray("pasos");
+                            SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                            String emailSp = sharedPreferences.getString("email", "");
 
-
-                    if (ingredientesArray != null) {
-                        // Procesar ingredientes
-                        List<Ingrediente> ingredientesList = new ArrayList<>();
-                        for (int i = 0; i < ingredientesArray.length(); i++) {
-                            String nombreIngrediente = ingredientesArray.getString(i);
-                            Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
-                            ingredientesList.add(ingrediente);
-                        }
-                        // Configurar adaptadores y asignar a RecyclerViews
-                        IngredienteViewAdaptader ingredienteAdapter = new IngredienteViewAdaptader(ingredientesList);
-                        recyclerIngrediente.setAdapter(ingredienteAdapter);
-                    } else {
-                        // Manejar el caso donde "ingredientes" es nulo o no es un JSONArray válido
-                        handleError("El campo 'ingredientes' en la respuesta es nulo o no es un JSONArray válido.");
-                    }
-
-                    if (pasosArray != null) {
-                        // Procesar pasos
-                        for (int i = 0; i < pasosArray.length(); i++) {
-                            JSONObject pasoJson = pasosArray.getJSONObject(i);
-                            if (pasoJson.has("titulo") && pasoJson.has("descripcion")) {
-                                String tituloPaso = pasoJson.getString("titulo");
-                                String descripcionPaso = pasoJson.getString("descripcion");
-                                Paso paso = new Paso(tituloPaso, descripcionPaso);
-                                pasosList.add(paso);
+                            if(emailSp.equals(emailCreadoPor)){
+                                btnMenuReceta.setVisibility(View.VISIBLE);
                             }
+
+                            // Obtener el array de ingredientes y pasos
+                            if(!json.isNull("ingredientes")){
+                                JSONArray ingredientesArray = json.getJSONArray("ingredientes");
+
+                                Log.d("Entra ingredientes", String.valueOf(ingredientesArray));
+                                List<Ingrediente> ingredientesList = new ArrayList<>();
+                                for (int i = 0; i < ingredientesArray.length(); i++) {
+                                    String nombreIngrediente = ingredientesArray.getString(i);
+                                    Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
+                                    ingredientesList.add(ingrediente);
+                                }
+                                // Configurar adaptadores y asignar a RecyclerViews
+                                IngredienteViewAdaptader ingredienteAdapter = new IngredienteViewAdaptader(ingredientesList);
+                                recyclerIngrediente.setAdapter(ingredienteAdapter);
+                            } else {
+                                TextView sinIngredientes = findViewById(R.id.sinIngredientes);
+                                sinIngredientes.setVisibility(View.VISIBLE);
+                                recyclerIngrediente.setVisibility(View.GONE);
+                            }
+
+
+                            if (!json.isNull("pasos")) {
+                                JSONArray pasosArray = json.getJSONArray("pasos");
+                                pasosList = new ArrayList<>();
+                                // Procesar pasos
+                                for (int i = 0; i < pasosArray.length(); i++) {
+                                    JSONObject pasoJson = pasosArray.getJSONObject(i);
+                                    if (pasoJson.has("titulo") && pasoJson.has("descripcion")) {
+                                        int idPaso = i+1;
+                                        String tituloPaso = pasoJson.getString("titulo");
+                                        String descripcionPaso = pasoJson.getString("descripcion");
+                                        Paso paso = new Paso(idPaso, tituloPaso, descripcionPaso);
+                                        pasosList.add(paso);
+                                    }
+                                }
+                                PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
+                                recyclerPaso.setAdapter(pasoAdapter);
+                            } else {
+                                // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
+                                handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
+                                TextView sinPasos = findViewById(R.id.sinPasos);
+                                sinPasos.setVisibility(View.VISIBLE);
+                                recyclerPaso.setVisibility(View.GONE);
+                            }
+
+                            // Configurar adaptador y asignar al RecyclerView
+
+
+                            // Mostrar los detalles en los TextViews del layout
+                            tituloReceta.setText(titulo);
+                            creadoPor.setText(nombreUsuario);
+                            descripcionView.setText(descripcion);
+                            tiempoCoccionView.setText(tiempoCoccion);
+                            dificultadView.setText(dificultad);
+                            //si la imagen no es null, entonces convertir
+                            if(!json.isNull("imagen") && imagen != "null"){
+                                recipeImage = findViewById(R.id.recipeImage);
+                                byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
+                                Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+                                recipeImage.setImageBitmap(decodedImage);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            handleError("Error al procesar la respuesta del servidor");
                         }
                     } else {
                         // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
@@ -383,6 +426,8 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                             if (success) {
                                 // La receta se eliminó correctamente
                                 showToast("Receta eliminada: " + message);
+                                Intent intent = new Intent(VistaDetalladaActivity.this, FeedActivity.class);
+                                startActivity(intent);
                             } else {
                                 // No se pudo eliminar la receta
                                 showToast("Error al eliminar la receta: " + message);
