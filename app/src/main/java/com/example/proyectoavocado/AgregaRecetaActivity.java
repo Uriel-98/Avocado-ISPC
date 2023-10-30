@@ -29,8 +29,14 @@ import android.widget.ImageButton;
 
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -263,7 +269,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                 String tituloPaso = editTextTituloPaso.getText().toString().trim();
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
                 if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
-                    // Agrega el paso a la lista y actualiza el adaptador
+                    // Utiliza el constructor de Paso que solo toma titulo y descripcion
                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
                     pasosList.add(nuevoPaso);
                     pasosAdapter.notifyDataSetChanged();
@@ -284,13 +290,31 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     }
 
     private boolean validarCampos() {
-        String titulo = editTextTitulo.getText().toString();
-        String descripcion = editTextDescripcion.getText().toString();
-        String tiempoCoccion = editTextTiempoCoccion.getText().toString();
-        String dificultad = editTextDificultad.getText().toString();
+        boolean camposCompletos = true;
+        String titulo = editTextTitulo.getText().toString().trim();
+        String descripcion = editTextDescripcion.getText().toString().trim();
+        String tiempoCoccion = editTextTiempoCoccion.getText().toString().trim();
+        String dificultad = editTextDificultad.getText().toString().trim();
 
-        return !titulo.isEmpty() && !descripcion.isEmpty() && !tiempoCoccion.isEmpty()
-                && !dificultad.isEmpty() && !ingredientesList.isEmpty() && !pasosList.isEmpty();
+        // Validar campos obligatorios y cambiar color del EditText a rojo si están vacíos
+        if (titulo.isEmpty()) {
+            editTextTitulo.setError("Campo obligatorio");
+            camposCompletos = false;
+        }
+        if (descripcion.isEmpty()) {
+            editTextDescripcion.setError("Campo obligatorio");
+            camposCompletos = false;
+        }
+        if (tiempoCoccion.isEmpty()) {
+            editTextTiempoCoccion.setError("Campo obligatorio");
+            camposCompletos = false;
+        }
+        if (dificultad.isEmpty()) {
+            editTextDificultad.setError("Campo obligatorio");
+            camposCompletos = false;
+        }
+
+        return camposCompletos && !ingredientesList.isEmpty() && !pasosList.isEmpty();
     }
 
     private void agregarReceta() {
@@ -366,6 +390,26 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                             // Error al procesar la respuesta JSON
                             Toast.makeText(AgregaRecetaActivity.this, "Error al procesar la respuesta del servidor", Toast.LENGTH_SHORT).show();
                         }
+                        /* try {
+                            boolean success = response.getBoolean("success");
+
+                            if (success) {
+                                // La receta se agregó correctamente
+                                String mensaje = response.getString("message");
+                                Toast.makeText(AgregaRecetaActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                                // Puedes finalizar la actividad si la receta se agregó con éxito
+                                finish();
+                            } else {
+                                // La receta no se agregó correctamente
+                                String errorMensaje = response.getString("message");
+                                Toast.makeText(AgregaRecetaActivity.this, "Error: " + errorMensaje, Toast.LENGTH_SHORT).show();
+                                // Puedes hacer más cosas aquí según la respuesta de la API
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Error al procesar la respuesta JSON
+                            Toast.makeText(AgregaRecetaActivity.this, "Error al procesar la respuesta del servidor", Toast.LENGTH_SHORT).show();
+                        }*/
                     }
                 },
                 new Response.ErrorListener() {
@@ -373,12 +417,35 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         // Error al hacer la solicitud a la API
                         String errorMessage = error.getMessage();
-                        // Mostrar el mensaje de error en el Toast
-                        Toast.makeText(AgregaRecetaActivity.this, "Error al agregar la receta: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            // Error de conexión o timeout
+                            Toast.makeText(AgregaRecetaActivity.this, "Error de conexión. Por favor, verifica tu conexión a Internet", Toast.LENGTH_SHORT).show();
+                        } else if (error instanceof AuthFailureError) {
+                            // Error de autenticación
+                            Toast.makeText(AgregaRecetaActivity.this, "Error de autenticación en el servidor", Toast.LENGTH_SHORT).show();
+                        } else if (error instanceof ServerError) {
+                            // Error del servidor
+                            Toast.makeText(AgregaRecetaActivity.this, "Error del servidor. Por favor, inténtalo de nuevo más tarde", Toast.LENGTH_SHORT).show();
+                        } else if (error instanceof NetworkError) {
+                            // Error de red
+                            Toast.makeText(AgregaRecetaActivity.this, "Error de red. Por favor, verifica tu conexión a Internet", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Otros tipos de error
+                            Toast.makeText(AgregaRecetaActivity.this, "Error al agregar la receta: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                        /*new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // Error al hacer la solicitud a la API
+                            String errorMessage = error.getMessage();
+                            // Mostrar el mensaje de error en el Toast
+                            Toast.makeText(AgregaRecetaActivity.this, "Error al agregar la receta: " + errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                            });*/
                     }
                 });
                 // Agregar la solicitud a la cola de solicitudes de Volley
-                 Volley.newRequestQueue(this).add(request);
+                Volley.newRequestQueue(this).add(request);
         }
 
     private String convertirImagen(Bitmap bmp){
