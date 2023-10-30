@@ -162,8 +162,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Lógica para editar la receta
-                // Abre la actividad de edición (ModificarrecetaActivity)
+                // Abre la actividad de edición (ModificarRecetaActivity)
                 Intent intentEditar = new Intent(VistaDetalladaActivity.this, ModificarRecetaActivity.class);
+                // Pasa el ID de la receta a la actividad de edición si es necesario
+                intentEditar.putExtra("receta_id", recetaIdEspecifica);
                 startActivity(intentEditar);
             }
         });
