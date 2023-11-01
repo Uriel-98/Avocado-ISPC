@@ -49,3 +49,11 @@ Esta estrategia fomentará el desarrollo de nuestras habilidades de comunicació
 # Sprints 🏃‍♂️
 
 Las minutas de las ceremonias por cada sprint y las Dailys se encuentran en nuestra Wiki debidamente clasificadas.
+
+# Instalación y configuración del proyecto ⚠️
+El proyecto requiere de la creación de variables de entorno y la autorización de puertos para poder funcionar en el ambiente de test. A continuación se deja un link con los pasos necesarios para lograr la correcta configuración y levantamiento del servidor.
+
+⚠️IMPORTANTE⚠️
+Ejecutar el script de base de datos antes de ejecutar la aplicación.
+
+[INSTRUCCIONES DE INSTALACIÓN](https://docs.google.com/document/d/1KRBIj9p8d81V-Tv2_I8nWnvtYqFyGi-Vh0A5kOBIFos/edit?usp=sharing)
