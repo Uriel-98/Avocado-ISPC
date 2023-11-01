@@ -81,7 +81,7 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(FeedActivity.this, AcercaActivity.class);
+                Intent intent = new Intent(FeedActivity.this, favoritesActivity.class);
                 startActivity(intent);
             }
         });
