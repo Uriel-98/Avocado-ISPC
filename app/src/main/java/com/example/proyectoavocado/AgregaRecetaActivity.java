@@ -353,7 +353,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             if(base64.equals("Sin imagen")){
                 requestObject.put("imagen", null);
             } else {
-                requestObject.put("imagen", "asgnvesdnveojnvsdfkjxvmnfdkc");
+                requestObject.put("imagen", base64);
             }
 
             Log.d("TAG", String.valueOf(requestObject));
