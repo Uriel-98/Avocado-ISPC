@@ -14,11 +14,11 @@ import com.example.proyectoavocado.controllers.Ingrediente;
 
 import java.util.List;
 
-public class IngredienteViewAdaptader extends RecyclerView.Adapter<IngredienteViewAdaptader.IngredienteViewHolder> {
+public class IngredienteViewAdapter extends RecyclerView.Adapter<IngredienteViewAdapter.IngredienteViewHolder> {
     private List<Ingrediente> ingredientes;
 
 
-    public IngredienteViewAdaptader(List<Ingrediente> ingredientes) {
+    public IngredienteViewAdapter(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
